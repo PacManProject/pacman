@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class Gui extends Thread {
     public synchronized void start() {
-        World w = new World(1,3); // xx/yy position von Pacman
+        World w = new World(); // xx/yy position von Pacman
 
         JFrame jf = new JFrame("Pacman"); // name des Fensters
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
