@@ -21,7 +21,7 @@ public class Pacman {
     public void moveDown(){
         posXnew = posX;
         posYnew = posY+1;
-        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew){
+        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew]){
             posY = posYnew;
         }
     }
@@ -30,7 +30,7 @@ public class Pacman {
     public void moveLeft(){
         posXnew = posX -1;
         posYnew = posY;
-        if(posXnew >= 0 && posYnew >= 0 &&world1.xyWorld[posXnew][posYnew){
+        if(posXnew >= 0 && posYnew >= 0 &&world1.xyWorld[posXnew][posYnew]){
             posX = posXnew;
         }
     }
@@ -39,7 +39,7 @@ public class Pacman {
     public void moveRight(){
         posXnew = posX +1;
         posYnew = posY;
-        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew){
+        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew]){
             posX = posXnew;
         }
     }
