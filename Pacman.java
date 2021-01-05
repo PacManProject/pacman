@@ -5,7 +5,7 @@ public class Pacman {
     int posXnew = 0;
     int posYnew = 0;
 
-    World world1 = new World(1,3);
+    World world1 = new World();
 
     //UP: Y wird kleiner
     public void moveUp(){
