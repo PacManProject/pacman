@@ -9,7 +9,7 @@ public class Pacman {
     public void moveUp(){
         posXnew = posX;
         posYnew = posY-1;
-        if(getxyWelt(posXnew, posYnew ) == true){
+        if(posXnew >= 0 && posYnew >= 0 && getxyWelt(posXnew, posYnew ) == true){
             posY = posYnew;
         }
 
