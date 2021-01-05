@@ -28,6 +28,7 @@ public class Gui extends Thread {
 
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setBounds(0,0, 800, 800);
+        jf.setResizable(false);
         jf.setLocationRelativeTo(null);
 
 
@@ -38,7 +39,7 @@ public class Gui extends Thread {
                 } else if (w.getX() == y && w.getY() == x){
                     jPanels[x][y].setBackground(Color.yellow);
                 } else {
-                    jPanels[x][y].setBackground(Color.green);
+                    jPanels[x][y].setBackground(Color.black);
                 }
             }
         }
