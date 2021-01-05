@@ -1,2 +1,2 @@
 # pacman-project
-Pacman in java
+Pacman written in java
