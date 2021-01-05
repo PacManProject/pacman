@@ -65,5 +65,24 @@ public class Gui extends Thread {
         jf.add(p33);
 
         jf.setVisible(true);
+
+        while (true) {
+            for (int x = 0; x < 4; x++) {
+                for (int y = 0; y < 4; y++) {
+                    if (!w.getXyWorld()[x][y]) {
+                        jPanels[x][y].setBackground(Color.blue);
+                    } else if (w.getX() == y && w.getY() == x){
+                        jPanels[x][y].setBackground(Color.yellow);
+                    } else {
+                        jPanels[x][y].setBackground(Color.black);
+                    }
+                }
+            }
+            try {
+                wait(170);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
