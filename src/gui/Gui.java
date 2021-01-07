@@ -35,11 +35,11 @@ public class Gui extends Thread {
     public synchronized void run() {
 
         jf.setResizable(false);
+        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als
-        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length);
 
         jf.setVisible(true);
 
