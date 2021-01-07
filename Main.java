@@ -2,6 +2,8 @@ import src.gui.Gui;
 import src.models.Pacman;
 import src.models.World;
 
+import java.util.concurrent.TimeUnit;
+
 public class Main {
     static World w = new World();
     static Pacman p = new Pacman(w);
@@ -9,5 +11,14 @@ public class Main {
 
     public static void main(String[] args) {
         g.start();
+
+        while(true) {
+            try {
+                TimeUnit.SECONDS.sleep(1); // zeit die zwischen einer bewegung von Pacman vergeht
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            p.move();
+        }
     }
 }

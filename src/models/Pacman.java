@@ -2,7 +2,7 @@ package src.models;
 
 public class Pacman {
 
-    String direction;
+    String direction = "l";
 
     World world1;
 
