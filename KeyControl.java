@@ -16,7 +16,7 @@ class KeyControl implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO: implement fucntion calls to move the character
+        // TODO: implement function calls to move the character
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT -> pacman.moveLeft();
             case KeyEvent.VK_RIGHT -> pacman.moveRight();
