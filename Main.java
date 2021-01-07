@@ -1,4 +1,6 @@
-// kann Noah nochmal neumachen
+import src.gui.Gui;
+import src.models.Pacman;
+import src.models.World;
 
 public class Main {
     static World w = new World();

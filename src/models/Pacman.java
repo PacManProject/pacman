@@ -1,3 +1,5 @@
+package src.models;
+
 public class Pacman {
 
     World world1;
@@ -34,4 +36,3 @@ public class Pacman {
         }
     }
 }
-//kommentar zum pushen

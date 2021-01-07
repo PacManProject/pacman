@@ -1,8 +1,19 @@
+package src.gui;
+
+import src.models.Pacman;
+import src.models.World;
+import src.util.KeyControl;
+
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Gui extends Thread {
-    World w = new World(); // xx/yy position von Pacman
+    Path workingDir = Paths.get(System.getProperty("user.dir"));
+    Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
+
+    World w = new World(); // xx/yy position von src.models.Pacman
 
     GuiFrame jf;
     Pacman p;
@@ -10,7 +21,7 @@ public class Gui extends Thread {
     public Gui (World wor, Pacman pac) {
         w = wor;
         p = pac;
-        jf = new GuiFrame(w,"Pacman"); // name des Fensters
+        jf = new GuiFrame(w,"src.models.Pacman"); // name des Fensters
     }
 
     public synchronized void paint() {
@@ -23,13 +34,13 @@ public class Gui extends Thread {
     }
     public synchronized void run() {
 
-        jf .addKeyListener(new KeyControl(p));
-
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length);
         jf.setResizable(false);
         jf.setLocationRelativeTo(null);
-        jf.setIconImage(new ImageIcon("C:\\tmp/23-237769_pac-man-pixel-art-pac-man.png").getImage()); //img als icon
+        jf.addKeyListener(new KeyControl(p));
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als
+        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length);
+
         jf.setVisible(true);
 
         while (true) {

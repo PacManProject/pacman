@@ -1,3 +1,5 @@
+package src.models;
+
 public class World {
     boolean[][] xyWorld = {{true,true,true,true},{false,true,false,false},{false,true,true,true},{false,true,false,false}}; //false sind nicht begehbare felder
     int x = 1, y = 3; // ist position von pacman
