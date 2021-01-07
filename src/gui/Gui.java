@@ -21,7 +21,7 @@ public class Gui extends Thread {
     public Gui (World wor, Pacman pac) {
         w = wor;
         p = pac;
-        jf = new GuiFrame(w,"src.models.Pacman"); // name des Fensters
+        jf = new GuiFrame(w,"Pacman"); // name des Fensters
     }
 
     public synchronized void paint() {
