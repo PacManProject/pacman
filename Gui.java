@@ -5,9 +5,11 @@ public class Gui extends Thread {
     World w = new World(); // xx/yy position von Pacman
 
     GuiFrame jf;
+    Pacman p;
 
-    public Gui (World wor) {
+    public Gui (World wor, Pacman pac) {
         w = wor;
+        p = pac;
         jf = new GuiFrame(w,"Pacman"); // name des Fensters
     }
 
@@ -21,12 +23,13 @@ public class Gui extends Thread {
     }
     public synchronized void run() {
 
+        jf .addKeyListener(new KeyControl(p));
+
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setBounds(0,0, 800, 800);
+        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length);
         jf.setResizable(false);
         jf.setLocationRelativeTo(null);
         jf.setIconImage(new ImageIcon("C:\\tmp/23-237769_pac-man-pixel-art-pac-man.png").getImage()); //img als icon
-        jf.setLayout(new GridLayout(4,4));
         jf.setVisible(true);
 
         while (true) {
