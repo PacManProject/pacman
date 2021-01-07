@@ -9,7 +9,7 @@ class KeyControl implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // TODO: implement fucntion calls to move the character
+        // TODO: implement function calls to move the character
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT -> System.out.println("Pressed left");
             case KeyEvent.VK_RIGHT -> System.out.println("Pressed right");
