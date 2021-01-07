@@ -1,46 +1,36 @@
 public class Pacman {
-    int posX = 1;
-    int posY = 3;
 
-    int posXnew = 0;
-    int posYnew = 0;
+    World world1;
 
-    World world1 = new World();
+    public Pacman(World w) {
+        world1 = w;
+    }
 
     //UP: Y wird kleiner
     public void moveUp(){
-        posXnew = posX;
-        posYnew = posY-1;
-        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew]){
-            posY = posYnew;
+        if(world1.y-1 >= 0 && world1.xyWorld[world1.y-1%world1.xyWorld.length][world1.x]){
+            world1.y--;
         }
-
     }
 
     //DOWN: Y wird größer
     public void moveDown(){
-        posXnew = posX;
-        posYnew = posY+1;
-        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew]){
-            posY = posYnew;
+        if(world1.y+1 < world1.xyWorld.length && world1.xyWorld[world1.y+1%world1.xyWorld.length][world1.x]){
+            world1.y++;
         }
     }
 
     //LEFT: X wird kleiner
     public void moveLeft(){
-        posXnew = posX -1;
-        posYnew = posY;
-        if(posXnew >= 0 && posYnew >= 0 &&world1.xyWorld[posXnew][posYnew]){
-            posX = posXnew;
+        if(world1.x-1 >= 0 && world1.xyWorld[world1.y][world1.x-1%world1.xyWorld[0].length]){
+            world1.x--;
         }
     }
 
     //RIGHT: X wird größer
     public void moveRight(){
-        posXnew = posX +1;
-        posYnew = posY;
-        if(posXnew >= 0 && posYnew >= 0 && world1.xyWorld[posXnew][posYnew]){
-            posX = posXnew;
+        if(world1.x+1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x+1%world1.xyWorld[0].length]){
+            world1.x++;
         }
     }
 }
