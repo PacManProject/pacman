@@ -10,6 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Gui extends Thread {
+    int frameSize = 30;
+
     Path workingDir = Paths.get(System.getProperty("user.dir"));
     Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
 
@@ -35,7 +37,7 @@ public class Gui extends Thread {
     public synchronized void run() {
 
         jf.setResizable(false);
-        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length);
+        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length + frameSize);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,6 +50,11 @@ public class Gui extends Thread {
         }
     }
 
+    public void ruckgabe(){
+        System.out.println(jf.getSize());
+
+    }
+
     class GuiFrame extends JFrame{
         World w;
 
@@ -58,8 +65,10 @@ public class Gui extends Thread {
 
         @Override
         public void paint(Graphics g) {
+
             for (int x = 0; x < w.getXyWorld().length; x++) {
                 for (int y = 0; y < w.getXyWorld()[0].length; y++) {
+
                     if (!w.getXyWorld()[x][y]) {
                         g.setColor(Color.blue);
                     } else if (w.getX() == y && w.getY() == x){
@@ -67,8 +76,8 @@ public class Gui extends Thread {
                     } else {
                         g.setColor(Color.black);
                     }
-                    g.drawRect(100*y, 100*x,100*y+100, 100*x+100);
-                    g.fillRect(100*y, 100*x,100*y+100, 100*x+100);
+                    g.drawRect(100*y, 100*x + frameSize,100*y + 100, 100*x+100);
+                    g.fillRect(100*y, 100*x + frameSize,100*y + 100, 100*x+100);
                 }
             }
         }
