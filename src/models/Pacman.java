@@ -18,7 +18,7 @@ public class Pacman {
                     world1.y--;
                     direction = directionNew;
                 }else {
-                    impossibleDirection();
+                    impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
                 }
 
                 break;
@@ -53,8 +53,8 @@ public class Pacman {
 
 
     public void impossibleDirection(){
-        directionNew = direction;
-        switch (direction) {
+        directionNew = direction;//Richtung wird zurückgesetzt
+        switch (direction) {// erneute Abfrage mit der ursprünglichen Richtung
             case "u":
                 if (world1.y - 1 >= 0 && world1.xyWorld[world1.y - 1 % world1.xyWorld.length][world1.x]) {
                     move();
