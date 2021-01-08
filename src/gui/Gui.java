@@ -50,10 +50,6 @@ public class Gui extends Thread {
         }
     }
 
-    public void ruckgabe(){
-        System.out.println(jf.getSize());
-
-    }
 
     class GuiFrame extends JFrame{
         World w;
