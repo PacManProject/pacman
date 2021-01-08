@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Gui extends Thread {
-    int frameSize = 0;
+    int frameSize = 30;
 
     Path workingDir = Paths.get(System.getProperty("user.dir"));
     Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
