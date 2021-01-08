@@ -3,6 +3,7 @@ package src.models;
 public class Pacman {
 
     String direction = "l";
+    String directionNew = direction;
 
     World world1;
 
@@ -11,25 +12,38 @@ public class Pacman {
     }
 
     public void move(){
-        switch (direction){
+        switch (directionNew){
             case "u":
                 if(world1.y-1 >= 0 && world1.xyWorld[world1.y-1%world1.xyWorld.length][world1.x]){
                     world1.y--;
+                    direction = directionNew;
+                }else {
+                    impossibleDirection();
                 }
+
                 break;
             case "d":
                 if(world1.y+1 < world1.xyWorld.length && world1.xyWorld[world1.y+1%world1.xyWorld.length][world1.x]){
                     world1.y++;
+                    direction = directionNew;
+                }else {
+                    impossibleDirection();
                 }
                 break;
             case "l":
                 if(world1.x-1 >= 0 && world1.xyWorld[world1.y][world1.x-1%world1.xyWorld[0].length]){
                     world1.x--;
+                    direction = directionNew;
+                }else {
+                    impossibleDirection();
                 }
                 break;
             case "r":
                 if(world1.x+1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x+1%world1.xyWorld[0].length]){
                     world1.x++;
+                    direction = directionNew;
+                }else {
+                    impossibleDirection();
                 }
                 break;
             default:
@@ -37,23 +51,50 @@ public class Pacman {
         }
     }
 
+
+    public void impossibleDirection(){
+        directionNew = direction;
+        switch (direction) {
+            case "u":
+                if (world1.y - 1 >= 0 && world1.xyWorld[world1.y - 1 % world1.xyWorld.length][world1.x]) {
+                    move();
+                }
+                break;
+            case "d":
+                if (world1.y + 1 < world1.xyWorld.length && world1.xyWorld[world1.y + 1 % world1.xyWorld.length][world1.x]) {
+                    move();
+                }
+                break;
+            case "l":
+                if (world1.x - 1 >= 0 && world1.xyWorld[world1.y][world1.x - 1 % world1.xyWorld[0].length]) {
+                    move();
+                }
+                break;
+            case "r":
+                if (world1.x + 1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x + 1 % world1.xyWorld[0].length]) {
+                    move();
+                }
+                break;
+        }
+    }
+
     //UP: Y wird kleiner
     public void moveUp(){
-        direction = "u";
+        directionNew = "u";
     }
 
     //DOWN: Y wird größer
     public void moveDown(){
-        direction = "d";
+        directionNew = "d";
     }
 
     //LEFT: X wird kleiner
     public void moveLeft(){
-        direction = "l";
+        directionNew = "l";
     }
 
     //RIGHT: X wird größer
     public void moveRight(){
-        direction = "r";
+        directionNew = "r";
     }
 }
