@@ -10,6 +10,7 @@ import src.models.World;
 
 import java.util.concurrent.TimeUnit;
 
+//test
 
 public class Main {
     static World w = new World("map2.json");
