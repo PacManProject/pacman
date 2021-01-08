@@ -20,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
         g.start();
 
+
         while(true) {
             try {
                 TimeUnit.SECONDS.sleep(1); // zeit die zwischen einer bewegung von Pacman vergeht
