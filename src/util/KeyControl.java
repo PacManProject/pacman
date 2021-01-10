@@ -22,26 +22,18 @@ public class KeyControl implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
-                pacman.moveLeft();
-                break;
-            case KeyEvent.VK_RIGHT:
-                pacman.moveRight();
-                break;
-            case KeyEvent.VK_UP:
-                pacman.moveUp();
-                break;
-            case KeyEvent.VK_DOWN:
-                pacman.moveDown();
-                break;
             case KeyEvent.VK_A:
                 pacman.moveLeft();
                 break;
+            case KeyEvent.VK_RIGHT:
             case KeyEvent.VK_D:
                 pacman.moveRight();
                 break;
+            case KeyEvent.VK_UP:
             case KeyEvent.VK_W:
                 pacman.moveUp();
                 break;
+            case KeyEvent.VK_DOWN:
             case KeyEvent.VK_S:
                 pacman.moveDown();
                 break;
