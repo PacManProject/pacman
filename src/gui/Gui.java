@@ -61,7 +61,7 @@ public class Gui extends Thread {
         currentImage = pacman0;
     }
 
-    public synchronized void paint() {
+    public void paint() {
         switch (p.getDirection()) {
             case "u":
                 switch (frameCounter) {
