@@ -4,16 +4,36 @@ import src.models.Pacman;
 import src.models.World;
 import src.util.KeyControl;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Gui extends Thread {
     int frameSize = 30;
+    int scale = 100;
+    int frameCounter = 0;
 
     Path workingDir = Paths.get(System.getProperty("user.dir"));
     Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
+    Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
+
+    BufferedImage sprite;
+    BufferedImage pacman0;
+    BufferedImage pacmanUp1;
+    BufferedImage pacmanUp2;
+    BufferedImage pacmanDown1;
+    BufferedImage pacmanDown2;
+    BufferedImage pacmanLeft1;
+    BufferedImage pacmanLeft2;
+    BufferedImage pacmanRight1;
+    BufferedImage pacmanRight2;
+
+    BufferedImage currentImage;
 
     World w = new World(); // xx/yy position von src.models.Pacman
 
@@ -25,15 +45,64 @@ public class Gui extends Thread {
         w = wor;
         p = pac;
         gf = new GuiPanel(w);
+        try {
+            sprite = ImageIO.read(new File(spritePath.toString()));
+        } catch (IOException ignored) {
+        }
+        pacman0 = sprite.getSubimage(32, 0, 13, 13);
+        pacmanUp1 = sprite.getSubimage(16, 32, 13, 13);
+        pacmanUp2 = sprite.getSubimage(0, 32, 13, 13);
+        pacmanDown1 = sprite.getSubimage(16, 48, 13, 13);
+        pacmanDown2 = sprite.getSubimage(0, 48, 13, 13);
+        pacmanLeft1 = sprite.getSubimage(16, 16, 13, 13);
+        pacmanLeft2 = sprite.getSubimage(0, 16, 13, 13);
+        pacmanRight1 = sprite.getSubimage(16, 0, 13, 13);
+        pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
+        currentImage = pacman0;
     }
 
     public synchronized void paint() {
+        switch (p.getDirection()) {
+            case "u":
+                switch (frameCounter){
+                    case 0 -> currentImage = pacman0;
+                    case 1, 4 -> currentImage = pacmanUp1;
+                    case 2 -> currentImage = pacmanUp2;
+                }
+                break;
+            case "d":
+                switch (frameCounter){
+                    case 0 -> currentImage = pacman0;
+                    case 1, 4 -> currentImage = pacmanDown1;
+                    case 2 -> currentImage = pacmanDown2;
+                }
+                break;
+            case "l":
+                switch (frameCounter){
+                    case 0 -> currentImage = pacman0;
+                    case 1, 4 -> currentImage = pacmanLeft1;
+                    case 2 -> currentImage = pacmanLeft2;
+                }
+                break;
+            case "r":
+                switch (frameCounter){
+                    case 0 -> currentImage = pacman0;
+                    case 1, 4 -> currentImage = pacmanRight1;
+                    case 2 -> currentImage = pacmanRight2;
+                }
+                break;
+            default :
+                currentImage = pacman0;
+                break;
+        }
         jf.repaint();
         try {
             wait(150);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        frameCounter = (frameCounter+1)%5;
+
     }
     public synchronized void run() {
 
@@ -41,7 +110,7 @@ public class Gui extends Thread {
         gf.setDoubleBuffered(true);
 
         jf.setResizable(false);
-        jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length + frameSize);
+        jf.setSize(scale*w.getXyWorld()[0].length, scale*w.getXyWorld().length + frameSize);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,13 +139,15 @@ public class Gui extends Thread {
 
                     if (!w.getXyWorld()[x][y]) {
                         g.setColor(Color.blue);
+                        g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
+                        g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
                     } else if (w.getX() == y && w.getY() == x){
-                        g.setColor(Color.yellow);
+                        g.drawImage(currentImage, y*scale, x*scale, scale, scale, null);
                     } else {
                         g.setColor(Color.black);
+                        g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
+                        g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
                     }
-                    g.drawRect(100*y, 100*x,100*y + 100, 100*x+100);
-                    g.fillRect(100*y, 100*x,100*y + 100, 100*x+100);
                 }
             }
         }
