@@ -33,6 +33,18 @@ public class KeyControl implements KeyListener {
             case KeyEvent.VK_DOWN:
                 pacman.moveDown();
                 break;
+            case KeyEvent.VK_A:
+                pacman.moveLeft();
+                break;
+            case KeyEvent.VK_D:
+                pacman.moveRight();
+                break;
+            case KeyEvent.VK_W:
+                pacman.moveUp();
+                break;
+            case KeyEvent.VK_S:
+                pacman.moveDown();
+                break;
             default :
                 System.out.println("Pressed key: " + e.getKeyCode());
         }
