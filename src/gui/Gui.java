@@ -35,7 +35,7 @@ public class Gui extends Thread {
 
     BufferedImage currentImage;
 
-    World w = new World(); // xx/yy position von src.models.Pacman
+    World w;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
     Pacman p;
