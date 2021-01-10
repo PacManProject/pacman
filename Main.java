@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main {
-    static World w = new World("Leandro_macht_die_besten_Karten.json");
+    static World w = new World("map3.json");
     static Pacman p = new Pacman(w);
     static Gui g = new Gui(w, p);
 
@@ -23,7 +23,7 @@ public class Main {
 
         while(true) {
             try {
-                TimeUnit.SECONDS.sleep(1); // zeit die zwischen einer bewegung von Pacman vergeht
+                TimeUnit.MILLISECONDS.sleep(500); // zeit die zwischen einer bewegung von Pacman vergeht
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
