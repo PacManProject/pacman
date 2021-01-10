@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main {
-    static World w = new World("map2.json");
+    static World w = new World("Leandro_macht_die_besten_Karten.json");
     static Pacman p = new Pacman(w);
     static Gui g = new Gui(w, p);
 
