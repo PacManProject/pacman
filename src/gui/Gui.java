@@ -63,7 +63,7 @@ public class Gui extends Thread {
 
     public void paint() {
         switch (p.getDirection()) {
-            case "u":
+            case Up:
                 switch (frameCounter) {
                     case 0:
                         currentImage = pacman0;
@@ -78,7 +78,7 @@ public class Gui extends Thread {
                         break;
                 }
                 break;
-            case "d":
+            case Down:
                 switch (frameCounter){
                     case 0:
                         currentImage = pacman0;
@@ -93,7 +93,7 @@ public class Gui extends Thread {
                         break;
                 }
                 break;
-            case "l":
+            case Left:
                 switch (frameCounter){
                     case 0:
                         currentImage = pacman0;
@@ -108,7 +108,7 @@ public class Gui extends Thread {
                         break;
                 }
                 break;
-            case "r":
+            case Right:
                 switch (frameCounter){
                     case 0:
                         currentImage = pacman0;

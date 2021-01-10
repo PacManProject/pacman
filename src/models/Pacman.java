@@ -2,8 +2,15 @@ package src.models;
 
 public class Pacman {
 
-    String direction = "l";
-    String directionNew = direction;
+    public enum directions {
+        Up,
+        Down,
+        Left,
+        Right
+    };
+
+    directions direction = directions.Left;
+    directions directionNew = direction;
 
     World world1;
 
@@ -11,13 +18,13 @@ public class Pacman {
         world1 = w;
     }
 
-    public String getDirection() {
+    public directions getDirection() {
         return direction;
     }
 
     public void move(){
         switch (directionNew){
-            case "u":
+            case Up:
                 if(world1.y-1 >= 0 && world1.xyWorld[world1.y-1%world1.xyWorld.length][world1.x]){
                     world1.y--;
                     direction = directionNew;
@@ -26,7 +33,7 @@ public class Pacman {
                 }
 
                 break;
-            case "d":
+            case Down:
                 if(world1.y+1 < world1.xyWorld.length && world1.xyWorld[world1.y+1%world1.xyWorld.length][world1.x]){
                     world1.y++;
                     direction = directionNew;
@@ -34,7 +41,7 @@ public class Pacman {
                     impossibleDirection();
                 }
                 break;
-            case "l":
+            case Left:
                 if(world1.x-1 >= 0 && world1.xyWorld[world1.y][world1.x-1%world1.xyWorld[0].length]){
                     world1.x--;
                     direction = directionNew;
@@ -42,7 +49,7 @@ public class Pacman {
                     impossibleDirection();
                 }
                 break;
-            case "r":
+            case Right:
                 if(world1.x+1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x+1%world1.xyWorld[0].length]){
                     world1.x++;
                     direction = directionNew;
@@ -59,22 +66,22 @@ public class Pacman {
     public void impossibleDirection(){
         directionNew = direction;//Richtung wird zurückgesetzt
         switch (direction) {// erneute Abfrage mit der ursprünglichen Richtung
-            case "u":
+            case Up:
                 if (world1.y - 1 >= 0 && world1.xyWorld[world1.y - 1 % world1.xyWorld.length][world1.x]) {
                     move();
                 }
                 break;
-            case "d":
+            case Down:
                 if (world1.y + 1 < world1.xyWorld.length && world1.xyWorld[world1.y + 1 % world1.xyWorld.length][world1.x]) {
                     move();
                 }
                 break;
-            case "l":
+            case Left:
                 if (world1.x - 1 >= 0 && world1.xyWorld[world1.y][world1.x - 1 % world1.xyWorld[0].length]) {
                     move();
                 }
                 break;
-            case "r":
+            case Right:
                 if (world1.x + 1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x + 1 % world1.xyWorld[0].length]) {
                     move();
                 }
@@ -84,21 +91,21 @@ public class Pacman {
 
     //UP: Y wird kleiner
     public void moveUp(){
-        directionNew = "u";
+        directionNew = directions.Up;
     }
 
     //DOWN: Y wird größer
     public void moveDown(){
-        directionNew = "d";
+        directionNew = directions.Down;
     }
 
     //LEFT: X wird kleiner
     public void moveLeft(){
-        directionNew = "l";
+        directionNew = directions.Left;
     }
 
     //RIGHT: X wird größer
     public void moveRight(){
-        directionNew = "r";
+        directionNew = directions.Right;
     }
 }
