@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 
 public class Gui extends Thread {
     int frameSize = 30;
-    int scale = 100;
+    int scale = 40;
     int frameCounter = 0;
 
     Path workingDir = Paths.get(System.getProperty("user.dir"));
