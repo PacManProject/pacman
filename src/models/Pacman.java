@@ -11,6 +11,10 @@ public class Pacman {
         world1 = w;
     }
 
+    public String getDirection() {
+        return direction;
+    }
+
     public void move(){
         switch (directionNew){
             case "u":
