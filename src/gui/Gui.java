@@ -69,8 +69,6 @@ public class Gui extends Thread {
                         currentImage = pacman0;
                         break;
                     case 1:
-                        currentImage = pacmanUp1;
-                        break;
 
                     case 4:
                         currentImage = pacmanUp1;
@@ -86,8 +84,6 @@ public class Gui extends Thread {
                         currentImage = pacman0;
                         break;
                     case 1:
-                        currentImage = pacmanDown1;
-                        break;
 
                     case 4:
                         currentImage = pacmanDown1;
@@ -103,8 +99,6 @@ public class Gui extends Thread {
                         currentImage = pacman0;
                         break;
                     case 1:
-                        currentImage = pacmanLeft1;
-                        break;
 
                     case 4:
                         currentImage = pacmanLeft1;
@@ -120,8 +114,6 @@ public class Gui extends Thread {
                         currentImage = pacman0;
                         break;
                     case 1:
-                        currentImage = pacmanRight1;
-                        break;
 
                     case 4:
                         currentImage = pacmanRight1;
