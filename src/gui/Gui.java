@@ -61,7 +61,7 @@ public class Gui extends Thread {
         currentImage = pacman0;
     }
 
-    public synchronized void paint() {
+    public void paint() {
         switch (p.getDirection()) {
             case "u":
                 switch (frameCounter) {
@@ -146,7 +146,7 @@ public class Gui extends Thread {
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als
+        jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
 
         jf.setVisible(true);
 
