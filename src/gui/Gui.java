@@ -64,31 +64,71 @@ public class Gui extends Thread {
     public synchronized void paint() {
         switch (p.getDirection()) {
             case "u":
-                switch (frameCounter){
-                    case 0 -> currentImage = pacman0;
-                    case 1, 4 -> currentImage = pacmanUp1;
-                    case 2 -> currentImage = pacmanUp2;
+                switch (frameCounter) {
+                    case 0:
+                        currentImage = pacman0;
+                        break;
+                    case 1:
+                        currentImage = pacmanUp1;
+                        break;
+
+                    case 4:
+                        currentImage = pacmanUp1;
+                        break;
+                    case 2:
+                        currentImage = pacmanUp2;
+                        break;
                 }
                 break;
             case "d":
                 switch (frameCounter){
-                    case 0 -> currentImage = pacman0;
-                    case 1, 4 -> currentImage = pacmanDown1;
-                    case 2 -> currentImage = pacmanDown2;
+                    case 0:
+                        currentImage = pacman0;
+                        break;
+                    case 1:
+                        currentImage = pacmanDown1;
+                        break;
+
+                    case 4:
+                        currentImage = pacmanDown1;
+                        break;
+                    case 2:
+                        currentImage = pacmanDown2;
+                        break;
                 }
                 break;
             case "l":
                 switch (frameCounter){
-                    case 0 -> currentImage = pacman0;
-                    case 1, 4 -> currentImage = pacmanLeft1;
-                    case 2 -> currentImage = pacmanLeft2;
+                    case 0:
+                        currentImage = pacman0;
+                        break;
+                    case 1:
+                        currentImage = pacmanLeft1;
+                        break;
+
+                    case 4:
+                        currentImage = pacmanLeft1;
+                        break;
+                    case 2:
+                        currentImage = pacmanLeft2;
+                        break;
                 }
                 break;
             case "r":
                 switch (frameCounter){
-                    case 0 -> currentImage = pacman0;
-                    case 1, 4 -> currentImage = pacmanRight1;
-                    case 2 -> currentImage = pacmanRight2;
+                    case 0:
+                        currentImage = pacman0;
+                        break;
+                    case 1:
+                        currentImage = pacmanRight1;
+                        break;
+
+                    case 4:
+                        currentImage = pacmanRight1;
+                        break;
+                    case 2:
+                        currentImage = pacmanRight2;
+                        break;
                 }
                 break;
             default :
