@@ -17,13 +17,14 @@ public class Gui extends Thread {
 
     World w = new World(); // xx/yy position von src.models.Pacman
 
-    GuiFrame jf;
+    JFrame jf = new JFrame("Pacman");// name des Fensters
     Pacman p;
+    GuiPanel gf;
 
     public Gui (World wor, Pacman pac) {
         w = wor;
         p = pac;
-        jf = new GuiFrame(w,"Pacman"); // name des Fensters
+        gf = new GuiPanel(w);
     }
 
     public synchronized void paint() {
@@ -35,6 +36,9 @@ public class Gui extends Thread {
         }
     }
     public synchronized void run() {
+
+        jf.add(gf);
+        gf.setDoubleBuffered(true);
 
         jf.setResizable(false);
         jf.setSize(100*w.getXyWorld()[0].length, 100*w.getXyWorld().length + frameSize);
@@ -51,11 +55,10 @@ public class Gui extends Thread {
     }
 
 
-    class GuiFrame extends JFrame{
+    class GuiPanel extends JPanel{
         World w;
 
-        public GuiFrame(World world, String title) {
-            super(title);
+        public GuiPanel(World world) {
             w = world;
         }
 
@@ -72,8 +75,8 @@ public class Gui extends Thread {
                     } else {
                         g.setColor(Color.black);
                     }
-                    g.drawRect(100*y, 100*x + frameSize,100*y + 100, 100*x+100);
-                    g.fillRect(100*y, 100*x + frameSize,100*y + 100, 100*x+100);
+                    g.drawRect(100*y, 100*x,100*y + 100, 100*x+100);
+                    g.fillRect(100*y, 100*x,100*y + 100, 100*x+100);
                 }
             }
         }
