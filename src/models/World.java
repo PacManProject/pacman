@@ -57,6 +57,4 @@ public class World {
     public int getY() {
         return y;
     }
-
-    public void up() {}
 }
