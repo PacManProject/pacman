@@ -39,7 +39,7 @@ public class World {
         this.y = map.pos_y;
         this.name = map.name;
         this.xyWorld = map.data;
-        this.itemXyWorld = xyWorld;
+        this.itemXyWorld = map.itemData;
     }
 
     public boolean[][] getXyWorld() {
