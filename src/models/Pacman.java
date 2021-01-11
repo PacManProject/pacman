@@ -27,6 +27,7 @@ public class Pacman {
             case Up:
                 if(world1.y-1 >= 0 && world1.xyWorld[world1.y-1%world1.xyWorld.length][world1.x]){
                     world1.y--;
+                    world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
@@ -36,6 +37,7 @@ public class Pacman {
             case Down:
                 if(world1.y+1 < world1.xyWorld.length && world1.xyWorld[world1.y+1%world1.xyWorld.length][world1.x]){
                     world1.y++;
+                    world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -44,6 +46,7 @@ public class Pacman {
             case Left:
                 if(world1.x-1 >= 0 && world1.xyWorld[world1.y][world1.x-1%world1.xyWorld[0].length]){
                     world1.x--;
+                    world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -52,6 +55,7 @@ public class Pacman {
             case Right:
                 if(world1.x+1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x+1%world1.xyWorld[0].length]){
                     world1.x++;
+                    world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();

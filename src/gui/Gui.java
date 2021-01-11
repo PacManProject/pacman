@@ -168,7 +168,6 @@ public class Gui extends Thread {
 
             for (int x = 0; x < w.getXyWorld().length; x++) {
                 for (int y = 0; y < w.getXyWorld()[0].length; y++) {
-
                     if (!w.getXyWorld()[x][y]) {
                         g.setColor(Color.blue);
                         g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
@@ -179,6 +178,15 @@ public class Gui extends Thread {
                         g.setColor(Color.black);
                         g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
                         g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
+                    }
+                }
+            }
+            for (int x = 0; x < w.getItemXyWorld().length; x++) {
+                for (int y = 0; y < w.getItemXyWorld()[0].length; y++) {
+                    if (!w.getItemXyWorld()[x][y]) {
+                    } else if (w.getX() == y && w.getY() == x){
+                    } else {
+                        g.drawImage(sprite, y*scale, x*scale, scale, scale, null);
                     }
                 }
             }
