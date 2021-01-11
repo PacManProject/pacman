@@ -18,16 +18,7 @@ public class Main {
     static Gui g = new Gui(w, p);
 
     public static void main(String[] args) {
+        p.start();
         g.start();
-
-
-        while(true) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(500); // zeit die zwischen einer bewegung von Pacman vergeht
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            p.move();
-        }
     }
 }

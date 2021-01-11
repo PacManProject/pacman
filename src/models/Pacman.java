@@ -1,13 +1,13 @@
 package src.models;
 
-public class Pacman {
+public class Pacman extends Thread {
 
     public enum directions {
         Up,
         Down,
         Left,
         Right
-    };
+    }
 
     directions direction = directions.Left;
     directions directionNew = direction;
@@ -20,6 +20,18 @@ public class Pacman {
 
     public directions getDirection() {
         return direction;
+    }
+
+    public void run(){
+        setPriority(1);
+        while (true){
+            try{
+                sleep(450);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            this.move();
+        }
     }
 
     public void move(){
