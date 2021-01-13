@@ -1,16 +1,6 @@
-//TODO: add maven to import gson automatically
-
-
-
-//Test
-
 import src.gui.Gui;
 import src.models.Pacman;
 import src.models.World;
-
-import java.util.concurrent.TimeUnit;
-
-
 
 public class Main {
     static World w = new World("map3.json");
