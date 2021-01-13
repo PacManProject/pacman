@@ -1,17 +1,17 @@
 package src.gui;
 
-import src.models.Pacman;
 import src.models.World;
+import src.models.Pacman;
 import src.util.KeyControl;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class Gui extends Thread {
     int frameSize = 30;
@@ -136,6 +136,7 @@ public class Gui extends Thread {
         frameCounter = (frameCounter+1)%5;
 
     }
+
     public synchronized void run() {
 
         jf.add(gf);
@@ -183,10 +184,11 @@ public class Gui extends Thread {
             }
             for (int x = 0; x < w.getItemXyWorld().length; x++) {
                 for (int y = 0; y < w.getItemXyWorld()[0].length; y++) {
-                    if (!w.getItemXyWorld()[x][y]) {
-                    } else if (w.getX() == y && w.getY() == x){
-                    } else {
-                        g.drawImage(sprite, y*scale, x*scale, scale, scale, null);
+                    if (w.getItemXyWorld()[x][y]){
+                        g.setColor(Color.yellow);
+                        int offset = scale/4;
+
+                        g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
                     }
                 }
             }
