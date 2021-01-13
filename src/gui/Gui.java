@@ -181,6 +181,15 @@ public class Gui extends Thread {
                     }
                 }
             }
+            for (int x = 0; x < w.getItemXyWorld().length; x++) {
+                for (int y = 0; y < w.getItemXyWorld()[0].length; y++) {
+                    if (!w.getItemXyWorld()[x][y]) {
+                    } else if (w.getX() == y && w.getY() == x){
+                    } else {
+                        g.drawImage(sprite, y*scale, x*scale, scale, scale, null);
+                    }
+                }
+            }
         }
     }
 }
