@@ -18,6 +18,7 @@ public class World {
 
     String name;
     boolean[][] xyWorld;
+    boolean[][] itemXyWorld;
 
     public World(String... mapName) {
 
@@ -38,10 +39,15 @@ public class World {
         this.y = map.pos_y;
         this.name = map.name;
         this.xyWorld = map.data;
+        this.itemXyWorld = map.itemData;
     }
 
     public boolean[][] getXyWorld() {
         return xyWorld;
+    }
+
+    public boolean[][] getItemXyWorld() {
+        return itemXyWorld;
     }
 
     public int getX() {
