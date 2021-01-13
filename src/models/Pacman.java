@@ -2,6 +2,7 @@ package src.models;
 
 public class Pacman extends Thread {
     int pointsEaten = 0;
+    Score score = new Score();
 
     public enum directions {
         Up,
@@ -87,6 +88,7 @@ public class Pacman extends Thread {
     public void increasePoints(){
         if (world1.itemXyWorld[world1.y][world1.x]){
             pointsEaten++;
+            score.changeScore(1);
             System.out.println("Pointseaten: " + pointsEaten);
         }
     }
@@ -142,5 +144,9 @@ public class Pacman extends Thread {
     //RIGHT: X wird größer
     public void moveRight(){
         directionNew = directions.Right;
+    }
+
+    public Score getScore(){
+        return  score;
     }
 }

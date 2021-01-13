@@ -1,6 +1,7 @@
 package src.gui;
 
 import src.models.Pacman;
+import src.models.Score;
 import src.models.World;
 import src.util.KeyControl;
 
@@ -17,6 +18,7 @@ public class Gui extends Thread {
     int frameSize = 30;
     int scale = 40;
     int frameCounter = 0;
+    Score score;
 
     Path workingDir = Paths.get(System.getProperty("user.dir"));
     Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
@@ -40,8 +42,10 @@ public class Gui extends Thread {
     JFrame jf = new JFrame("Pacman");// name des Fensters
     Pacman p;
     GuiPanel gf;
+    JLabel jL;
 
-    public Gui (World wor, Pacman pac) {
+    public Gui (World wor, Pacman pac, Score sc) {
+        this.score = sc;
         w = wor;
         p = pac;
         gf = new GuiPanel(w);
@@ -134,6 +138,7 @@ public class Gui extends Thread {
             e.printStackTrace();
         }
         frameCounter = (frameCounter+1)%5;
+        jL.setText(""+score.getScore());
 
     }
     public synchronized void run() {
@@ -142,12 +147,13 @@ public class Gui extends Thread {
         gf.setDoubleBuffered(true);
 
         jf.setResizable(false);
-        jf.setSize(scale*w.getXyWorld()[0].length, scale*w.getXyWorld().length + frameSize);
+        jf.setSize(scale*w.getXyWorld()[0].length, scale*w.getXyWorld().length + frameSize + 50);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
-
+        jL.setText(""+score.getScore());
+        jL.setSize(scale*w.getXyWorld()[0].length,50);
         jf.setVisible(true);
 
         while (true) {

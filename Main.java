@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     static World w = new World("map3.json");
     static Pacman p = new Pacman(w);
-    static Gui g = new Gui(w, p);
+    static Gui g = new Gui(w, p, p.getScore());
 
     public static void main(String[] args) {
         p.start();
