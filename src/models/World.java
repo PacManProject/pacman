@@ -19,6 +19,7 @@ public class World {
     String name;
     boolean[][] xyWorld;
     boolean[][] itemXyWorld;
+    int counter;
 
     public World(String... mapName) {
 
@@ -40,6 +41,7 @@ public class World {
         this.name = map.name;
         this.xyWorld = map.data;
         this.itemXyWorld = map.itemData;
+        countPointsOnWorld();
     }
 
     public boolean[][] getXyWorld() {
@@ -57,4 +59,21 @@ public class World {
     public int getY() {
         return y;
     }
+
+    public void countPointsOnWorld(){
+        counter = 0;
+        for (int x = 0; x < getXyWorld().length; x++) {
+            for (int y = 0; y < getXyWorld()[0].length; y++) {
+                if (xyWorld[x][y]){//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
+                    counter++;
+                }
+            }
+        }
+        System.out.println("Anzahl Punkte: " + counter);
+    }
+
+    public int getCounter(){
+        return counter;
+    }
+
 }

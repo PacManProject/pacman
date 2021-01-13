@@ -1,6 +1,7 @@
 package src.models;
 
 public class Pacman extends Thread {
+    int pointsEaten = 0;
 
     public enum directions {
         Up,
@@ -31,6 +32,7 @@ public class Pacman extends Thread {
                 e.printStackTrace();
             }
             this.move();
+            noPointsLeft();
         }
     }
 
@@ -39,6 +41,7 @@ public class Pacman extends Thread {
             case Up:
                 if(world1.y-1 >= 0 && world1.xyWorld[world1.y-1%world1.xyWorld.length][world1.x]){
                     world1.y--;
+                    increasePoints();
                     world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
@@ -49,6 +52,7 @@ public class Pacman extends Thread {
             case Down:
                 if(world1.y+1 < world1.xyWorld.length && world1.xyWorld[world1.y+1%world1.xyWorld.length][world1.x]){
                     world1.y++;
+                    increasePoints();
                     world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
@@ -58,6 +62,7 @@ public class Pacman extends Thread {
             case Left:
                 if(world1.x-1 >= 0 && world1.xyWorld[world1.y][world1.x-1%world1.xyWorld[0].length]){
                     world1.x--;
+                    increasePoints();
                     world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
@@ -67,6 +72,7 @@ public class Pacman extends Thread {
             case Right:
                 if(world1.x+1 < world1.xyWorld[0].length && world1.xyWorld[world1.y][world1.x+1%world1.xyWorld[0].length]){
                     world1.x++;
+                    increasePoints();
                     world1.itemXyWorld[world1.y][world1.x] = false;
                     direction = directionNew;
                 }else {
@@ -75,6 +81,13 @@ public class Pacman extends Thread {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void increasePoints(){
+        if (world1.itemXyWorld[world1.y][world1.x]){
+            pointsEaten++;
+            System.out.println("Pointseaten: " + pointsEaten);
         }
     }
 
@@ -102,6 +115,12 @@ public class Pacman extends Thread {
                     move();
                 }
                 break;
+        }
+    }
+
+    public void noPointsLeft(){//Noah deine Methode wenn alle Punkte gegessen sind
+        if (pointsEaten == world1.getCounter()){
+            System.out.println("Alle Punkte aufgegessen");
         }
     }
 
