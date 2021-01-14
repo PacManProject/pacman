@@ -12,6 +12,7 @@ public class Pacman extends Thread {
 
     directions direction = directions.Left;
     directions directionNew = direction;
+    directions directionNext = direction;
 
     World world1;
 
@@ -93,6 +94,7 @@ public class Pacman extends Thread {
 
 
     public void impossibleDirection(){
+        directionNext = directionNew;
         directionNew = direction;//Richtung wird zurückgesetzt
         switch (direction) {// erneute Abfrage mit der ursprünglichen Richtung
             case Up:
@@ -116,6 +118,7 @@ public class Pacman extends Thread {
                 }
                 break;
         }
+        directionNew = directionNext;
     }
 
     public void noPointsLeft(){//Noah deine Methode wenn alle Punkte gegessen sind
