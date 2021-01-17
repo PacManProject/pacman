@@ -41,6 +41,7 @@ public class World {
         this.name = map.name;
         this.xyWorld = map.data;
         this.itemXyWorld = map.itemData;
+        this.itemXyWorld[y][x] = false;
         countPointsOnWorld();
     }
 
