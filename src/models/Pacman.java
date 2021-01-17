@@ -28,7 +28,7 @@ public class Pacman extends Thread {
         setPriority(1);
         while (true){
             try{
-                sleep(450);
+                sleep(100);     //Geschwindigkeit von PacMan
             } catch (InterruptedException e){
                 e.printStackTrace();
             }

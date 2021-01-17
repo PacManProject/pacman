@@ -49,7 +49,7 @@ public class Gui extends Thread {
             sprite = ImageIO.read(new File(spritePath.toString()));
         } catch (IOException ignored) {
         }
-        pacman0 = sprite.getSubimage(32, 0, 13, 13);
+        pacman0 = sprite.getSubimage(32, 0, 13, 13);      //nimmt aus der Sprite Ressource die gebrauchten Sprites
         pacmanUp1 = sprite.getSubimage(16, 32, 13, 13);
         pacmanUp2 = sprite.getSubimage(0, 32, 13, 13);
         pacmanDown1 = sprite.getSubimage(16, 48, 13, 13);
@@ -62,7 +62,7 @@ public class Gui extends Thread {
     }
 
     public void paint() {
-        switch (p.getDirection()) {
+        switch (p.getDirection()) {     //Pacmans Animation wird festgelegt
             case Up:
                 switch (frameCounter) {
                     case 0:
@@ -129,11 +129,11 @@ public class Gui extends Thread {
         }
         jf.repaint();
         try {
-            wait(150);
+            wait(150);          //Geschwindigkeit der Animation (Framerate)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        frameCounter = (frameCounter+1)%5;
+        frameCounter = (frameCounter+1)%5;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
 
     }
 
@@ -165,9 +165,9 @@ public class Gui extends Thread {
         }
 
         @Override
-        public void paint(Graphics g) {
+        public void paint(Graphics g) {         //zeichnet die Karte
 
-            for (int x = 0; x < w.getXyWorld().length; x++) {
+            for (int x = 0; x < w.getXyWorld().length; x++) {   //zeichnet die Map
                 for (int y = 0; y < w.getXyWorld()[0].length; y++) {
                     if (!w.getXyWorld()[x][y]) {
                         g.setColor(Color.blue);
@@ -182,7 +182,7 @@ public class Gui extends Thread {
                     }
                 }
             }
-            for (int x = 0; x < w.getItemXyWorld().length; x++) {
+            for (int x = 0; x < w.getItemXyWorld().length; x++) {   //zeichnet die Punkte
                 for (int y = 0; y < w.getItemXyWorld()[0].length; y++) {
                     if (w.getItemXyWorld()[x][y]){
                         g.setColor(Color.yellow);
