@@ -41,7 +41,7 @@ public class World {
         this.name = map.name;
         this.xyWorld = map.data;
         this.itemXyWorld = map.itemData;
-        this.itemXyWorld[y][x] = false;
+        this.itemXyWorld[y][x] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
