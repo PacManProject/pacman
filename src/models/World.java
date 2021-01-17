@@ -63,9 +63,9 @@ public class World {
 
     public void countPointsOnWorld(){
         counter = 0;
-        for (int x = 0; x < getXyWorld().length; x++) {
-            for (int y = 0; y < getXyWorld()[0].length; y++) {
-                if (xyWorld[x][y]){//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
+        for (int x = 0; x < itemXyWorld.length; x++) {
+            for (int y = 0; y < itemXyWorld[0].length; y++) {
+                if (itemXyWorld[x][y]){//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
                     counter++;
                 }
             }
