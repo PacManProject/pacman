@@ -1,7 +1,15 @@
 package src.models;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class Pacman extends Thread {
-    int pointsEaten = 0;
+    int score = 0;
 
     public enum directions {
         Up,
@@ -15,9 +23,26 @@ public class Pacman extends Thread {
     directions directionNext = direction;
 
     World world1;
+    Scoreboard scoreboard;
 
-    public Pacman(World w) {
+    Gson gson = new Gson();
+    Path workingDir = Paths.get(System.getProperty("user.dir"));
+
+    public Pacman(World w, String... filename) {
         world1 = w;
+
+        // if scorename not given, use default.json
+        String name = (filename.length >= 1) ? filename[0] : "default.json";
+        Path scorePath = Paths.get(workingDir.toString(), "resources", "data", "scores", name);
+
+        String jsonString = null;
+        try {
+            jsonString = Files.readString(scorePath, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.scoreboard = gson.fromJson(jsonString, Scoreboard.class);
     }
 
     public directions getDirection() {
@@ -87,8 +112,8 @@ public class Pacman extends Thread {
 
     public void increasePoints(){
         if (world1.itemXyWorld[world1.y][world1.x]){
-            pointsEaten++;
-            System.out.println("Pointseaten: " + pointsEaten);
+            score++;
+            System.out.println("Score: " + score);
         }
     }
 
@@ -122,8 +147,14 @@ public class Pacman extends Thread {
     }
 
     public void noPointsLeft(){//Noah deine Methode wenn alle Punkte gegessen sind
-        if (pointsEaten == world1.getCounter()){
-            System.out.println("Alle Punkte aufgegessen");
+        if (score == world1.getCounter()){
+            this.scoreboard.addToCurrentScore(score);
+
+
+            //FIXME
+            //TODO: only save the score when the player dies
+            //TODO: also load new map
+            this.scoreboard.addScore();
         }
     }
 
