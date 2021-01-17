@@ -3,7 +3,7 @@ import src.models.Pacman;
 import src.models.World;
 
 public class Main {
-    static World w = new World("map3.json");
+    static World w = new World("map2.json");
     static Pacman p = new Pacman(w);
     static Gui g = new Gui(w, p);
 
