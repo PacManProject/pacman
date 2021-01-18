@@ -7,7 +7,7 @@ public class Main {
     static World w = new World("map2");
     static Pacman p = new Pacman(w);
     static Ghost g1 = new Ghost(w);
-    static Gui g = new Gui(w, p);
+    static Gui g = new Gui(w, p, g1);
 
     public static void main(String[] args) {
         p.start();
