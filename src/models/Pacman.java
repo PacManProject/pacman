@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 public class Pacman extends Thread {
     int score = 0;
+    boolean done = false;
 
     public enum directions {
         Up,
@@ -53,7 +54,7 @@ public class Pacman extends Thread {
         setPriority(1);
         while (true){
             try{
-                sleep(100);     //Geschwindigkeit von PacMan
+                sleep(450);     //Geschwindigkeit von PacMan
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -155,6 +156,7 @@ public class Pacman extends Thread {
             //TODO: only save the score when the player dies
             //TODO: also load new map
             this.scoreboard.addScore();
+            done = true;
         }
     }
 
@@ -176,5 +178,13 @@ public class Pacman extends Thread {
     //RIGHT: X wird größer
     public void moveRight(){
         directionNew = directions.Right;
+    }
+
+    public boolean getDone() {
+        return done;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
