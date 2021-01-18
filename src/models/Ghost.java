@@ -41,11 +41,21 @@ public class Ghost extends Thread {
             //random movement
             int i = (int)(Math.random()*4);
             switch (i) {
-                case 0 -> directionNew = directions.Up;
-                case 1 -> directionNew = directions.Down;
-                case 2 -> directionNew = directions.Left;
-                case 3 -> directionNew = directions.Right;
-                default -> System.out.println("leandro suk cok");
+                case 0:
+                    directionNew = directions.Up;
+                    break;
+                case 1:
+                    directionNew = directions.Down;
+                    break;
+                case 2:
+                    directionNew = directions.Left;
+                    break;
+                case 3:
+                    directionNew = directions.Right;
+                    break;
+                default:
+                    System.out.println("leandro suk cok");
+                    break;
             }
 
             this.move();
