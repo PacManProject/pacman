@@ -2,7 +2,7 @@
   "name":"Leandro_macht_die_besten_Karten",
   "pos_x": 1,
   "pos_y": 4,
-  "data":[
+  "mapData":[
     [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
     [false,false,true,true,true,true,true,true,true,true,true,false,false,false,false,false],
     [false,true,true,false,true,false,true,false,false,false,true,true,false,true,true,false],

@@ -2,7 +2,7 @@
     "name":"map3",
     "pos_x": 19,
     "pos_y": 9,
-    "data":[
+    "mapData":[
         [false, false, false, false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         [false, true, true, true, true, true, true, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, true, true, false],
         [false, true, false, false, false, false, true, true, true, true, true, false, true, false, false, true, false, false, false, true, false, false, true, true, true, true, false, false, false, false, true, false],

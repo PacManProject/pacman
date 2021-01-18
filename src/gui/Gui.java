@@ -47,7 +47,8 @@ public class Gui extends Thread {
         gf = new GuiPanel(w);
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         pacman0 = sprite.getSubimage(32, 0, 13, 13);      //nimmt aus der Sprite Ressource die gebrauchten Sprites
         pacmanUp1 = sprite.getSubimage(16, 32, 13, 13);
@@ -142,7 +143,7 @@ public class Gui extends Thread {
         gf.setDoubleBuffered(true);
 
         jf.setResizable(false);
-        jf.setSize(scale*w.getXyWorld()[0].length, scale*w.getXyWorld().length + frameSize);
+        jf.setSize(scale*w.getMapData()[0].length, scale*w.getMapData().length + frameSize);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,7 +158,7 @@ public class Gui extends Thread {
         gf.setDoubleBuffered(true);
 
         jf.setResizable(false);
-        jf.setSize(scale*w.getXyWorld()[0].length, scale*w.getXyWorld().length + frameSize);
+        jf.setSize(scale*w.getMapData()[0].length, scale*w.getMapData().length + frameSize);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(p));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,8 +168,8 @@ public class Gui extends Thread {
 
         while (true) {
             this.paint();
-            if (p.getScore() == w.getCounter()) {
-                w.update("map3.json");
+            if (p.getScore() == w.getMapScore()) {
+                w.update("map3");
                 this.update();
             }
         }
@@ -185,9 +186,9 @@ public class Gui extends Thread {
         @Override
         public void paint(Graphics g) {         //zeichnet die Karte
 
-            for (int x = 0; x < w.getXyWorld().length; x++) {   //zeichnet die Map
-                for (int y = 0; y < w.getXyWorld()[0].length; y++) {
-                    if (!w.getXyWorld()[x][y]) {
+            for (int x = 0; x < w.getMapData().length; x++) {   //zeichnet die Map
+                for (int y = 0; y < w.getMapData()[0].length; y++) {
+                    if (!w.getMapData()[x][y]) {
                         g.setColor(Color.blue);
                         g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
                         g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
@@ -200,9 +201,9 @@ public class Gui extends Thread {
                     }
                 }
             }
-            for (int x = 0; x < w.getItemXyWorld().length; x++) {   //zeichnet die Punkte
-                for (int y = 0; y < w.getItemXyWorld()[0].length; y++) {
-                    if (w.getItemXyWorld()[x][y]){
+            for (int x = 0; x < w.getItemData().length; x++) {   //zeichnet die Punkte
+                for (int y = 0; y < w.getItemData()[0].length; y++) {
+                    if (w.getItemData()[x][y]){
                         g.setColor(Color.yellow);
                         int offset = scale/4;
 

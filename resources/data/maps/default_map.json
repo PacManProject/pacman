@@ -2,7 +2,7 @@
     "name":"default_map",
     "pos_x": 1,
     "pos_y": 3,
-    "data":[
+    "mapData":[
     [true,false,true,false,true,false,true],
     [true,true,true,false,true,true,true],
     [false,true,false,false,false,true,false],
