@@ -4,7 +4,7 @@ import src.models.Pacman;
 import src.models.World;
 
 public class Main {
-    static World w = new World("map2.json");
+    static World w = new World("map2");
     static Pacman p = new Pacman(w);
     static Ghost g1 = new Ghost(w);
     static Gui g = new Gui(w, p, g1);
