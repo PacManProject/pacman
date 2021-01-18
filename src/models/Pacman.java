@@ -147,7 +147,7 @@ public class Pacman extends Thread {
     }
 
     public void noPointsLeft(){//Noah deine Methode wenn alle Punkte gegessen sind
-        if (score == world1.getCounter()){
+        if (score == world1.getMapScore()){
             this.scoreboard.addToCurrentScore(score);
 
 

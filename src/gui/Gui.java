@@ -47,7 +47,8 @@ public class Gui extends Thread {
         gf = new GuiPanel(w);
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         pacman0 = sprite.getSubimage(32, 0, 13, 13);      //nimmt aus der Sprite Ressource die gebrauchten Sprites
         pacmanUp1 = sprite.getSubimage(16, 32, 13, 13);
@@ -167,8 +168,8 @@ public class Gui extends Thread {
 
         while (true) {
             this.paint();
-            if (p.getScore() == w.getCounter()) {
-                w.update("map3.json");
+            if (p.getScore() == w.getMapScore()) {
+                w.update("map3");
                 this.update();
             }
         }
