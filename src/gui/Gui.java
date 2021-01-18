@@ -1,5 +1,6 @@
 package src.gui;
 
+import src.models.Ghost;
 import src.models.World;
 import src.models.Pacman;
 import src.util.KeyControl;
@@ -41,11 +42,13 @@ public class Gui extends Thread {
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
     Pacman p;
+    Ghost g1;
     GuiPanel gf;
 
-    public Gui (World wor, Pacman pac) {
+    public Gui (World wor, Pacman pac, Ghost ghost) {
         w = wor;
         p = pac;
+        g1 = ghost;
         gf = new GuiPanel(w);
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -174,6 +177,7 @@ public class Gui extends Thread {
             this.paint();
             if (p.getScore() == w.getMapScore()) {
                 w.update("map3");
+                g1.setLocation();
                 this.update();
             }
         }
