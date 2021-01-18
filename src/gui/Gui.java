@@ -35,6 +35,8 @@ public class Gui extends Thread {
 
     BufferedImage currentImage;
 
+    BufferedImage g1img;
+
     World w;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
@@ -60,6 +62,8 @@ public class Gui extends Thread {
         pacmanRight1 = sprite.getSubimage(16, 0, 13, 13);
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
+
+        g1img = sprite.getSubimage(0, 64, 13, 13);
     }
 
     public void paint() {
@@ -208,6 +212,9 @@ public class Gui extends Thread {
                         int offset = scale/4;
 
                         g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
+                    }
+                    if (w.getXg1() == y && w.getYg1() == x){
+                        g.drawImage(g1img, y*scale, x*scale, scale, scale, null);
                     }
                 }
             }
