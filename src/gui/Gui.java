@@ -35,7 +35,7 @@ public class Gui extends Thread {
 
     BufferedImage currentImage;
 
-    BufferedImage g1img;
+    BufferedImage ghost1img;
 
     World w;
 
@@ -63,7 +63,7 @@ public class Gui extends Thread {
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
 
-        g1img = sprite.getSubimage(0, 64, 13, 13);
+        ghost1img = sprite.getSubimage(0, 64, 14, 14);
     }
 
     public void paint() {
@@ -214,7 +214,7 @@ public class Gui extends Thread {
                         g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
                     }
                     if (w.getXg1() == y && w.getYg1() == x){
-                        g.drawImage(g1img, y*scale, x*scale, scale, scale, null);
+                        g.drawImage(ghost1img, y*scale, x*scale, scale, scale, null);
                     }
                 }
             }
