@@ -20,6 +20,8 @@ public class World {
 
     int x;
     int y;
+    int xg1;
+    int yg1;
     int mapScore;
 
     boolean[][] itemData;
@@ -100,4 +102,11 @@ public class World {
         return mapScore;
     }
 
+    public int getXg1() {
+        return xg1;
+    }
+
+    public int getYg1() {
+        return yg1;
+    }
 }
