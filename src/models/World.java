@@ -15,16 +15,14 @@ public class World {
     final Path _workingDir = Paths.get(System.getProperty("user.dir"));
     final Path _mapsDirectory = Paths.get(_workingDir.toString(), "resources", "data", "maps");
 
-    String name;
     Map currentMap;
     ArrayList<Map> availableMaps = _loadAvailableMaps();
 
     int x;
     int y;
-
-    boolean[][] xyWorld;
-    boolean[][] itemXyWorld;
     int mapScore;
+
+    boolean[][] itemData;
 
     public World(String... mapName) {
         // if mapName not given, use default_map.json
@@ -33,24 +31,19 @@ public class World {
 
         this.x = currentMap.pos_x;
         this.y = currentMap.pos_y;
-        this.name = currentMap.name;
-        this.xyWorld = currentMap.data;
-        this.itemXyWorld = currentMap.itemData;
-        this.itemXyWorld[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData = currentMap.itemData;
+        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
     public void update(String... mapName) {
-
         String name = (mapName.length >= 1) ? mapName[0] : "default_map";
         currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
 
         this.x = currentMap.pos_x;
         this.y = currentMap.pos_y;
-        this.name = currentMap.name;
-        this.xyWorld = currentMap.data;
-        this.itemXyWorld = currentMap.itemData;
-        this.itemXyWorld[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData = currentMap.itemData;
+        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
@@ -75,12 +68,12 @@ public class World {
         return availableMaps;
     }
 
-    public boolean[][] getXyWorld() {
-        return xyWorld;
+    public boolean[][] getMapData() {
+        return currentMap.mapData;
     }
 
-    public boolean[][] getItemXyWorld() {
-        return itemXyWorld;
+    public boolean[][] getItemData() {
+        return itemData;
     }
 
     public int getX() {
@@ -93,8 +86,8 @@ public class World {
 
     public void countPointsOnWorld(){
         mapScore = 0;
-        for (boolean[] booleans : itemXyWorld) {
-            for (int y = 0; y < itemXyWorld[0].length; y++) {
+        for (boolean[] booleans : itemData) {
+            for (int y = 0; y < itemData[0].length; y++) {
                 if (booleans[y]) {//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
                     mapScore++;
                 }
