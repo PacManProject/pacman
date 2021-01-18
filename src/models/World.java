@@ -16,6 +16,9 @@ public class World {
     int x;
     int y;
 
+    int xg1;
+    int yg1;
+
     String name;
     boolean[][] xyWorld;
     boolean[][] itemXyWorld;
@@ -84,6 +87,14 @@ public class World {
 
     public int getY() {
         return y;
+    }
+
+    public int getXg1() {
+        return xg1;
+    }
+
+    public int getYg1() {
+        return yg1;
     }
 
     public void countPointsOnWorld(){

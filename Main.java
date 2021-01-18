@@ -1,14 +1,17 @@
 import src.gui.Gui;
+import src.models.Ghost;
 import src.models.Pacman;
 import src.models.World;
 
 public class Main {
     static World w = new World("map2.json");
     static Pacman p = new Pacman(w);
-    static Gui g = new Gui(w, p);
+    static Ghost g1 = new Ghost(w);
+    static Gui g = new Gui(w, p, g1);
 
     public static void main(String[] args) {
         p.start();
+        g1.start();
         g.start();
     }
 }

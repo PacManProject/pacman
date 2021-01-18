@@ -1,5 +1,6 @@
 package src.gui;
 
+import src.models.Ghost;
 import src.models.World;
 import src.models.Pacman;
 import src.util.KeyControl;
@@ -33,17 +34,21 @@ public class Gui extends Thread {
     BufferedImage pacmanRight1;
     BufferedImage pacmanRight2;
 
+    BufferedImage gImg1;
+
     BufferedImage currentImage;
 
     World w;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
     Pacman p;
+    Ghost g1;
     GuiPanel gf;
 
-    public Gui (World wor, Pacman pac) {
+    public Gui (World wor, Pacman pac, Ghost ghost) {
         w = wor;
         p = pac;
+        g1 = ghost;
         gf = new GuiPanel(w);
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -59,6 +64,8 @@ public class Gui extends Thread {
         pacmanRight1 = sprite.getSubimage(16, 0, 13, 13);
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
+
+        gImg1 = sprite.getSubimage(0, 64, 13, 13);
     }
 
     public void paint() {
@@ -127,12 +134,12 @@ public class Gui extends Thread {
                 currentImage = pacman0;
                 break;
         }
-        jf.repaint();
         try {
             wait(150);          //Geschwindigkeit der Animation (Framerate)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        jf.repaint();
         frameCounter = (frameCounter+1)%5;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
 
     }
@@ -169,6 +176,7 @@ public class Gui extends Thread {
             this.paint();
             if (p.getScore() == w.getCounter()) {
                 w.update("map3.json");
+                g1.setLocation();
                 this.update();
             }
         }
@@ -207,6 +215,9 @@ public class Gui extends Thread {
                         int offset = scale/4;
 
                         g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
+                    }
+                    if (w.getXg1() == y && w.getYg1() == x) {
+                        g.drawImage(gImg1, y * scale, x * scale, scale, scale, null);
                     }
                 }
             }
