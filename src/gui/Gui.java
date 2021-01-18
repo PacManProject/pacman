@@ -1,5 +1,6 @@
 package src.gui;
 
+import src.models.Ghost;
 import src.models.World;
 import src.models.Pacman;
 import src.util.KeyControl;
@@ -35,17 +36,19 @@ public class Gui extends Thread {
 
     BufferedImage currentImage;
 
-    BufferedImage g1img;
+    BufferedImage ghost1img;
 
     World w;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
     Pacman p;
+    Ghost g1;
     GuiPanel gf;
 
-    public Gui (World wor, Pacman pac) {
+    public Gui (World wor, Pacman pac, Ghost ghost) {
         w = wor;
         p = pac;
+        g1 = ghost;
         gf = new GuiPanel(w);
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -63,7 +66,7 @@ public class Gui extends Thread {
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
 
-        g1img = sprite.getSubimage(0, 64, 13, 13);
+        ghost1img = sprite.getSubimage(0, 64, 14, 14);
     }
 
     public void paint() {
@@ -174,6 +177,7 @@ public class Gui extends Thread {
             this.paint();
             if (p.getScore() == w.getMapScore()) {
                 w.update("map3");
+                g1.setLocation();
                 this.update();
             }
         }
@@ -214,7 +218,7 @@ public class Gui extends Thread {
                         g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
                     }
                     if (w.getXg1() == y && w.getYg1() == x){
-                        g.drawImage(g1img, y*scale, x*scale, scale, scale, null);
+                        g.drawImage(ghost1img, y*scale, x*scale, scale, scale, null);
                     }
                 }
             }

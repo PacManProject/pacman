@@ -2,6 +2,10 @@ package src.models;
 
 import com.google.gson.*;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.nio.file.Path;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,6 +18,7 @@ public class World {
     Gson gson = new Gson();
     final Path _workingDir = Paths.get(System.getProperty("user.dir"));
     final Path _mapsDirectory = Paths.get(_workingDir.toString(), "resources", "data", "maps");
+    final Path _soundDirectory = Paths.get(_workingDir.toString(), "resources", "sound");
 
     Map currentMap;
     ArrayList<Map> availableMaps = _loadAvailableMaps();
@@ -36,6 +41,15 @@ public class World {
         this.itemData = currentMap.itemData;
         this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
+
+        try {
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_soundDirectory.toString(), "background.wav"));
+            clip.open(inputStream);
+            clip.start();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void update(String... mapName) {
