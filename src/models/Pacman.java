@@ -53,7 +53,7 @@ public class Pacman extends Thread {
         setPriority(1);
         while (true){
             try{
-                sleep(100);     //Geschwindigkeit von PacMan
+                sleep(450);     //Geschwindigkeit von PacMan
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -176,5 +176,9 @@ public class Pacman extends Thread {
     //RIGHT: X wird größer
     public void moveRight(){
         directionNew = directions.Right;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

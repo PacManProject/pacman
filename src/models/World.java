@@ -20,6 +20,7 @@ public class World {
     boolean[][] xyWorld;
     boolean[][] itemXyWorld;
     int counter;
+    Map map;
 
     public World(String... mapName) {
 
@@ -35,6 +36,30 @@ public class World {
         }
 
         Map map = gson.fromJson(jsonString, Map.class);
+
+        this.x = map.pos_x;
+        this.y = map.pos_y;
+        this.name = map.name;
+        this.xyWorld = map.data;
+        this.itemXyWorld = map.itemData;
+        this.itemXyWorld[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        countPointsOnWorld();
+    }
+
+    public void update(String... mapName) {
+
+        // if mapName not given, use default_map.json
+        String name = (mapName.length >= 1) ? mapName[0] : "default_map.json";
+        Path mapPath = Paths.get(workingDir.toString(), "resources", "data", "maps", name);
+
+        String jsonString = null;
+        try {
+            jsonString = Files.readString(mapPath, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        map = gson.fromJson(jsonString, Map.class);
 
         this.x = map.pos_x;
         this.y = map.pos_y;

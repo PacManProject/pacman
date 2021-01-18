@@ -137,6 +137,20 @@ public class Gui extends Thread {
 
     }
 
+    public void update() {
+        jf.add(gf);
+        gf.setDoubleBuffered(true);
+
+        jf.setResizable(false);
+        jf.setSize(scale*w.getXyWorld()[0].length, scale*w.getXyWorld().length + frameSize);
+        jf.setLocationRelativeTo(null);
+        jf.addKeyListener(new KeyControl(p));
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
+
+        jf.setVisible(true);
+    }
+
     public synchronized void run() {
 
         jf.add(gf);
@@ -153,6 +167,10 @@ public class Gui extends Thread {
 
         while (true) {
             this.paint();
+            if (p.getScore() == w.getCounter()) {
+                w.update("map3.json");
+                this.update();
+            }
         }
     }
 
