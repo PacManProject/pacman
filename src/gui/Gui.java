@@ -180,6 +180,11 @@ public class Gui extends Thread {
                 g1.setLocation();
                 this.update();
             }
+            if (w.getX() == w.getXg1() && w.getY() == w.getYg1()){
+                System.out.println("tot");
+                this.paint();
+                System.exit(0); //TODO replace with p.die() & implement health system
+            }
         }
     }
 
