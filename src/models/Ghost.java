@@ -1,5 +1,7 @@
 package src.models;
 
+import src.util.GhostKi;
+
 public class Ghost extends Thread {
     public enum directions {
         Up,
@@ -12,6 +14,8 @@ public class Ghost extends Thread {
     directions directionNew = direction;
 
     World world1;
+
+    GhostKi ki = new GhostKi(this);
 
     public Ghost(World w) {
         world1 = w;
@@ -30,6 +34,7 @@ public class Ghost extends Thread {
     }
 
     public void run(){
+        ki.start();
         setPriority(1);
         while (true){
             try{
@@ -37,27 +42,6 @@ public class Ghost extends Thread {
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
-
-            //random movement
-            int i = (int)(Math.random()*4);
-            switch (i) {
-                case 0:
-                    directionNew = directions.Up;
-                    break;
-                case 1:
-                    directionNew = directions.Down;
-                    break;
-                case 2:
-                    directionNew = directions.Left;
-                    break;
-                case 3:
-                    directionNew = directions.Right;
-                    break;
-                default:
-                    System.out.println("leandro suk cok");
-                    break;
-            }
-
             this.move();
         }
     }
