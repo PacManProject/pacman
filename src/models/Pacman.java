@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import src.util.Scoreboard;
+
 public class Pacman extends Thread {
     int score = 0;
 
@@ -150,11 +152,8 @@ public class Pacman extends Thread {
         if (score == world1.getMapScore()){
             this.scoreboard.addToCurrentScore(score);
 
-
             //FIXME
             //TODO: only save the score when the player dies
-            //TODO: also load new map
-            this.scoreboard.addScore();
         }
     }
 
