@@ -1,3 +1,7 @@
+//Initial file creator: https://github.com/dadope
+//Other contributors:
+// https://github.com/SomeOtherGod
+
 package src.models;
 
 public class Map {
