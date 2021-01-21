@@ -141,7 +141,7 @@ public class Gui extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        frameCounter = (frameCounter+1)%5;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
+        frameCounter = (frameCounter+1)%5;  // frameCounter wird nach 4 frames zurückgesetzt auf 0, sorgt für angenehme Animation
 
     }
 

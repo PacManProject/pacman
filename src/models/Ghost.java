@@ -33,7 +33,7 @@ public class Ghost extends Thread {
         setPriority(1);
         while (true){
             try{
-                sleep(450);     //Geschwindigkeit von Ghost
+                sleep(10);     //Geschwindigkeit von Ghost
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
@@ -59,6 +59,31 @@ public class Ghost extends Thread {
             }
 
             this.move();
+            try{
+                sleep(450);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            this.move();
+            try{
+                sleep(450);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            this.move();
+            try{
+                sleep(450);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            this.move();
+            try{
+                sleep(450);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+
+
         }
     }
 

@@ -44,7 +44,7 @@ public class World {
 
         try {
             Clip clip = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_soundDirectory.toString(), "background.wav"));
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_soundDirectory.toString(), "background1.wav"));
             clip.open(inputStream);
             clip.start();
         } catch (Exception e) {
