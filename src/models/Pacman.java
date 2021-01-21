@@ -1,3 +1,9 @@
+//Initial file creator: https://github.com/TobiwanSUMB
+//Other contributors:
+// https://github.com/dadope
+// https://github.com/SomeOtherGod
+// https://github.com/Moritz-MT
+
 package src.models;
 
 import com.google.gson.Gson;

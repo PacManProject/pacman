@@ -1,3 +1,6 @@
+//Initial file creator: https://github.com/SomeOtherGod
+//Other contributors: https://github.com/dadope
+
 import src.gui.Gui;
 import src.models.Ghost;
 import src.models.Pacman;

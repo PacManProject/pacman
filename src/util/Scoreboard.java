@@ -1,3 +1,5 @@
+//Initial file creator: https://github.com/dadope
+
 package src.util;
 
 import com.google.gson.Gson;

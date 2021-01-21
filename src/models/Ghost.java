@@ -1,3 +1,5 @@
+//Initial file creator: https://github.com/SomeOtherGod
+
 package src.models;
 
 import src.util.GhostKi;

@@ -1,3 +1,8 @@
+//Initial file creator: https://github.com/SomeOtherGod
+//Other contributors:
+// https://github.com/dadope
+// https://github.com/Moritz-MT
+
 package src.gui;
 
 import src.models.Ghost;
