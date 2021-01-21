@@ -58,31 +58,6 @@ public class Ghost extends Thread {
                     break;
             }
 
-            this.move();
-            try{
-                sleep(450);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            this.move();
-            try{
-                sleep(450);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            this.move();
-            try{
-                sleep(450);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            this.move();
-            try{
-                sleep(450);
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-
 
         }
     }
