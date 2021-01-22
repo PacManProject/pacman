@@ -1,0 +1,23 @@
+{
+  "name":"testKreuzungT",
+  "pos_x": 0,
+  "pos_y": 0,
+  "mapData":[
+    [true,false,true,true,true,true,true,false],
+    [false,true,false,false,true,false,false,true],
+    [false,true,false,false,true,false,false,true],
+    [false,true,true,true,false,true,true,true],
+    [false,true,false,false,true,false,false,true],
+    [false,true,false,false,true,false,false,true],
+    [false,false,true,true,true,true,true,false]
+  ],
+  "itemData":[
+    [true,false,true,true,true,true,true,false],
+    [false,true,false,false,true,false,false,true],
+    [false,true,false,false,true,false,false,true],
+    [false,true,true,true,false,true,true,true],
+    [false,true,false,false,true,false,false,true],
+    [false,true,false,false,true,false,false,true],
+    [false,false,true,true,true,true,true,false]
+  ]
+}
