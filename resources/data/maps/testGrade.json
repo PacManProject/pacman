@@ -1,0 +1,19 @@
+{
+  "name":"testGrade",
+  "pos_x": 0,
+  "pos_y": 0,
+  "mapData":[
+    [true,false,false,false,false,false,false],
+    [false,true,false,true,true,true,true],
+    [false,true,false,false,false,false,false],
+    [false,true,false,false,false,false,false],
+    [false,true,false,false,false,false,false]
+  ],
+  "itemData":[
+    [true,false,false,false,false,false,false],
+    [false,true,false,true,true,true,true],
+    [false,true,false,false,false,false,false],
+    [false,true,false,false,false,false,false],
+    [false,true,false,false,false,false,false]
+  ]
+}
