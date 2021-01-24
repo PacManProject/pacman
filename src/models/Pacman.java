@@ -73,8 +73,12 @@ public class Pacman extends Thread {
     public void move(){
         switch (directionNew){
             case Up:
-                if(world1.y-1 >= 0 && world1.currentMap.mapData[world1.y-1%world1.currentMap.mapData.length][world1.x]){
-                    world1.y--;
+                if(world1.currentMap.mapData[world1.y-1%world1.currentMap.mapData.length][world1.x]){
+                    if ((world1.y - 1) < 0) {
+                        world1.y = world1.currentMap.mapData[0].length-1;
+                    } else {
+                        world1.y--;
+                    }
                     increasePoints();
                     world1.itemData[world1.y][world1.x] = false;
                     direction = directionNew;
@@ -84,8 +88,12 @@ public class Pacman extends Thread {
 
                 break;
             case Down:
-                if(world1.y+1 < world1.currentMap.mapData.length && world1.currentMap.mapData[world1.y+1%world1.currentMap.mapData.length][world1.x]){
-                    world1.y++;
+                if(world1.currentMap.mapData[world1.y+1%world1.currentMap.mapData.length][world1.x]){
+                    if ((world1.y + 1) == world1.currentMap.mapData[0].length) {
+                        world1.y = 0;
+                    } else {
+                        world1.y++;
+                    }
                     increasePoints();
                     world1.itemData[world1.y][world1.x] = false;
                     direction = directionNew;
@@ -94,8 +102,12 @@ public class Pacman extends Thread {
                 }
                 break;
             case Left:
-                if(world1.x-1 >= 0 && world1.currentMap.mapData[world1.y][world1.x-1%world1.currentMap.mapData[0].length]){
-                    world1.x--;
+                if(world1.currentMap.mapData[world1.y][world1.x-1%world1.currentMap.mapData[0].length]){
+                    if ((world1.x - 1) < 0) {
+                        world1.x = world1.currentMap.mapData.length-1;
+                    } else {
+                        world1.x--;
+                    }
                     increasePoints();
                     world1.itemData[world1.y][world1.x] = false;
                     direction = directionNew;
@@ -104,8 +116,12 @@ public class Pacman extends Thread {
                 }
                 break;
             case Right:
-                if(world1.x+1 < world1.currentMap.mapData[0].length && world1.currentMap.mapData[world1.y][world1.x+1%world1.currentMap.mapData[0].length]){
-                    world1.x++;
+                if(world1.currentMap.mapData[world1.y][world1.x+1%world1.currentMap.mapData[0].length]){
+                    if ((world1.x + 1) == world1.currentMap.mapData.length) {
+                        world1.x = 0;
+                    } else {
+                        world1.x++;
+                    }
                     increasePoints();
                     world1.itemData[world1.y][world1.x] = false;
                     direction = directionNew;
