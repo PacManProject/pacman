@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         p.start();
-        //g1.start();
+        g1.start();
         g.start();
     }
 }
