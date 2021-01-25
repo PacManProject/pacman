@@ -1,4 +1,4 @@
-//Initial file creator: https://github.com/SomeOtherGod
+//Initial file creator: https://github.com/dadope
 
 package src.util;
 
