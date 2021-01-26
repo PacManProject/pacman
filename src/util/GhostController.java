@@ -29,8 +29,6 @@ public class GhostController extends Thread {
                 e.printStackTrace();
             }
             availableDirections = gh.getAvailableDirections();
-            System.out.println(lastMovement);
-            System.out.println(availableDirections);
 
             if (lastMovement == null){
                 lastMovement = availableDirections.get(randomGenerator.nextInt(availableDirections.size()));
@@ -49,11 +47,6 @@ public class GhostController extends Thread {
                     lastMovement = availableDirections.get(randomGenerator.nextInt(availableDirections.size()));
                 }
             }
-
-            System.out.println(availableDirections);
-            System.out.println(lastMovement);
-            System.out.println("################");
-
             gh.move(lastMovement);
         }
     }

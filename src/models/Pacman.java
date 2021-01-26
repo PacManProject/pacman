@@ -46,22 +46,8 @@ public class Pacman extends Thread {
     World currentWorld;
     Scoreboard scoreboard;
 
-    Gson gson = new Gson();
-    Path workingDir = Paths.get(System.getProperty("user.dir"));
-
     public Pacman(String... filename) {
-        // if scorename not given, use default.json
-        String name = (filename.length >= 1) ? filename[0] : "default.json";
-        Path scorePath = Paths.get(workingDir.toString(), "resources", "data", "scores", name);
-
-        String jsonString = null;
-        try {
-            jsonString = Files.readString(scorePath, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        this.scoreboard = gson.fromJson(jsonString, Scoreboard.class);
+        this.scoreboard = new Scoreboard(filename);
     }
 
     public void updateCurrentWorld(World currentWorld) {
