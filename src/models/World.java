@@ -29,24 +29,24 @@ public class World {
     Map currentMap;
     ArrayList<Map> availableMaps = _loadAvailableMaps();
 
-    int x;
-    int y;
-    int xg1;
-    int yg1;
+    Pacman pacman;
+    ArrayList<Ghost> ghosts;
     int mapScore;
 
     boolean[][] itemData;
 
-    public World(String... mapName) {
-        // if mapName not given, use default_map.json
-        String name = (mapName.length >= 1) ? mapName[0] : "default_map";
-        currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
+    public World(Pacman p, ArrayList<Ghost> ghosts, String... mapName) {
+        this.pacman = p;
+        this.ghosts = ghosts;
 
-        this.x = currentMap.pos_x;
-        this.y = currentMap.pos_y;
-        this.itemData = currentMap.itemData;
-        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
-        countPointsOnWorld();
+        this.update(mapName);
+
+        ghosts.forEach(
+                ghost -> {
+                    ghost.start(this);
+                }
+        );
+
 
         try {
             Clip clip = AudioSystem.getClip();
@@ -62,10 +62,18 @@ public class World {
         String name = (mapName.length >= 1) ? mapName[0] : "default_map";
         currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
 
-        this.x = currentMap.pos_x;
-        this.y = currentMap.pos_y;
+        pacman.updateCurrentWorld(this);
         this.itemData = currentMap.itemData;
-        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = false;     //Am Spawn, spawnt kein Punkt
+        countPointsOnWorld();
+    }
+
+    public void update(Map map) {
+        this.currentMap = map;
+
+        pacman.updateCurrentWorld(this);
+        this.itemData = currentMap.itemData;
+        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
@@ -98,14 +106,6 @@ public class World {
         return itemData;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
     public void countPointsOnWorld(){
         mapScore = 0;
         for (boolean[] booleans : itemData) {
@@ -120,13 +120,5 @@ public class World {
 
     public int getMapScore(){
         return mapScore;
-    }
-
-    public int getXg1() {
-        return xg1;
-    }
-
-    public int getYg1() {
-        return yg1;
     }
 }
