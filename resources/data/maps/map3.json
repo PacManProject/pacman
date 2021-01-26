@@ -1,6 +1,6 @@
 {
     "name":"map3",
-    "pos_x": 19,
+    "pos_x": 18,
     "pos_y": 9,
     "mapData":[
         [false, false, false, false,false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],

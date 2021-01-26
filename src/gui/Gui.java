@@ -219,8 +219,6 @@ public class Gui extends Thread {
                         g.setColor(Color.blue);
                         g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
                         g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
-                    } else if (pacman.getPos_x() == y && pacman.getPos_y() == x){
-                        g.drawImage(currentImage, y*scale, x*scale, scale, scale, null);
                     } else {
                         g.setColor(Color.black);
                         g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
@@ -230,26 +228,20 @@ public class Gui extends Thread {
             }
             for (int x = 0; x < w.getItemData().length; x++) {   //zeichnet die Punkte
                 for (int y = 0; y < w.getItemData()[0].length; y++) {
-                    //Necesary because the values have to be
-                    int cursor_x = x;
-                    int cursor_y = y;
-
-
                     if (w.getItemData()[x][y]){
                         g.setColor(Color.yellow);
                         int offset = scale/4;
 
                         g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
                     }
-                    ghosts.forEach(
-                            ghost -> {
-                                if (ghost.getPos_y() == cursor_x && ghost.getPos_x() == cursor_y){
-                                    g.drawImage(ghost1img, cursor_y*scale, cursor_x*scale, scale, scale, null);
-                                }
-                            }
-                    );
                 }
             }
+            g.drawImage(currentImage, pacman.getPos_x()*scale, pacman.getPos_y()*scale, scale, scale, null);
+            ghosts.forEach(
+                    ghost -> {
+                        g.drawImage(ghost1img, ghost.getPos_x()*scale, ghost.getPos_y()*scale, scale, scale, null);
+                    }
+            );
         }
     }
 }
