@@ -6,14 +6,6 @@
 
 package src.models;
 
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import src.util.Scoreboard;
 
 public class Pacman extends Thread {

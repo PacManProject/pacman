@@ -6,20 +6,20 @@
 package src.gui;
 
 import src.models.Ghost;
-import src.models.Map;
 import src.models.World;
 import src.models.Pacman;
 import src.util.KeyControl;
 
 import java.awt.*;
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+
+import javax.swing.*;
+import javax.imageio.ImageIO;
 
 public class Gui extends Thread {
     int frameSize = 30;
@@ -174,8 +174,7 @@ public class Gui extends Thread {
         while (true) {
             this.paint();
             if (pacman.getScore() == currentWorld.getMapScore()) {
-                //TODO: remove hardcode
-                changeMap("map3");
+                changeScene();
             }
 
             ghosts.forEach(
@@ -190,14 +189,8 @@ public class Gui extends Thread {
         }
     }
 
-    public void changeMap(String mapName){
-        currentWorld.update(mapName);
-        ghosts.forEach(Ghost::setLocation);
-        this._updateGraphics();
-    }
-
-    public void changeMap(Map map){
-        currentWorld.update(map);
+    public void changeScene(){
+        currentWorld.changeMapRandomly(currentWorld.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
         this._updateGraphics();
     }

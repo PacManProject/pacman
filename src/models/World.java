@@ -3,22 +3,23 @@
 // https://github.com/SomeOtherGod
 // https://github.com/Moritz-MT
 
-
 package src.models;
 
 import com.google.gson.*;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import java.io.File;
-import java.nio.file.Path;
 import java.io.IOException;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.stream.Stream;
+import java.nio.file.Path;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.stream.Stream;
+
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.AudioInputStream;
 
 public class World {
     Gson gson = new Gson();
@@ -39,7 +40,7 @@ public class World {
         this.pacman = p;
         this.ghosts = ghosts;
 
-        this.update(mapName);
+        this.updateMap(mapName);
 
         ghosts.forEach(
                 ghost -> {
@@ -58,7 +59,20 @@ public class World {
         }
     }
 
-    public void update(String... mapName) {
+    public void changeMapRandomly(Map... mapToExclude){
+        Random randomGenerator = new Random();
+        ArrayList<Map> mapsToChooseFrom = availableMaps;
+
+        if (mapToExclude.length >= 1){
+            for (Map map: mapToExclude){
+                mapsToChooseFrom.remove(map);
+            }
+        }
+
+        updateMap(mapsToChooseFrom.get(randomGenerator.nextInt(mapsToChooseFrom.size())));
+    }
+
+    public void updateMap(String... mapName) {
         String name = (mapName.length >= 1) ? mapName[0] : "default_map";
         currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
 
@@ -68,7 +82,7 @@ public class World {
         countPointsOnWorld();
     }
 
-    public void update(Map map) {
+    public void updateMap(Map map) {
         this.currentMap = map;
 
         pacman.updateCurrentWorld(this);
@@ -120,5 +134,9 @@ public class World {
 
     public int getMapScore(){
         return mapScore;
+    }
+
+    public Map getCurrentMap() {
+        return currentMap;
     }
 }

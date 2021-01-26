@@ -7,12 +7,12 @@ import com.google.gson.Gson;
 import src.models.Score;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 
 public class Scoreboard {
     Gson gson = new Gson();
