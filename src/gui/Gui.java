@@ -88,7 +88,7 @@ public class Gui extends Thread {
                         break;
 
                     case 1:
-                    case 4:
+                    case 3:
                         currentImage = pacmanUp1;
                         break;
                     case 2:
@@ -103,7 +103,7 @@ public class Gui extends Thread {
                         break;
 
                     case 1:
-                    case 4:
+                    case 3:
                         currentImage = pacmanDown1;
                         break;
                     case 2:
@@ -118,7 +118,7 @@ public class Gui extends Thread {
                         break;
 
                     case 1:
-                    case 4:
+                    case 3:
                         currentImage = pacmanLeft1;
                         break;
                     case 2:
@@ -133,7 +133,7 @@ public class Gui extends Thread {
                         break;
 
                     case 1:
-                    case 4:
+                    case 3:
                         currentImage = pacmanRight1;
                         break;
                     case 2:
@@ -151,7 +151,7 @@ public class Gui extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        frameCounter = (frameCounter+1)%5;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
+        frameCounter = (frameCounter+1)%4;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
 
     }
 
