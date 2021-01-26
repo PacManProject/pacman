@@ -5,8 +5,8 @@ package src.util;
 import src.models.Ghost;
 import src.models.Pacman.directions;
 
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class GhostController extends Thread {
     Ghost gh;
