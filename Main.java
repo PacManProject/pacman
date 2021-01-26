@@ -6,11 +6,21 @@ import src.models.Ghost;
 import src.models.Pacman;
 import src.models.World;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Main {
-    static World w = new World("map2");
-    static Pacman p = new Pacman(w);
-    static Ghost g1 = new Ghost(w);
-    static Gui g = new Gui(w, p, g1);
+    //TODO: initialize all values in GUI
+
+    static Pacman p = new Pacman();
+    static Ghost g1 = new Ghost();
+
+    static ArrayList<Ghost> ghosts = new ArrayList<>(Collections.singletonList(
+            g1
+    ));
+
+    static World w = new World(p, ghosts, "map2");
+    static Gui g = new Gui(w, p, ghosts);
 
     public static void main(String[] args) {
         p.start();

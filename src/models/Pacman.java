@@ -36,19 +36,20 @@ public class Pacman extends Thread {
         }
     }
 
+    int pos_x;
+    int pos_y;
+
     directions direction = directions.Left;
     directions directionNew = direction;
     directions directionNext = direction;
 
-    World world1;
+    World currentWorld;
     Scoreboard scoreboard;
 
     Gson gson = new Gson();
     Path workingDir = Paths.get(System.getProperty("user.dir"));
 
-    public Pacman(World w, String... filename) {
-        world1 = w;
-
+    public Pacman(String... filename) {
         // if scorename not given, use default.json
         String name = (filename.length >= 1) ? filename[0] : "default.json";
         Path scorePath = Paths.get(workingDir.toString(), "resources", "data", "scores", name);
@@ -61,6 +62,18 @@ public class Pacman extends Thread {
         }
 
         this.scoreboard = gson.fromJson(jsonString, Scoreboard.class);
+    }
+
+    public void setCurrentWorld(World currentWorld) {
+        this.currentWorld = currentWorld;
+    }
+
+    public int getPos_x() {
+        return pos_x;
+    }
+
+    public int getPos_y() {
+        return pos_y;
     }
 
     public directions getDirection() {
@@ -84,18 +97,18 @@ public class Pacman extends Thread {
         int testLength;
         switch (directionNew){
             case Up:
-                testLength = world1.y-1;
+                testLength = currentWorld.y-1;
                 if (testLength < 0) {
-                    testLength = world1.currentMap.mapData.length-1;
+                    testLength = currentWorld.currentMap.mapData.length-1;
                 }
-                if(world1.currentMap.mapData[testLength][world1.x]){
-                    if ((world1.y - 1) < 0) {
-                        world1.y = testLength;
+                if(currentWorld.currentMap.mapData[testLength][currentWorld.x]){
+                    if ((currentWorld.y - 1) < 0) {
+                        currentWorld.y = testLength;
                     } else {
-                        world1.y--;
+                        currentWorld.y--;
                     }
                     increasePoints();
-                    world1.itemData[world1.y][world1.x] = false;
+                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
@@ -103,46 +116,46 @@ public class Pacman extends Thread {
 
                 break;
             case Down:
-                if(world1.currentMap.mapData[(world1.y+1)%world1.currentMap.mapData.length][world1.x]){
-                    if ((world1.y + 1) == world1.currentMap.mapData.length) {
-                        world1.y = 0;
+                if(currentWorld.currentMap.mapData[(currentWorld.y+1)% currentWorld.currentMap.mapData.length][currentWorld.x]){
+                    if ((currentWorld.y + 1) == currentWorld.currentMap.mapData.length) {
+                        currentWorld.y = 0;
                     } else {
-                        world1.y++;
+                        currentWorld.y++;
                     }
                     increasePoints();
-                    world1.itemData[world1.y][world1.x] = false;
+                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
                 }
                 break;
             case Left:
-                testLength = world1.x-1;
+                testLength = currentWorld.x-1;
                 if (testLength < 0) {
-                    testLength = world1.currentMap.mapData[0].length-1;
+                    testLength = currentWorld.currentMap.mapData[0].length-1;
                 }
-                if(world1.currentMap.mapData[world1.y][testLength]){
-                    if ((world1.x - 1) < 0) {
-                        world1.x = testLength;
+                if(currentWorld.currentMap.mapData[currentWorld.y][testLength]){
+                    if ((currentWorld.x - 1) < 0) {
+                        currentWorld.x = testLength;
                     } else {
-                        world1.x--;
+                        currentWorld.x--;
                     }
                     increasePoints();
-                    world1.itemData[world1.y][world1.x] = false;
+                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
                 }
                 break;
             case Right:
-                if(world1.currentMap.mapData[world1.y][(world1.x+1)%world1.currentMap.mapData[0].length]){
-                    if ((world1.x + 1) == world1.currentMap.mapData[0].length) {
-                        world1.x = 0;
+                if(currentWorld.currentMap.mapData[currentWorld.y][(currentWorld.x+1)% currentWorld.currentMap.mapData[0].length]){
+                    if ((currentWorld.x + 1) == currentWorld.currentMap.mapData[0].length) {
+                        currentWorld.x = 0;
                     } else {
-                        world1.x++;
+                        currentWorld.x++;
                     }
                     increasePoints();
-                    world1.itemData[world1.y][world1.x] = false;
+                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -154,7 +167,7 @@ public class Pacman extends Thread {
     }
 
     public void increasePoints(){
-        if (world1.itemData[world1.y][world1.x]){
+        if (currentWorld.itemData[currentWorld.y][currentWorld.x]){
             score++;
             System.out.println("Score: " + score);
         }
@@ -166,22 +179,22 @@ public class Pacman extends Thread {
         directionNew = direction;//Richtung wird zurückgesetzt
         switch (direction) {// erneute Abfrage mit der ursprünglichen Richtung
             case Up:
-                if (world1.y - 1 >= 0 && world1.currentMap.mapData[world1.y - 1 % world1.currentMap.mapData.length][world1.x]) {
+                if (currentWorld.y - 1 >= 0 && currentWorld.currentMap.mapData[currentWorld.y - 1 % currentWorld.currentMap.mapData.length][currentWorld.x]) {
                     move();
                 }
                 break;
             case Down:
-                if (world1.y + 1 < world1.currentMap.mapData.length && world1.currentMap.mapData[world1.y + 1 % world1.currentMap.mapData.length][world1.x]) {
+                if (currentWorld.y + 1 < currentWorld.currentMap.mapData.length && currentWorld.currentMap.mapData[currentWorld.y + 1 % currentWorld.currentMap.mapData.length][currentWorld.x]) {
                     move();
                 }
                 break;
             case Left:
-                if (world1.x - 1 >= 0 && world1.currentMap.mapData[world1.y][world1.x - 1 % world1.currentMap.mapData[0].length]) {
+                if (currentWorld.x - 1 >= 0 && currentWorld.currentMap.mapData[currentWorld.y][currentWorld.x - 1 % currentWorld.currentMap.mapData[0].length]) {
                     move();
                 }
                 break;
             case Right:
-                if (world1.x + 1 < world1.currentMap.mapData[0].length && world1.currentMap.mapData[world1.y][world1.x + 1 % world1.currentMap.mapData[0].length]) {
+                if (currentWorld.x + 1 < currentWorld.currentMap.mapData[0].length && currentWorld.currentMap.mapData[currentWorld.y][currentWorld.x + 1 % currentWorld.currentMap.mapData[0].length]) {
                     move();
                 }
                 break;
@@ -190,7 +203,7 @@ public class Pacman extends Thread {
     }
 
     public void noPointsLeft(){//Noah deine Methode wenn alle Punkte gegessen sind
-        if (score == world1.getMapScore()){
+        if (score == currentWorld.getMapScore()){
             this.scoreboard.addToCurrentScore(score);
 
             //FIXME

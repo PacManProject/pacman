@@ -29,18 +29,29 @@ public class World {
     Map currentMap;
     ArrayList<Map> availableMaps = _loadAvailableMaps();
 
+    Pacman pacman;
+    ArrayList<Ghost> ghosts;
+    int mapScore;
+
     int x;
     int y;
-    int xg1;
-    int yg1;
-    int mapScore;
 
     boolean[][] itemData;
 
-    public World(String... mapName) {
+    public World(Pacman p, ArrayList<Ghost> ghosts, String... mapName) {
         // if mapName not given, use default_map.json
         String name = (mapName.length >= 1) ? mapName[0] : "default_map";
         currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
+
+        this.pacman = p;
+        this.ghosts = ghosts;
+
+        this.pacman.setCurrentWorld(this);
+        ghosts.forEach(
+                ghost -> {
+                    ghost.start(this);
+                }
+        );
 
         this.x = currentMap.pos_x;
         this.y = currentMap.pos_y;
@@ -61,6 +72,16 @@ public class World {
     public void update(String... mapName) {
         String name = (mapName.length >= 1) ? mapName[0] : "default_map";
         currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
+
+        this.x = currentMap.pos_x;
+        this.y = currentMap.pos_y;
+        this.itemData = currentMap.itemData;
+        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        countPointsOnWorld();
+    }
+
+    public void update(Map map) {
+        this.currentMap = map;
 
         this.x = currentMap.pos_x;
         this.y = currentMap.pos_y;
@@ -120,13 +141,5 @@ public class World {
 
     public int getMapScore(){
         return mapScore;
-    }
-
-    public int getXg1() {
-        return xg1;
-    }
-
-    public int getYg1() {
-        return yg1;
     }
 }
