@@ -1,27 +1,25 @@
 //Initial file creator: https://github.com/SomeOtherGod
+//Other contributors:
+// https://github.com/dadope
 
 package src.models;
 
-import src.util.GhostKi;
+import src.util.GhostController;
+import src.models.Pacman.directions;
 
-public class Ghost extends Thread {
-    public enum directions {
-        Up,
-        Down,
-        Left,
-        Right
-    }
+import java.util.ArrayList;
 
+public class Ghost{
     directions direction = directions.Left;
-    directions directionNew = direction;
 
     World world1;
 
-    GhostKi ki = new GhostKi(this);
+    GhostController ki = new GhostController(this);
 
     public Ghost(World w) {
         world1 = w;
         this.setLocation();
+        ki.start();
     }
 
     public void setLocation() {
@@ -35,43 +33,30 @@ public class Ghost extends Thread {
         }
     }
 
-    public void run(){
-        ki.start();
-        setPriority(1);
-        while (true){
-            try{
-                sleep(450);     //Geschwindigkeit von Ghost
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            this.move();
-        }
-    }
-
-    public void move(){
-        switch (directionNew){
+    public void move(directions dir){
+        switch (dir){
             case Up:
                 if(world1.yg1-1 >= 0 && world1.currentMap.mapData[world1.yg1-1%world1.currentMap.mapData.length][world1.xg1]){
                     world1.yg1--;
-                    direction = directionNew;
+                    direction = dir;
                 }
                 break;
             case Down:
                 if(world1.yg1+1 < world1.currentMap.mapData.length && world1.currentMap.mapData[world1.yg1+1%world1.currentMap.mapData.length][world1.xg1]){
                     world1.yg1++;
-                    direction = directionNew;
+                    direction = dir;
                 }
                 break;
             case Left:
                 if(world1.xg1-1 >= 0 && world1.currentMap.mapData[world1.yg1][world1.xg1-1%world1.currentMap.mapData[0].length]){
                     world1.xg1--;
-                    direction = directionNew;
+                    direction = dir;
                 }
                 break;
             case Right:
                 if(world1.xg1+1 < world1.currentMap.mapData[0].length && world1.currentMap.mapData[world1.yg1][world1.xg1+1%world1.currentMap.mapData[0].length]){
                     world1.xg1++;
-                    direction = directionNew;
+                    direction = dir;
                 }
                 break;
             default:
@@ -79,23 +64,19 @@ public class Ghost extends Thread {
         }
     }
 
-    //UP: Y wird kleiner
-    public void moveUp(){
-        directionNew = directions.Up;
-    }
+    public ArrayList<Pacman.directions> getAvailableDirections(){
+        ArrayList<directions> availableDirections = new ArrayList<>();
 
-    //DOWN: Y wird größer
-    public void moveDown(){
-        directionNew = directions.Down;
-    }
+        if(world1.xg1+1 < world1.currentMap.mapData[0].length && world1.currentMap.mapData[world1.yg1][world1.xg1+1%world1.currentMap.mapData[0].length]){
+            availableDirections.add(directions.Right);
+        }if(world1.xg1-1 >= 0 && world1.currentMap.mapData[world1.yg1][world1.xg1-1%world1.currentMap.mapData[0].length]){
+            availableDirections.add(directions.Left);
+        }if(world1.yg1-1 >= 0 && world1.currentMap.mapData[world1.yg1-1%world1.currentMap.mapData.length][world1.xg1]){
+            availableDirections.add(directions.Up);
+        }if(world1.yg1+1 < world1.currentMap.mapData.length && world1.currentMap.mapData[world1.yg1+1%world1.currentMap.mapData.length][world1.xg1]){
+            availableDirections.add(directions.Down);
+        }
 
-    //LEFT: X wird kleiner
-    public void moveLeft(){
-        directionNew = directions.Left;
-    }
-
-    //RIGHT: X wird größer
-    public void moveRight(){
-        directionNew = directions.Right;
+        return availableDirections;
     }
 }

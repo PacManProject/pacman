@@ -23,7 +23,17 @@ public class Pacman extends Thread {
         Up,
         Down,
         Left,
-        Right
+        Right;
+
+        public static directions switch_dir(directions directions){
+            switch (directions){
+                case Up: return Down;
+                case Down: return Up;
+                case Left: return Right;
+                case Right: return Left;
+            }
+            return null;
+        }
     }
 
     directions direction = directions.Left;
