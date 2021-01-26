@@ -64,8 +64,11 @@ public class Pacman extends Thread {
         this.scoreboard = gson.fromJson(jsonString, Scoreboard.class);
     }
 
-    public void setCurrentWorld(World currentWorld) {
+    public void updateCurrentWorld(World currentWorld) {
         this.currentWorld = currentWorld;
+
+        this.pos_x = currentWorld.currentMap.pos_x;
+        this.pos_y = currentWorld.currentMap.pos_y;
     }
 
     public int getPos_x() {
@@ -97,18 +100,18 @@ public class Pacman extends Thread {
         int testLength;
         switch (directionNew){
             case Up:
-                testLength = currentWorld.y-1;
+                testLength = this.pos_y-1;
                 if (testLength < 0) {
                     testLength = currentWorld.currentMap.mapData.length-1;
                 }
-                if(currentWorld.currentMap.mapData[testLength][currentWorld.x]){
-                    if ((currentWorld.y - 1) < 0) {
-                        currentWorld.y = testLength;
+                if(currentWorld.currentMap.mapData[testLength][this.pos_x]){
+                    if ((this.pos_y - 1) < 0) {
+                        this.pos_y = testLength;
                     } else {
-                        currentWorld.y--;
+                        this.pos_y--;
                     }
                     increasePoints();
-                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
@@ -116,46 +119,46 @@ public class Pacman extends Thread {
 
                 break;
             case Down:
-                if(currentWorld.currentMap.mapData[(currentWorld.y+1)% currentWorld.currentMap.mapData.length][currentWorld.x]){
-                    if ((currentWorld.y + 1) == currentWorld.currentMap.mapData.length) {
-                        currentWorld.y = 0;
+                if(currentWorld.currentMap.mapData[(this.pos_y+1)% currentWorld.currentMap.mapData.length][this.pos_x]){
+                    if ((this.pos_y + 1) == currentWorld.currentMap.mapData.length) {
+                        this.pos_y = 0;
                     } else {
-                        currentWorld.y++;
+                        this.pos_y++;
                     }
                     increasePoints();
-                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
                 }
                 break;
             case Left:
-                testLength = currentWorld.x-1;
+                testLength = this.pos_x-1;
                 if (testLength < 0) {
                     testLength = currentWorld.currentMap.mapData[0].length-1;
                 }
-                if(currentWorld.currentMap.mapData[currentWorld.y][testLength]){
-                    if ((currentWorld.x - 1) < 0) {
-                        currentWorld.x = testLength;
+                if(currentWorld.currentMap.mapData[this.pos_y][testLength]){
+                    if ((this.pos_x - 1) < 0) {
+                        this.pos_x = testLength;
                     } else {
-                        currentWorld.x--;
+                        this.pos_x--;
                     }
                     increasePoints();
-                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
                 }
                 break;
             case Right:
-                if(currentWorld.currentMap.mapData[currentWorld.y][(currentWorld.x+1)% currentWorld.currentMap.mapData[0].length]){
-                    if ((currentWorld.x + 1) == currentWorld.currentMap.mapData[0].length) {
-                        currentWorld.x = 0;
+                if(currentWorld.currentMap.mapData[this.pos_y][(this.pos_x+1)% currentWorld.currentMap.mapData[0].length]){
+                    if ((this.pos_x + 1) == currentWorld.currentMap.mapData[0].length) {
+                        this.pos_x = 0;
                     } else {
-                        currentWorld.x++;
+                        this.pos_x++;
                     }
                     increasePoints();
-                    currentWorld.itemData[currentWorld.y][currentWorld.x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -167,7 +170,7 @@ public class Pacman extends Thread {
     }
 
     public void increasePoints(){
-        if (currentWorld.itemData[currentWorld.y][currentWorld.x]){
+        if (currentWorld.itemData[this.pos_y][this.pos_x]){
             score++;
             System.out.println("Score: " + score);
         }
@@ -179,22 +182,22 @@ public class Pacman extends Thread {
         directionNew = direction;//Richtung wird zurückgesetzt
         switch (direction) {// erneute Abfrage mit der ursprünglichen Richtung
             case Up:
-                if (currentWorld.y - 1 >= 0 && currentWorld.currentMap.mapData[currentWorld.y - 1 % currentWorld.currentMap.mapData.length][currentWorld.x]) {
+                if (this.pos_y - 1 >= 0 && currentWorld.currentMap.mapData[this.pos_y - 1 % currentWorld.currentMap.mapData.length][this.pos_x]) {
                     move();
                 }
                 break;
             case Down:
-                if (currentWorld.y + 1 < currentWorld.currentMap.mapData.length && currentWorld.currentMap.mapData[currentWorld.y + 1 % currentWorld.currentMap.mapData.length][currentWorld.x]) {
+                if (this.pos_y + 1 < currentWorld.currentMap.mapData.length && currentWorld.currentMap.mapData[this.pos_y + 1 % currentWorld.currentMap.mapData.length][this.pos_x]) {
                     move();
                 }
                 break;
             case Left:
-                if (currentWorld.x - 1 >= 0 && currentWorld.currentMap.mapData[currentWorld.y][currentWorld.x - 1 % currentWorld.currentMap.mapData[0].length]) {
+                if (this.pos_x - 1 >= 0 && currentWorld.currentMap.mapData[this.pos_y][this.pos_x - 1 % currentWorld.currentMap.mapData[0].length]) {
                     move();
                 }
                 break;
             case Right:
-                if (currentWorld.x + 1 < currentWorld.currentMap.mapData[0].length && currentWorld.currentMap.mapData[currentWorld.y][currentWorld.x + 1 % currentWorld.currentMap.mapData[0].length]) {
+                if (this.pos_x + 1 < currentWorld.currentMap.mapData[0].length && currentWorld.currentMap.mapData[this.pos_y][this.pos_x + 1 % currentWorld.currentMap.mapData[0].length]) {
                     move();
                 }
                 break;

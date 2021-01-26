@@ -219,7 +219,7 @@ public class Gui extends Thread {
                         g.setColor(Color.blue);
                         g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
                         g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
-                    } else if (w.getX() == y && w.getY() == x){
+                    } else if (pacman.getPos_x() == y && pacman.getPos_y() == x){
                         g.drawImage(currentImage, y*scale, x*scale, scale, scale, null);
                     } else {
                         g.setColor(Color.black);

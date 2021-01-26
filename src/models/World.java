@@ -33,31 +33,20 @@ public class World {
     ArrayList<Ghost> ghosts;
     int mapScore;
 
-    int x;
-    int y;
-
     boolean[][] itemData;
 
     public World(Pacman p, ArrayList<Ghost> ghosts, String... mapName) {
-        // if mapName not given, use default_map.json
-        String name = (mapName.length >= 1) ? mapName[0] : "default_map";
-        currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
-
         this.pacman = p;
         this.ghosts = ghosts;
 
-        this.pacman.setCurrentWorld(this);
+        this.update(mapName);
+
         ghosts.forEach(
                 ghost -> {
                     ghost.start(this);
                 }
         );
 
-        this.x = currentMap.pos_x;
-        this.y = currentMap.pos_y;
-        this.itemData = currentMap.itemData;
-        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
-        countPointsOnWorld();
 
         try {
             Clip clip = AudioSystem.getClip();
@@ -73,20 +62,18 @@ public class World {
         String name = (mapName.length >= 1) ? mapName[0] : "default_map";
         currentMap = availableMaps.stream().filter(map_to_find -> name.equals(map_to_find.name)).findFirst().orElse(availableMaps.get(0));
 
-        this.x = currentMap.pos_x;
-        this.y = currentMap.pos_y;
+        pacman.updateCurrentWorld(this);
         this.itemData = currentMap.itemData;
-        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
     public void update(Map map) {
         this.currentMap = map;
 
-        this.x = currentMap.pos_x;
-        this.y = currentMap.pos_y;
+        pacman.updateCurrentWorld(this);
         this.itemData = currentMap.itemData;
-        this.itemData[y][x] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = false;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
@@ -117,14 +104,6 @@ public class World {
 
     public boolean[][] getItemData() {
         return itemData;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 
     public void countPointsOnWorld(){
