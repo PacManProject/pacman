@@ -7,16 +7,19 @@ import src.models.Pacman;
 import src.models.World;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 public class Main {
     //TODO: initialize all values in GUI
 
     static Pacman p = new Pacman();
     static Ghost g1 = new Ghost();
+    static Ghost g2 = new Ghost();
+    static Ghost g3 = new Ghost();
+    static Ghost g4 = new Ghost();
 
-    static ArrayList<Ghost> ghosts = new ArrayList<>(Collections.singletonList(
-            g1
+    static ArrayList<Ghost> ghosts = new ArrayList<Ghost>(List.of(
+            g1, g2, g3 ,g4
     ));
 
     static World w = new World(p, ghosts, "map2");
