@@ -10,13 +10,17 @@ import src.models.Pacman.directions;
 import java.util.ArrayList;
 
 public class Ghost{
+    World currentWorld;
+
+    //Direction the ghost is currently facing
     directions direction = directions.Left;
 
-    World currentWorld;
-    
+    //x axis position of the ghost
     int pos_x;
+    //y axis position of the ghost
     int pos_y;
 
+    //Controls the movement of the ghost
     GhostController ghostController = new GhostController(this);
 
     public void start(World currentWorld) {
@@ -34,6 +38,7 @@ public class Ghost{
         return pos_x;
     }
 
+    //Randomly selects a possible location on the map
     public void setLocation() {
         while (true) {
             int i = (int)(Math.random()* currentWorld.currentMap.mapData.length), j = (int)(Math.random()* currentWorld.currentMap.mapData[0].length);
@@ -46,6 +51,7 @@ public class Ghost{
         }
     }
 
+    //Checks if it is possible to move the ghost to "dir", and moves the ghost
     public void move(directions dir){
         switch (dir){
             case Up:
@@ -77,6 +83,7 @@ public class Ghost{
         }
     }
 
+    //returns a list of all the possible directions the ghost can go to
     public ArrayList<Pacman.directions> getAvailableDirections(){
         ArrayList<directions> availableDirections = new ArrayList<>();
 

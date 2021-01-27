@@ -2,6 +2,7 @@
 
 package src.models;
 
+//Model class for .../resources/data/scores/*
 public class Score {
     public int highscore;
     public int[] scores;

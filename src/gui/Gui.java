@@ -29,9 +29,12 @@ public class Gui extends Thread {
 
     Random randomGenerator = new Random();
 
+    //Game working-directory, should correspond to the project root dir
     Path workingDir = Paths.get(System.getProperty("user.dir"));
+    //Path to the game-icon => .../resources/img/icon.png
     Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
-    Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
+    //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
+     Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
 
     BufferedImage sprite;
     BufferedImage pacman0;
@@ -44,6 +47,7 @@ public class Gui extends Thread {
     BufferedImage pacmanRight1;
     BufferedImage pacmanRight2;
 
+    //The pacman model that is currently being displayed
     BufferedImage currentImage;
 
     ArrayList<BufferedImage> clydeGhostImg = new ArrayList<BufferedImage>(); //lister der "orange" geister animation name:Clyde(Pokey)
@@ -51,6 +55,7 @@ public class Gui extends Thread {
     ArrayList<BufferedImage> pinkyGhostImg = new ArrayList<BufferedImage>(); //lister der "lavender" geister animation name:Pinky(Speedy)
     ArrayList<BufferedImage> inkyGhostImg = new ArrayList<BufferedImage>(); //lister der "aqua" geister animation name:Inky(Bashful)
 
+    //World currently being displayed
     World currentWorld;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
@@ -218,16 +223,19 @@ public class Gui extends Thread {
                 currentImage = pacman0;
                 break;
         }
+
         jf.repaint();
+
         try {
             wait(150);          //Geschwindigkeit der Animation (Framerate)
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        frameCounter = (frameCounter+1)%4;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
 
+        frameCounter = (frameCounter+1)%4;  // frameCounter wird nach 4 frames zurückgesetzt auf 0
     }
 
+    //
     private void _updateGraphics() {
         jf.add(guiPanel);
         guiPanel.setDoubleBuffered(true);
@@ -246,10 +254,13 @@ public class Gui extends Thread {
         _updateGraphics();
         while (true) {
             this.paint();
+
+            //Controls that after all the points are taken, the map is changed
             if (pacman.getScore() == currentWorld.getMapScore()) {
                 changeScene();
             }
 
+            //Controls that the player cant touch any of the ghosts
             ghosts.forEach(
                 ghost -> {
                     if (pacman.getPos_x() == ghost.getPos_x() && pacman.getPos_y() == ghost.getPos_y()){
@@ -262,6 +273,8 @@ public class Gui extends Thread {
         }
     }
 
+    //Changes the Map currently being displayed, to any other random map that isn't the current map
+    //TODO: add an optional parameter to change the map to a specific other map
     public void changeScene(){
         currentWorld.changeMapRandomly(currentWorld.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
@@ -277,9 +290,10 @@ public class Gui extends Thread {
         }
 
         @Override
-        public void paint(Graphics g) {         //zeichnet die Karte
-
-            for (int x = 0; x < w.getMapData().length; x++) {   //zeichnet die Map
+        //zeichnet die Karte
+        public void paint(Graphics g) {
+            //zeichnet die Map
+            for (int x = 0; x < w.getMapData().length; x++) {
                 for (int y = 0; y < w.getMapData()[0].length; y++) {
                     if (!w.getMapData()[x][y]) {
                         g.setColor(Color.blue);
@@ -292,7 +306,9 @@ public class Gui extends Thread {
                     }
                 }
             }
-            for (int x = 0; x < w.getItemData().length; x++) {   //zeichnet die Punkte
+
+            //zeichnet die Punkte
+            for (int x = 0; x < w.getItemData().length; x++) {
                 for (int y = 0; y < w.getItemData()[0].length; y++) {
                     if (w.getItemData()[x][y]){
                         g.setColor(Color.yellow);
@@ -302,7 +318,11 @@ public class Gui extends Thread {
                     }
                 }
             }
+
+            //draws the pacman
             g.drawImage(currentImage, pacman.getPos_x()*scale, pacman.getPos_y()*scale, scale, scale, null);
+
+            //draws every ghost to its corresponding x and y axes
             ghosts.forEach(
                 ghost -> {
                     g.drawImage(inkyGhostImg.get(randomGenerator.nextInt(inkyGhostImg.size())), ghost.getPos_x()*scale, ghost.getPos_y()*scale, scale, scale, null);

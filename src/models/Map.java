@@ -4,6 +4,7 @@
 
 package src.models;
 
+//Model class for .../resources/data/maps/*
 public class Map {
     String name;
     int pos_x;

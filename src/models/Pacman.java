@@ -11,13 +11,15 @@ import src.util.Scoreboard;
 public class Pacman extends Thread {
     int score = 0;
 
+    //All the possible directions the pacman can go to
     public enum directions {
         Up,
         Down,
         Left,
         Right;
 
-        public static directions switch_dir(directions directions){
+        //Inverts any given direction
+        public static directions invertDir(directions directions){
             switch (directions){
                 case Up: return Down;
                 case Down: return Up;
@@ -28,9 +30,12 @@ public class Pacman extends Thread {
         }
     }
 
+    //x axis position
     int pos_x;
+    //y axis position
     int pos_y;
 
+    //direction the ghost is currently facing
     directions direction = directions.Left;
     directions directionNew = direction;
     directions directionNext = direction;
@@ -147,6 +152,7 @@ public class Pacman extends Thread {
         }
     }
 
+    //Adds a point to the score if the pacman currently stands in a point
     public void increasePoints(){
         if (currentWorld.itemData[this.pos_y][this.pos_x]){
             score++;
