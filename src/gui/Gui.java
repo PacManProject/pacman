@@ -250,7 +250,7 @@ public class Gui extends Thread {
 
             //draws every ghost to its corresponding x and y axes
             for (Ghost ghost : ghosts) {
-               // g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * scale, ghost.getPos_y() * scale, scale, scale, null);
+                g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * scale, ghost.getPos_y() * scale, scale, scale, null);
             }
         }
     }

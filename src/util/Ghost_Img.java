@@ -18,7 +18,7 @@ public class Ghost_Img {
 
     BufferedImage sprite;
 
-    ArrayList<BufferedImage> ghostImg;
+    ArrayList<BufferedImage> ghostImg = new ArrayList<BufferedImage>();
 
     public Ghost_Img() {
 
