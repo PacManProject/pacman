@@ -50,11 +50,6 @@ public class Gui extends Thread {
     //The pacman model that is currently being displayed
     BufferedImage currentImage;
 
-    ArrayList<BufferedImage> clydeGhostImg = new ArrayList<BufferedImage>(); //lister der "orange" geister animation name:Clyde(Pokey)
-    ArrayList<BufferedImage> blinkyGhostImg = new ArrayList<BufferedImage>(); //lister der "red" geister animation name:Blinky(Schadow)
-    ArrayList<BufferedImage> pinkyGhostImg = new ArrayList<BufferedImage>(); //lister der "lavender" geister animation name:Pinky(Speedy)
-    ArrayList<BufferedImage> inkyGhostImg = new ArrayList<BufferedImage>(); //lister der "aqua" geister animation name:Inky(Bashful)
-
     //World currently being displayed
     World currentWorld;
 
@@ -86,75 +81,6 @@ public class Gui extends Thread {
         pacmanRight1 = sprite.getSubimage(16, 0, 13, 13);
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
-
-        blinkyGhostImg = fillBlinky();
-        clydeGhostImg = fillClyde();
-        inkyGhostImg = fillInky();
-        pinkyGhostImg = fillPinky();
-    }
-
-    private ArrayList<BufferedImage> fillBlinky() {
-        try {
-            blinkyGhostImg.add(sprite.getSubimage(0, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(16, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(32, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(48, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(64, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(80, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(96, 64, 14, 14));
-            blinkyGhostImg.add(sprite.getSubimage(112, 64, 14, 14));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return blinkyGhostImg;
-    }
-
-    private ArrayList<BufferedImage> fillPinky() {
-        try {
-            pinkyGhostImg.add(sprite.getSubimage(0, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(16, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(32, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(48, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(64, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(80, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(96, 80, 14, 14));
-            pinkyGhostImg.add(sprite.getSubimage(112, 80, 14, 14));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return pinkyGhostImg;
-    }
-
-    private ArrayList<BufferedImage> fillInky() {
-        try {
-            inkyGhostImg.add(sprite.getSubimage(0, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(16, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(32, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(48, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(64, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(80, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(96, 96, 14, 14));
-            inkyGhostImg.add(sprite.getSubimage(112, 96, 14, 14));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return inkyGhostImg;
-    }
-
-    private ArrayList<BufferedImage> fillClyde() {
-        try {
-            clydeGhostImg.add(sprite.getSubimage(0, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(16, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(32, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(48, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(64, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(80, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(96, 112, 14, 14));
-            clydeGhostImg.add(sprite.getSubimage(112, 112, 14, 14));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return clydeGhostImg;
     }
 
     public void paint() {
@@ -323,11 +249,9 @@ public class Gui extends Thread {
             g.drawImage(currentImage, pacman.getPos_x()*scale, pacman.getPos_y()*scale, scale, scale, null);
 
             //draws every ghost to its corresponding x and y axes
-            ghosts.forEach(
-                ghost -> {
-                    g.drawImage(inkyGhostImg.get(randomGenerator.nextInt(inkyGhostImg.size())), ghost.getPos_x()*scale, ghost.getPos_y()*scale, scale, scale, null);
-                }
-            );
+            for (Ghost ghost : ghosts) {
+               // g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * scale, ghost.getPos_y() * scale, scale, scale, null);
+            }
         }
     }
 }
