@@ -3,14 +3,13 @@
 // https://github.com/dadope
 // https://github.com/SomeOtherGod
 // https://github.com/Moritz-MT
+// https://github.com/Iman859
 
 package src.models;
 
 import src.util.Scoreboard;
 
 public class Pacman extends Thread {
-    int score = 0;
-
     //All the possible directions the pacman can go to
     public enum directions {
         Up,
@@ -60,6 +59,10 @@ public class Pacman extends Thread {
 
     public int getPos_y() {
         return pos_y;
+    }
+
+    public Scoreboard getScoreboard() {
+        return scoreboard;
     }
 
     public directions getDirection() {
@@ -155,8 +158,7 @@ public class Pacman extends Thread {
     //Adds a point to the score if the pacman currently stands in a point
     public void increasePoints(){
         if (currentWorld.itemData[this.pos_y][this.pos_x]){
-            score++;
-            System.out.println("Score: " + score);
+            scoreboard.addToCurrentScore();
         }
     }
 
@@ -189,12 +191,10 @@ public class Pacman extends Thread {
         directionNew = directionNext;
     }
 
-    public void noPointsLeft(){//Noah deine Methode wenn alle Punkte gegessen sind
-        if (score == currentWorld.getMapScore()){
-            this.scoreboard.addToCurrentScore(score);
-
-            //FIXME
-            //TODO: only save the score when the player dies
+    //FIXME only save the score when the player dies
+    public void noPointsLeft(){
+        if (scoreboard.currentMapScore == currentWorld.getMapScore()){
+            scoreboard.saveScore();
         }
     }
 
@@ -216,9 +216,5 @@ public class Pacman extends Thread {
     //RIGHT: X wird größer
     public void moveRight(){
         directionNew = directions.Right;
-    }
-
-    public int getScore() {
-        return score;
     }
 }

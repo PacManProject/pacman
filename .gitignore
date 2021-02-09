@@ -1,3 +1,4 @@
 .idea
-*.iml
 out
+pacman.iml
+/resources/data/scores/*.json
