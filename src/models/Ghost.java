@@ -6,7 +6,9 @@ package src.models;
 
 import src.util.GhostController;
 import src.models.Pacman.directions;
+import src.util.Ghost_Img;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Ghost{
@@ -20,8 +22,14 @@ public class Ghost{
     //y axis position of the ghost
     int pos_y;
 
+    ArrayList<BufferedImage> ghostImg;
+
     //Controls the movement of the ghost
     GhostController ghostController = new GhostController(this);
+
+    public Ghost() {
+        ghostImg = new Ghost_Img().getImgs();
+    }
 
     public void start(World currentWorld) {
         this.currentWorld = currentWorld;
@@ -98,5 +106,9 @@ public class Ghost{
         }
 
         return availableDirections;
+    }
+
+    public ArrayList<BufferedImage> getGhostImg() {
+        return ghostImg;
     }
 }
