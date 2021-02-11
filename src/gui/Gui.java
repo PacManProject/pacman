@@ -23,9 +23,21 @@ import javax.swing.*;
 import javax.imageio.ImageIO;
 
 public class Gui extends Thread {
-    int frameSize = 30;
+    int frameSize = 60;
     int scale = 40;
     int frameCounter = 0;
+
+    JPanel welcomePanel;
+
+    JPanel homePanel;
+
+    //components for the gamePanel
+    JPanel gamePanel = new JPanel();
+    JPanel gameInfoPanel = new JPanel();
+    GamePanel gameSubPanel;
+    JLabel scoreLabel = new JLabel();
+
+    JPanel deathPanel;
 
     Random randomGenerator = new Random();
 
@@ -56,14 +68,12 @@ public class Gui extends Thread {
     JFrame jf = new JFrame("Pacman");// name des Fensters
     ArrayList<Ghost> ghosts;
     Pacman pacman;
-    GuiPanel guiPanel;
 
     public Gui (World wor, Pacman pac, ArrayList<Ghost> ghosts) {
-
         this.pacman = pac;
         this.ghosts = ghosts;
         this.currentWorld = wor;
-        this.guiPanel = new GuiPanel(currentWorld);
+        this.gameSubPanel = new GamePanel(currentWorld);
 
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -152,6 +162,8 @@ public class Gui extends Thread {
 
         jf.repaint();
 
+        scoreLabel.setText(String.valueOf(pacman.getScoreboard().currentMapScore));
+
         try {
             wait(150);          //Geschwindigkeit der Animation (Framerate)
         } catch (InterruptedException e) {
@@ -163,8 +175,16 @@ public class Gui extends Thread {
 
     //
     private void _updateGraphics() {
-        jf.add(guiPanel);
-        guiPanel.setDoubleBuffered(true);
+        gameSubPanel.setSize(scale* currentWorld.getMapData()[0].length, scale* currentWorld.getMapData().length);
+        gameInfoPanel.setSize(scale* currentWorld.getMapData()[0].length, 30);
+        gameInfoPanel.add(scoreLabel);
+
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.add(gameSubPanel, BorderLayout.CENTER);
+        gamePanel.add(gameInfoPanel, BorderLayout.SOUTH);
+        gamePanel.setDoubleBuffered(true);
+
+        jf.add(gamePanel);
 
         jf.setResizable(false);
         jf.setSize(scale* currentWorld.getMapData()[0].length, scale* currentWorld.getMapData().length + frameSize);
@@ -208,10 +228,10 @@ public class Gui extends Thread {
     }
 
 
-    class GuiPanel extends JPanel{
+    class GamePanel extends JPanel{
         World w;
 
-        public GuiPanel(World world) {
+        public GamePanel(World world) {
             w = world;
         }
 
