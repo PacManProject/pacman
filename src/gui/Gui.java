@@ -169,7 +169,15 @@ public class Gui extends Thread {
     }
 
     //
-    private void _updateGraphics() {
+    private void updateGameGraphics() {
+        try {
+            jf.remove(welcomePanel);
+            jf.remove(homePanel);
+            jf.remove(deathPanel);
+        } catch (NullPointerException e) {
+
+        }
+
         jf.add(gamePanel);
 
         jf.setVisible(true);
@@ -180,15 +188,51 @@ public class Gui extends Thread {
         jf.setResizable(false);
         jf.setSize(scale* currentWorld.getMapData()[0].length + frameWith, scale* currentWorld.getMapData().length + frameHeight + 30);
         jf.setLocationRelativeTo(null);
-        jf.addKeyListener(new KeyControl(pacman));
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
 
         jf.setVisible(true);
     }
 
+    private void updateWelcomeGraphics() {
+        try {
+            jf.remove(gamePanel);
+            jf.remove(homePanel);
+            jf.remove(deathPanel);
+        } catch (NullPointerException e) {
+
+        }
+
+        jf.add(welcomePanel);
+    }
+
+    private void updateHomeGraphics() {
+        try {
+            jf.remove(welcomePanel);
+            jf.remove(gamePanel);
+            jf.remove(deathPanel);
+        } catch (NullPointerException e) {
+
+        }
+
+        jf.add(homePanel);
+    }
+
+    private void updateDeathGraphics() {
+        try {
+            jf.remove(welcomePanel);
+            jf.remove(homePanel);
+            jf.remove(gamePanel);
+        } catch (NullPointerException e) {
+
+        }
+
+        jf.add(deathPanel);
+    }
+
     public synchronized void run() {
-        _updateGraphics();
+        jf.addKeyListener(new KeyControl(pacman));
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
+        updateGameGraphics();
         while (true) {
             this.paint();
 
@@ -215,7 +259,7 @@ public class Gui extends Thread {
     public void changeScene(){
         currentWorld.changeMapRandomly(currentWorld.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
-        this._updateGraphics();
+        this.updateGameGraphics();
     }
 
     public Pacman getPacman() {
