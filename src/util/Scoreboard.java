@@ -1,4 +1,6 @@
 //Initial file creator: https://github.com/dadope
+//Other contributors:
+// https://github.com/Iman859
 
 package src.util;
 
@@ -6,7 +8,9 @@ import com.google.gson.Gson;
 
 import src.models.Score;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.nio.file.Path;
@@ -15,18 +19,21 @@ import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 
 public class Scoreboard {
-    Gson gson = new Gson();
+    final Gson gson = new Gson();
 
     final Path _workingDir = Paths.get(System.getProperty("user.dir"));
     final Path _scoresDirectory = Paths.get(_workingDir.toString(), "resources", "data", "scores");
 
-    Score score;
     ArrayList<Score> availableScores = _loadAvailableScores();
 
-    int currentScore;
+    int currentGameScore;
+    public int currentMapScore;
+
+    Score score;
 
     public Scoreboard(String ...playername) {
-        this.currentScore = 0;
+        currentMapScore = 0;
+        currentGameScore = 0;
 
         String name = (playername.length >= 1) ? playername[0] : "default";
         score = availableScores.stream().filter(score_to_find -> name.equals(score_to_find.playername)).findFirst().orElse(availableScores.get(0));
@@ -54,7 +61,20 @@ public class Scoreboard {
     }
 
 
-    public void addToCurrentScore(int scoreToAdd){
-        this.currentScore =+ scoreToAdd;
+    public void addToCurrentScore(int... scoreToAdd){
+        int score = (scoreToAdd.length >= 1) ? scoreToAdd[0] : 1;
+        this.currentMapScore += score;
+        this.currentGameScore += score;
+    }
+    public void saveScore(){
+        if (score.highscore < currentGameScore) score.highscore = currentGameScore;
+
+        score.scores.add(currentGameScore);
+
+        try (Writer writer = new FileWriter(String.valueOf(Paths.get(String.valueOf(_scoresDirectory), score.playername + ".json")))) {
+            gson.toJson(score, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

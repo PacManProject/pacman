@@ -1,1 +1,5 @@
-{"highscore":22,"currentScore":22,"playername":"default","scores":[22,22,22,22,22,22,22,22]}
+{
+  "highscore":0,
+  "scores":[0],
+  "playername":"default"
+}

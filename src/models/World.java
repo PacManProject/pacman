@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Paths;//Other contributors:
 import java.nio.charset.StandardCharsets;
 
 import javax.sound.sampled.Clip;
@@ -41,7 +41,7 @@ public class World {
     ArrayList<Ghost> ghosts;
 
     //A count of all the scores on the map
-    int mapScore;
+    int mapScore = 0;
 
     //A list of all the score points on the map
     boolean[][] itemData;
@@ -55,9 +55,7 @@ public class World {
 
         //Calls the start function of every ghost individually
         ghosts.forEach(
-            ghost -> {
-                ghost.start(this);
-            }
+            ghost -> ghost.start(this)
         );
 
         //Loads the music
@@ -142,7 +140,6 @@ public class World {
 
     //takes the total score and adds all the available points on the current map
     public void countPointsOnWorld(){
-        mapScore = pacman.getScore();
         for (boolean[] booleans : itemData) {
             for (int y = 0; y < itemData[0].length; y++) {
                 if (booleans[y]) {//Wenn es ein freies Feld gibt wird der Punktezähler erhöht

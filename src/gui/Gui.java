@@ -182,7 +182,7 @@ public class Gui extends Thread {
             this.paint();
 
             //Controls that after all the points are taken, the map is changed
-            if (pacman.getScore() == currentWorld.getMapScore()) {
+            if (pacman.getScoreboard().currentMapScore == currentWorld.getMapScore()) {
                 changeScene();
             }
 
