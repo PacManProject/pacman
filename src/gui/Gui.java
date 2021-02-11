@@ -227,6 +227,9 @@ public class Gui extends Thread {
         this._updateGraphics();
     }
 
+    public Pacman getPacman() {
+        return pacman;
+    }
 
     class GamePanel extends JPanel{
         World w;
