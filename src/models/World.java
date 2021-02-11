@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.nio.file.Paths;//Other contributors:
+import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
 
 import javax.sound.sampled.Clip;
@@ -70,14 +70,14 @@ public class World {
         }
     }
 
-    //changes the current map to a randomly selected one, excludes mapToExclude
-    public void changeMapRandomly(Map... mapToExclude){
+    //changes the current map to a randomly selected one, excludes mapsToExclude
+    public void changeMapRandomly(Map... mapsToExclude){
 
         Random randomGenerator = new Random();
         ArrayList<Map> mapsToChooseFrom = availableMaps;
 
-        if (mapToExclude.length >= 1){
-            for (Map map: mapToExclude){
+        if (mapsToExclude.length >= 1){
+            for (Map map: mapsToExclude){
                 mapsToChooseFrom.remove(map);
             }
         }
