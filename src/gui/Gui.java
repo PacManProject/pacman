@@ -23,7 +23,8 @@ import javax.swing.*;
 import javax.imageio.ImageIO;
 
 public class Gui extends Thread {
-    int frameSize = 60;
+    int frameHeight;
+    int frameWith;
     int scale = 40;
     int frameCounter = 0;
 
@@ -31,11 +32,7 @@ public class Gui extends Thread {
 
     JPanel homePanel;
 
-    //components for the gamePanel
-    JPanel gamePanel = new JPanel();
-    JPanel gameInfoPanel = new JPanel();
-    GamePanel gameSubPanel;
-    JLabel scoreLabel = new JLabel();
+    GamePanel gamePanel;
 
     JPanel deathPanel;
 
@@ -73,7 +70,7 @@ public class Gui extends Thread {
         this.pacman = pac;
         this.ghosts = ghosts;
         this.currentWorld = wor;
-        this.gameSubPanel = new GamePanel(currentWorld);
+        this.gamePanel = new GamePanel(wor, this);
 
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -160,9 +157,7 @@ public class Gui extends Thread {
                 break;
         }
 
-        jf.repaint();
-
-        scoreLabel.setText(String.valueOf(pacman.getScoreboard().currentMapScore));
+        gamePanel.update();
 
         try {
             wait(150);          //Geschwindigkeit der Animation (Framerate)
@@ -175,19 +170,15 @@ public class Gui extends Thread {
 
     //
     private void _updateGraphics() {
-        gameSubPanel.setSize(scale* currentWorld.getMapData()[0].length, scale* currentWorld.getMapData().length);
-        gameInfoPanel.setSize(scale* currentWorld.getMapData()[0].length, 30);
-        gameInfoPanel.add(scoreLabel);
-
-        gamePanel.setLayout(new BorderLayout());
-        gamePanel.add(gameSubPanel, BorderLayout.CENTER);
-        gamePanel.add(gameInfoPanel, BorderLayout.SOUTH);
-        gamePanel.setDoubleBuffered(true);
-
         jf.add(gamePanel);
 
+        jf.setVisible(true);
+        frameHeight = jf.getInsets().top;
+        frameWith = jf.getInsets().right*2;
+        jf.setVisible(false);
+
         jf.setResizable(false);
-        jf.setSize(scale* currentWorld.getMapData()[0].length, scale* currentWorld.getMapData().length + frameSize);
+        jf.setSize(scale* currentWorld.getMapData()[0].length + frameWith, scale* currentWorld.getMapData().length + frameHeight + 30);
         jf.setLocationRelativeTo(null);
         jf.addKeyListener(new KeyControl(pacman));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -229,52 +220,5 @@ public class Gui extends Thread {
 
     public Pacman getPacman() {
         return pacman;
-    }
-
-    class GamePanel extends JPanel{
-        World w;
-
-        public GamePanel(World world) {
-            w = world;
-        }
-
-        @Override
-        //zeichnet die Karte
-        public void paint(Graphics g) {
-            //zeichnet die Map
-            for (int x = 0; x < w.getMapData().length; x++) {
-                for (int y = 0; y < w.getMapData()[0].length; y++) {
-                    if (!w.getMapData()[x][y]) {
-                        g.setColor(Color.blue);
-                        g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
-                        g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
-                    } else {
-                        g.setColor(Color.black);
-                        g.drawRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
-                        g.fillRect(scale*y, scale*x,scale*y + scale, scale*x+scale);
-                    }
-                }
-            }
-
-            //zeichnet die Punkte
-            for (int x = 0; x < w.getItemData().length; x++) {
-                for (int y = 0; y < w.getItemData()[0].length; y++) {
-                    if (w.getItemData()[x][y]){
-                        g.setColor(Color.yellow);
-                        int offset = scale/4;
-
-                        g.fillOval(y*scale + (int)(offset*1.5), x*scale + (int)(offset*1.5), offset, offset);
-                    }
-                }
-            }
-
-            //draws the pacman
-            g.drawImage(currentImage, pacman.getPos_x()*scale, pacman.getPos_y()*scale, scale, scale, null);
-
-            //draws every ghost to its corresponding x and y axes
-            for (Ghost ghost : ghosts) {
-                g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * scale, ghost.getPos_y() * scale, scale, scale, null);
-            }
-        }
     }
 }

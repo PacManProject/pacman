@@ -19,6 +19,7 @@ class GamePanel extends JPanel {
     public GamePanel(World world, Gui g) {
         w = world;
         gui = g;
+
         gameSubPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, g.scale* g.currentWorld.getMapData().length);
         gameInfoPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, 30);
         gameInfoPanel.add(scoreLabel);
@@ -30,7 +31,7 @@ class GamePanel extends JPanel {
     }
 
     //zeichnet die Karte
-    public void repaint(Graphics g) {
+    public void update() {
         gameSubPanel.repaint();
         scoreLabel.setText(String.valueOf(gui.getPacman().getScoreboard().currentMapScore));
     }
