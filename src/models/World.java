@@ -118,7 +118,6 @@ public class World {
                 .forEach(
                     item -> {
                         try {
-                            System.out.println(item);
                             Map currentMap = gson.fromJson(Files.readString(item, StandardCharsets.UTF_8), Map.class);
                             currentMap.convertMapData();
                             availableMaps.add(currentMap);
