@@ -97,7 +97,7 @@ public class Pacman extends Thread {
                         this.pos_y--;
                     }
                     increasePoints();
-                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = Items.none;
                     direction = directionNew;
                 }else {
                     impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
@@ -112,7 +112,7 @@ public class Pacman extends Thread {
                         this.pos_y++;
                     }
                     increasePoints();
-                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = Items.none;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -130,7 +130,7 @@ public class Pacman extends Thread {
                         this.pos_x--;
                     }
                     increasePoints();
-                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = Items.none;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -144,7 +144,7 @@ public class Pacman extends Thread {
                         this.pos_x++;
                     }
                     increasePoints();
-                    currentWorld.itemData[this.pos_y][this.pos_x] = false;
+                    currentWorld.itemData[this.pos_y][this.pos_x] = Items.none;
                     direction = directionNew;
                 }else {
                     impossibleDirection();
@@ -157,7 +157,7 @@ public class Pacman extends Thread {
 
     //Adds a point to the score if the pacman currently stands in a point
     public void increasePoints(){
-        if (currentWorld.itemData[this.pos_y][this.pos_x]){
+        if (currentWorld.itemData[this.pos_y][this.pos_x] != Items.none){
             scoreboard.addToCurrentScore();
         }
     }

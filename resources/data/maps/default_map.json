@@ -2,24 +2,24 @@
     "name":"default_map",
     "pos_x": 1,
     "pos_y": 3,
-    "mapData":[
-    [true,false,true,false,true,false,true],
-    [true,true,true,false,true,true,true],
-    [false,true,false,false,false,true,false],
-    [true,true,true,true,true,true,true],
-    [true,false,false,true,false,false,true],
-    [false,false,true,true,true,false,false],
-    [true,false,false,true,false,false,true],
-    [true,true,true,true,true,true,true]
+    "integerMapData":[
+    [1,0,1,0,1,0,1],
+    [1,1,1,0,1,1,1],
+    [0,1,0,0,0,1,0],
+    [1,1,1,1,1,1,1],
+    [1,0,0,1,0,0,1],
+    [0,0,1,1,1,0,0],
+    [1,0,0,1,0,0,1],
+    [1,1,1,1,1,1,1]
     ],
-    "itemData":[
-    [true,false,true,false,true,false,true],
-    [true,true,true,false,true,true,true],
-    [false,true,false,false,false,true,false],
-    [true,true,true,true,true,true,true],
-    [true,false,false,true,false,false,true],
-    [false,false,true,true,true,false,false],
-    [true,false,false,true,false,false,true],
-    [true,true,true,true,true,true,true]
+    "integerItemData":[
+    [1,0,1,0,1,0,1],
+    [1,1,1,0,1,1,1],
+    [0,1,0,0,0,1,0],
+    [1,1,1,1,1,1,1],
+    [1,0,0,1,0,0,1],
+    [0,0,1,1,1,0,0],
+    [1,0,0,1,0,0,1],
+    [1,1,1,1,1,1,1]
     ]
 }

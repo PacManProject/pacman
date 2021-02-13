@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 import java.nio.file.Path;
 import java.nio.file.Files;
-import java.nio.file.Paths;//Other contributors:
+import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
 
 import javax.sound.sampled.Clip;
@@ -44,7 +44,7 @@ public class World {
     int mapScore = 0;
 
     //A list of all the score points on the map
-    boolean[][] itemData;
+    Items[][] itemData;
 
     public World(Pacman p, ArrayList<Ghost> ghosts, String... mapName) {
         this.pacman = p;
@@ -76,7 +76,7 @@ public class World {
         Random randomGenerator = new Random();
         ArrayList<Map> mapsToChooseFrom = availableMaps;
 
-        if (mapToExclude.length >= 1){
+        if (mapToExclude.length >= 1 && mapsToChooseFrom.size() > mapToExclude.length){
             for (Map map: mapToExclude){
                 mapsToChooseFrom.remove(map);
             }
@@ -93,7 +93,7 @@ public class World {
 
         pacman.updateCurrentWorld(this);
         this.itemData = currentMap.itemData;
-        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = Items.none;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
@@ -103,7 +103,7 @@ public class World {
 
         pacman.updateCurrentWorld(this);
         this.itemData = currentMap.itemData;
-        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = false;     //Am Spawn, spawnt kein Punkt
+        this.itemData[pacman.getPos_y()][pacman.getPos_x()] = Items.none;     //Am Spawn, spawnt kein Punkt
         countPointsOnWorld();
     }
 
@@ -118,31 +118,33 @@ public class World {
                 .forEach(
                     item -> {
                         try {
-                            availableMaps.add(gson.fromJson(Files.readString(item, StandardCharsets.UTF_8), Map.class));
+                            System.out.println(item);
+                            Map currentMap = gson.fromJson(Files.readString(item, StandardCharsets.UTF_8), Map.class);
+                            currentMap.convertMapData();
+                            availableMaps.add(currentMap);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
                 );
-        }  catch (IOException e){
-            e.printStackTrace();
-        }
+        }  catch (IOException e){ e.printStackTrace(); }
+
         return availableMaps;
     }
 
-    public boolean[][] getMapData() {
+    public Boolean[][] getMapData() {
         return currentMap.mapData;
     }
 
-    public boolean[][] getItemData() {
+    public Items[][] getItemData() {
         return itemData;
     }
 
     //takes the total score and adds all the available points on the current map
     public void countPointsOnWorld(){
-        for (boolean[] booleans : itemData) {
+        for (Items[] item : itemData) {
             for (int y = 0; y < itemData[0].length; y++) {
-                if (booleans[y]) {//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
+                if (item[y] != Items.none) {//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
                     mapScore++;
                 }
             }

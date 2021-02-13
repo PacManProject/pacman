@@ -14,10 +14,4 @@ public class Score {
     public ArrayList<Integer> scores;
 
     public String playername;
-
-    public Score(String playername, int[] scores, int highscore){
-        this.playername = playername;
-        this.highscore = highscore;
-        this.scores = (ArrayList<Integer>) Arrays.stream(scores).boxed().collect(Collectors.toList());
-    }
 }
