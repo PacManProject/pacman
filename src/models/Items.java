@@ -14,8 +14,7 @@ import javax.imageio.ImageIO;
 public enum Items {
     //TODO: add more items
 
-    none (0,0,0,1,1,
-            "No item is present"),
+    none (0, "No item is present"),
     score (1,16, 32, 13, 13,
             "A score item, adds to your score"),
     cherry (2,32, 48, 13, 13,
@@ -38,6 +37,14 @@ public enum Items {
     // Variables that might be needed later on
     // FIXME: DO NOT edit java.util.Map to Map, as there are import conflicts with .Map
     public final java.util.Map[] extraVariables;
+
+    Items(int itemCode, String itemDescription, java.util.Map... extraVariables){
+        this.itemCode = itemCode;
+        this.itemDescription = itemDescription;
+
+        this.extraVariables = extraVariables;
+        this.image = null;
+    }
 
     Items(int itemCode, int x, int y, int height, int width, String description, java.util.Map... extraVariables){
         this.itemCode = itemCode;
