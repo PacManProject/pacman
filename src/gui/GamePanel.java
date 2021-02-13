@@ -1,6 +1,11 @@
+//Initial file creator: https://github.com/SomeOtherGod
+//Other contributors:
+// https://github.com/dadope
+
 package src.gui;
 
 import src.models.Ghost;
+import src.models.Items;
 import src.models.World;
 
 import javax.swing.*;
@@ -55,10 +60,10 @@ class GamePanel extends JPanel {
                 }
             }
 
-            //zeichnet die Punkte
+            //TODO: draw the item image
             for (int x = 0; x < w.getItemData().length; x++) {
                 for (int y = 0; y < w.getItemData()[0].length; y++) {
-                    if (w.getItemData()[x][y]) {
+                    if (w.getItemData()[x][y] != Items.none) {
                         g.setColor(Color.yellow);
                         int offset = gui.scale / 4;
 
