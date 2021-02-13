@@ -170,26 +170,26 @@ public class Gui extends Thread {
 
     //
     private void updateGameGraphics() {
-        try {
-            jf.remove(welcomePanel);
-            jf.remove(homePanel);
-            jf.remove(deathPanel);
-        } catch (NullPointerException e) {
-
-        }
+        //try {
+        //    jf.remove(welcomePanel);
+        //    jf.remove(homePanel);
+        //    jf.remove(deathPanel);
+        //} catch (NullPointerException e) {
+//
+        //}
 
         jf.add(gamePanel);
 
         jf.setVisible(true);
         frameHeight = jf.getInsets().top;
         frameWith = jf.getInsets().right*2;
-        jf.setVisible(false);
 
         jf.setResizable(false);
         jf.setSize(scale* currentWorld.getMapData()[0].length + frameWith, scale* currentWorld.getMapData().length + frameHeight + 30);
         jf.setLocationRelativeTo(null);
 
-        jf.setVisible(true);
+        jf.revalidate();
+        jf.repaint();
     }
 
     private void updateWelcomeGraphics() {
