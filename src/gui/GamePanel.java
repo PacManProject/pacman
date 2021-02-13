@@ -14,16 +14,16 @@ import java.util.Random;
 
 class GamePanel extends JPanel {
     Random randomGenerator = new Random();
-    World w;
+    World world;
     Gui gui;
 
     GameSubPanel gameSubPanel = new GameSubPanel();
     JPanel gameInfoPanel = new JPanel();
     JLabel scoreLabel = new JLabel();
 
-    public GamePanel(World world, Gui g) {
-        w = world;
+    public GamePanel(World w, Gui g) {
         gui = g;
+        world = w;
 
         gameSubPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, g.scale* g.currentWorld.getMapData().length);
         gameInfoPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, 30);
@@ -46,9 +46,9 @@ class GamePanel extends JPanel {
         //zeichnet die Karte
         public void paint(Graphics g) {
             //zeichnet die Map
-            for (int x = 0; x < w.getMapData().length; x++) {
-                for (int y = 0; y < w.getMapData()[0].length; y++) {
-                    if (!w.getMapData()[x][y]) {
+            for (int x = 0; x < world.getMapData().length; x++) {
+                for (int y = 0; y < world.getMapData()[0].length; y++) {
+                    if (!world.getMapData()[x][y]) {
                         g.setColor(Color.blue);
                         g.drawRect(gui.scale * y, gui.scale * x, gui.scale * y + gui.scale, gui.scale * x + gui.scale);
                         g.fillRect(gui.scale * y, gui.scale * x, gui.scale * y + gui.scale, gui.scale * x + gui.scale);
@@ -61,10 +61,15 @@ class GamePanel extends JPanel {
             }
 
             //TODO: draw the item image
-            for (int x = 0; x < w.getItemData().length; x++) {
-                for (int y = 0; y < w.getItemData()[0].length; y++) {
-                    int offset = gui.scale / 4;
-                    g.drawImage(w.getItemData()[x][y].image, y * gui.scale + (int) (offset * 1.5), x * gui.scale + (int) (offset * 1.5), offset, offset, null);
+            for (int x = 0; x < world.getItemData().length; x++) {
+                for (int y = 0; y < world.getItemData()[0].length; y++) {
+                    Items currentItem = world.getItemData()[x][y];
+
+
+                    int itemSize = (int) (gui.scale / currentItem.scale);
+                    int offset = (gui.scale - itemSize) / 2;
+
+                    g.drawImage(currentItem.image, y * gui.scale + offset, x * gui.scale + offset, itemSize, itemSize, null);
                 }
             }
 

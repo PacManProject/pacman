@@ -15,9 +15,9 @@ public enum Items {
     //TODO: add more items
 
     none (0, "No item is present"),
-    score (1,16, 32, 13, 13,
+    score (1,4,16, 32, 13, 13,
             "A score item, adds to your score"),
-    cherry (2,32, 48, 13, 13,
+    cherry (2, 1.5, 32, 48, 13, 13,
             "Gives you the power to eat ghosts for a specific amount of time",
             java.util.Map.of(
                     "actionTime", 10 //time of action of the item, in seconds
@@ -27,6 +27,9 @@ public enum Items {
 
     // Code to identify the item in the maps
     public final int itemCode;
+
+    // Scale of the item on screen (< 1.0)
+    public final double scale;
 
     // Image to be displayed on the map
     public BufferedImage image;
@@ -39,6 +42,7 @@ public enum Items {
     public final java.util.Map[] extraVariables;
 
     Items(int itemCode, String itemDescription, java.util.Map... extraVariables){
+        this.scale = 1;
         this.itemCode = itemCode;
         this.itemDescription = itemDescription;
 
@@ -46,7 +50,8 @@ public enum Items {
         this.image = null;
     }
 
-    Items(int itemCode, int x, int y, int height, int width, String description, java.util.Map... extraVariables){
+    Items(int itemCode, double scale, int x, int y, int height, int width, String description, java.util.Map... extraVariables){
+        this.scale = scale;
         this.itemCode = itemCode;
         this.itemDescription = description;
 
