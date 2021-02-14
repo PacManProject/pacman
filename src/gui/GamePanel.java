@@ -1,6 +1,7 @@
 //Initial file creator: https://github.com/SomeOtherGod
 //Other contributors:
 // https://github.com/dadope
+// https://github.com/LeandroSchadock
 
 package src.gui;
 
