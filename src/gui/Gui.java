@@ -247,7 +247,8 @@ public class Gui extends Thread {
                     if (pacman.getPos_x() == ghost.getPos_x() && pacman.getPos_y() == ghost.getPos_y()){
                         System.out.println("tot");
                         this.paint();
-                        //System.exit(0); //TODO replace with p.die() & implement health system
+                        gamePanel.losehealth(); //TODO replace with p.die() & implement health system
+                        pacman.die();
                     }
                 }
             );

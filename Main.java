@@ -22,7 +22,7 @@ public class Main {
             g1, g2, g3 ,g4
     ));
 
-    static World w = new World(p, ghosts, "map2");
+    static World w = new World(p, ghosts, "map3");
     static Gui g = new Gui(w, p, ghosts);
 
     public static void main(String[] args) {

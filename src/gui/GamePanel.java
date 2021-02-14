@@ -18,6 +18,7 @@ class GamePanel extends JPanel {
     Gui gui;
 
     GameSubPanel gameSubPanel = new GameSubPanel();
+    Lifedisplay lifedisplay = new Lifedisplay();
     JPanel gameInfoPanel = new JPanel();
     JLabel scoreLabel = new JLabel();
 
@@ -27,6 +28,8 @@ class GamePanel extends JPanel {
 
         gameSubPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, g.scale* g.currentWorld.getMapData().length);
         gameInfoPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, 30);
+        gameInfoPanel.setLayout(new GridLayout(1,2));
+        gameInfoPanel.add(lifedisplay);
         gameInfoPanel.add(scoreLabel);
 
         this.setLayout(new BorderLayout());
@@ -41,6 +44,10 @@ class GamePanel extends JPanel {
         scoreLabel.setText(String.valueOf(gui.getPacman().getScoreboard().currentMapScore));
     }
 
+    public void losehealth(){
+        lifedisplay.lifes --;
+        lifedisplay.repaint();
+    }
     class GameSubPanel extends JPanel{
         @Override
         //zeichnet die Karte
@@ -79,6 +86,52 @@ class GamePanel extends JPanel {
             //draws every ghost to its corresponding x and y axes
             for (Ghost ghost : gui.ghosts) {
                 g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * gui.scale, ghost.getPos_y() * gui.scale, gui.scale, gui.scale, null);
+            }
+        }
+    }
+
+    private class Lifedisplay extends JPanel {
+        int lifes = 3;
+        Color defaultcolor;
+
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            defaultcolor = this.getBackground();
+            if (lifes >=1 ) {
+                g.setColor(Color.BLACK);
+                g.drawOval(0, 0, 10, 10);
+                g.setColor(Color.YELLOW);
+                g.fillOval(0, 0, 10, 10);
+            } else {
+                g.setColor(defaultcolor);
+                g.drawOval(0,0,10,10);
+                g.fillOval(0,0,10,10);
+            }
+            if (lifes >=2 ) {
+                g.setColor(Color.BLACK);
+                g.drawOval(11, 0, 10, 10);
+                g.setColor(Color.YELLOW);
+                g.fillOval(11, 0, 10, 10);
+            } else {
+                g.setColor(defaultcolor);
+                g.drawOval(11,0,10,10);
+                g.fillOval(11,0,10,10);
+            }
+            if (lifes >=3 ) {
+                g.setColor(Color.BLACK);
+                g.drawOval(22, 0, 10, 10);
+                g.setColor(Color.YELLOW);
+                g.fillOval(22, 0, 10, 10);
+            } else {
+                g.setColor(defaultcolor);
+                g.drawOval(22,0,10,10);
+                g.fillOval(22,0,10,10);
+            }
+            if (lifes == 0){
+                System.out.println("Learn 2 play");
+                System.exit(0);
+
             }
         }
     }

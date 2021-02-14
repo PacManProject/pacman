@@ -217,4 +217,9 @@ public class Pacman extends Thread {
     public void moveRight(){
         directionNew = directions.Right;
     }
+
+    public void die(){
+        this.pos_x = currentWorld.currentMap.pos_x;
+        this.pos_y = currentWorld.currentMap.pos_y;
+    }
 }
