@@ -11,7 +11,6 @@ import src.models.World;
 import src.models.Pacman;
 import src.util.KeyControl;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -71,7 +70,7 @@ public class Gui extends Thread {
         this.pacman = pac;
         this.ghosts = ghosts;
         this.currentWorld = wor;
-        this.gamePanel = new GamePanel(wor, this);
+        this.gamePanel = new GamePanel(wor, this, pac);
 
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -248,8 +247,8 @@ public class Gui extends Thread {
                     if (pacman.getPos_x() == ghost.getPos_x() && pacman.getPos_y() == ghost.getPos_y()){
                         System.out.println("tot");
                         this.paint();
-                        gamePanel.losehealth(); //TODO replace with p.die() & implement health system
-                        pacman.die();
+                        gamePanel.loseHealth();
+                        pacman.resetPosition();
                     }
                 }
             );

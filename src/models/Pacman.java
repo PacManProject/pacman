@@ -35,6 +35,8 @@ public class Pacman extends Thread {
     //y axis position
     int pos_y;
 
+    int hp;
+
     //direction the ghost is currently facing
     directions direction = directions.Left;
     directions directionNew = direction;
@@ -44,6 +46,7 @@ public class Pacman extends Thread {
     Scoreboard scoreboard;
 
     public Pacman(String... filename) {
+        this.hp = 3;
         this.scoreboard = new Scoreboard(filename);
     }
 
@@ -199,6 +202,10 @@ public class Pacman extends Thread {
         }
     }
 
+    public int getHp() {
+        return hp;
+    }
+
     //UP: Y wird kleiner
     public void moveUp(){
         directionNew = directions.Up;
@@ -219,8 +226,18 @@ public class Pacman extends Thread {
         directionNew = directions.Right;
     }
 
-    public void die(){
+    public void loseHp(int... hpToLose){
+        this.hp -= (hpToLose.length >=1)? hpToLose[0] : 1;
+    }
+
+    public void resetPosition(){
         this.pos_x = currentWorld.currentMap.pos_x;
         this.pos_y = currentWorld.currentMap.pos_y;
+    }
+
+    public void die(){
+        scoreboard.saveScore();
+        System.out.println("Died");
+        System.exit(0);
     }
 }
