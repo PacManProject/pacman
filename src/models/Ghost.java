@@ -6,10 +6,15 @@ package src.models;
 
 import src.util.GhostController;
 import src.models.Pacman.directions;
-import src.util.Ghost_Img;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Ghost{
     World currentWorld;
@@ -22,13 +27,20 @@ public class Ghost{
     //y axis position of the ghost
     int pos_y;
 
+    //Game working-directory, should correspond to the project root dir
+    Path workingDir = Paths.get(System.getProperty("user.dir"));
+    //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
+    Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
+
+    BufferedImage sprite;
+
     ArrayList<BufferedImage> ghostImg;
 
     //Controls the movement of the ghost
     GhostController ghostController = new GhostController(this);
 
     public Ghost() {
-        ghostImg = new Ghost_Img().getImgs();
+        ghostImg = selectRandomColor();
     }
 
     public void start(World currentWorld) {
@@ -109,6 +121,27 @@ public class Ghost{
     }
 
     public ArrayList<BufferedImage> getGhostImg() {
+        return ghostImg;
+    }
+
+    private ArrayList<BufferedImage> selectRandomColor(){
+        ghostImg = new ArrayList<>();
+        Random randomGenerator = new Random();
+
+        try {
+            sprite = ImageIO.read(new File(spritePath.toString()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int[] ghostYaxes = {64, 80, 96, 112};
+
+        int y = ghostYaxes[randomGenerator.nextInt(ghostYaxes.length)];
+
+        for (int x = 0; x <= 112; x+=16){
+            ghostImg.add(sprite.getSubimage(x,y, 14, 14));
+        }
+
         return ghostImg;
     }
 }
