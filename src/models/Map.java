@@ -4,6 +4,12 @@
 
 package src.models;
 
+import com.google.gson.Gson;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -19,6 +25,43 @@ public class Map {
 
     Items[][] itemData;
     private ArrayList<ArrayList<Integer>> integerItemData;
+
+    public Map(String name, int pos_x, int pos_y, int[][] item) {
+        Gson gson = new Gson();
+        this.name = name;
+        this.pos_x = pos_x;
+        this.pos_y = pos_y;
+
+        ArrayList<Integer> tempList = new ArrayList<Integer>();
+        ArrayList<ArrayList<Integer>> tempListList = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < item.length; i++) {
+            for (int j = 0; j < item[0].length; j++) {
+                tempList.add(item[i][j]);
+            }
+            tempListList.add(tempList);
+        }
+        this.integerItemData = tempListList;
+
+        tempList = new ArrayList<Integer>();
+        tempListList = new ArrayList<ArrayList<Integer>>();
+        for (int i = 0; i < item.length; i++) {
+            for (int j = 0; j < item[0].length; j++) {
+                if (item[i][j] == 0) {
+                    tempList.add(0);
+                } else {
+                    tempList.add(1);
+                }
+            }
+            tempListList.add(tempList);
+        }
+        this.integerMapData = tempListList;
+
+        try (Writer writer = new FileWriter(String.valueOf(Paths.get(String.valueOf(Paths.get(System.getProperty("user.dir"), "resources", "data", "maps")), this.name + ".json")))) {
+            gson.toJson(this, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //FIXME: function has to be manually called, as gson doesnt call any constructor to actuate the change,
     //maybe add a custom decoder or a gsonbuilder with a custom workaround
