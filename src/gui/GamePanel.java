@@ -7,6 +7,7 @@ package src.gui;
 
 import src.models.Ghost;
 import src.models.Items;
+import src.models.Pacman;
 import src.models.World;
 
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.util.Random;
 
 class GamePanel extends JPanel {
     Random randomGenerator = new Random();
+    Pacman pacman;
     World world;
     Gui gui;
 
@@ -23,9 +25,10 @@ class GamePanel extends JPanel {
     JPanel gameInfoPanel = new JPanel();
     JLabel scoreLabel = new JLabel();
 
-    public GamePanel(World w, Gui g) {
+    public GamePanel(World w, Gui g, Pacman p) {
         gui = g;
         world = w;
+        pacman = p;
 
         gameSubPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, g.scale* g.currentWorld.getMapData().length);
         gameInfoPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, 30);
@@ -45,8 +48,8 @@ class GamePanel extends JPanel {
         scoreLabel.setText(String.valueOf(gui.getPacman().getScoreboard().currentMapScore));
     }
 
-    public void losehealth(){
-        lifedisplay.lifes --;
+    public void loseHealth(){
+        pacman.loseHp();
         lifedisplay.repaint();
     }
     class GameSubPanel extends JPanel{
@@ -92,47 +95,23 @@ class GamePanel extends JPanel {
     }
 
     private class Lifedisplay extends JPanel {
-        int lifes = 3;
         Color defaultcolor;
 
         @Override
         public void paint(Graphics g) {
             super.paint(g);
             defaultcolor = this.getBackground();
-            if (lifes >=1 ) {
-                g.setColor(Color.BLACK);
-                g.drawOval(0, 0, 10, 10);
-                g.setColor(Color.YELLOW);
-                g.fillOval(0, 0, 10, 10);
-            } else {
-                g.setColor(defaultcolor);
-                g.drawOval(0,0,10,10);
-                g.fillOval(0,0,10,10);
-            }
-            if (lifes >=2 ) {
-                g.setColor(Color.BLACK);
-                g.drawOval(11, 0, 10, 10);
-                g.setColor(Color.YELLOW);
-                g.fillOval(11, 0, 10, 10);
-            } else {
-                g.setColor(defaultcolor);
-                g.drawOval(11,0,10,10);
-                g.fillOval(11,0,10,10);
-            }
-            if (lifes >=3 ) {
-                g.setColor(Color.BLACK);
-                g.drawOval(22, 0, 10, 10);
-                g.setColor(Color.YELLOW);
-                g.fillOval(22, 0, 10, 10);
-            } else {
-                g.setColor(defaultcolor);
-                g.drawOval(22,0,10,10);
-                g.fillOval(22,0,10,10);
-            }
-            if (lifes == 0){
-                System.out.println("Learn 2 play");
-                System.exit(0);
 
+            if (pacman.getHp() <= 0){
+                pacman.die();
+            }
+
+            int x_axis = 0;
+            g.setColor(defaultcolor);
+
+            for (int x = 0; x < pacman.getHp();x++ ) {
+                g.drawImage(gui.pacmanLeft1, x_axis, 0, 15, 15, null);
+                x_axis +=16;
             }
         }
     }
