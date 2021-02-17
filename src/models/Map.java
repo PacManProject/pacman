@@ -32,9 +32,10 @@ public class Map {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
 
-        ArrayList<Integer> tempList = new ArrayList<Integer>();
+        ArrayList<Integer> tempList;
         ArrayList<ArrayList<Integer>> tempListList = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < item.length; i++) {
+            tempList = new ArrayList<Integer>();
             for (int j = 0; j < item[0].length; j++) {
                 tempList.add(item[i][j]);
             }
@@ -42,9 +43,9 @@ public class Map {
         }
         this.integerItemData = tempListList;
 
-        tempList = new ArrayList<Integer>();
         tempListList = new ArrayList<ArrayList<Integer>>();
         for (int i = 0; i < item.length; i++) {
+            tempList = new ArrayList<Integer>();
             for (int j = 0; j < item[0].length; j++) {
                 if (item[i][j] == 0) {
                     tempList.add(0);

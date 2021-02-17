@@ -41,8 +41,8 @@ public class Map_Designer {
                 if (columns <= 0) {
                     columns = 1;
                 }
-                pacmanX = Integer.parseInt(jt4.getText()) % (rows+1);
-                pacmanY = Integer.parseInt(jt3.getText()) % (columns+1);
+                pacmanX = Integer.parseInt(jt4.getText()) % (rows);
+                pacmanY = Integer.parseInt(jt3.getText()) % (columns);
                 if (pacmanX < 0) {
                     pacmanX = 0;
                 }
@@ -136,11 +136,11 @@ public class Map_Designer {
 
         public int[][] getElements() {
             int xOfArray = 0, yOfArray = 0;
-            int[][] elements = new int[rows][elementList.size()/arrayWith];
+            int[][] elements = new int[elementList.size()/arrayWith][arrayWith];
             for (ElementPanel element : elementList) {
                 elements[xOfArray][yOfArray]= element.getElementData();
                 yOfArray++;
-                if (yOfArray == rows) {
+                if (yOfArray == arrayWith) {
                     yOfArray = 0;
                     xOfArray++;
                 }
@@ -177,11 +177,11 @@ public class Map_Designer {
 
         public int getElementData() {
             if (getBackground() == Color.BLUE) {
-                return 1;
+                return 0;
             } else if (getBackground() == Color.RED) {
                 return 2;
             } else {
-                return 0;
+                return 1;
             }
         }
     }
