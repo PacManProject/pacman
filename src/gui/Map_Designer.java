@@ -116,15 +116,15 @@ public class Map_Designer {
                     Border border;
                     if (row < rows - 1) {
                         if (col < columns - 1) {
-                            border = new MatteBorder(1, 1, 0, 0, Color.WHITE);
+                            border = new MatteBorder(1, 1, 0, 0, Color.DARK_GRAY);
                         } else {
-                            border = new MatteBorder(1, 1, 0, 1, Color.WHITE);
+                            border = new MatteBorder(1, 1, 0, 1, Color.DARK_GRAY);
                         }
                     } else {
                         if (col < columns - 1) {
-                            border = new MatteBorder(1, 1, 1, 0, Color.WHITE);
+                            border = new MatteBorder(1, 1, 1, 0, Color.DARK_GRAY);
                         } else {
-                            border = new MatteBorder(1, 1, 1, 1, Color.WHITE);
+                            border = new MatteBorder(1, 1, 1, 1, Color.DARK_GRAY);
                         }
                     }
                     elementPanel.setBorder(border);
