@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 
-public class Scoreboard {
+public class ScoreController {
     final Gson gson = new Gson();
 
     final Path _workingDir = Paths.get(System.getProperty("user.dir"));
@@ -31,7 +31,7 @@ public class Scoreboard {
 
     Score score;
 
-    public Scoreboard(String ...playername) {
+    public ScoreController(String ...playername) {
         currentMapScore = 0;
         currentGameScore = 0;
 

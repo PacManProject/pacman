@@ -9,11 +9,11 @@ import src.models.Pacman;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyControl implements KeyListener {
+public class KeyController implements KeyListener {
 
     Pacman pacman;
 
-    public KeyControl(Pacman p) {
+    public KeyController(Pacman p) {
         pacman = p;
     }
 

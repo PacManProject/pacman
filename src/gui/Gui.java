@@ -7,9 +7,10 @@
 package src.gui;
 
 import src.models.Ghost;
-import src.models.World;
+import src.util.MapController;
 import src.models.Pacman;
-import src.util.KeyControl;
+import src.util.KeyController;
+import src.util.SoundController;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class Gui extends Thread {
 
     JPanel deathPanel;
 
-    Random randomGenerator = new Random();
+    SoundController soundController;
 
     //Game working-directory, should correspond to the project root dir
     Path workingDir = Paths.get(System.getProperty("user.dir"));
@@ -60,17 +61,20 @@ public class Gui extends Thread {
     BufferedImage currentImage;
 
     //World currently being displayed
-    World currentWorld;
+    MapController currentMapController;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
     ArrayList<Ghost> ghosts;
     Pacman pacman;
 
-    public Gui (World wor, Pacman pac, ArrayList<Ghost> ghosts) {
+    public Gui (MapController wor, Pacman pac, ArrayList<Ghost> ghosts) {
         this.pacman = pac;
         this.ghosts = ghosts;
-        this.currentWorld = wor;
+        this.currentMapController = wor;
         this.gamePanel = new GamePanel(wor, this, pac);
+
+        soundController = new SoundController();
+        soundController.start();
 
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -185,7 +189,7 @@ public class Gui extends Thread {
         frameWith = jf.getInsets().right*2;
 
         jf.setResizable(false);
-        jf.setSize(scale* currentWorld.getMapData()[0].length + frameWith, scale* currentWorld.getMapData().length + frameHeight + 30);
+        jf.setSize(scale* currentMapController.getMapData()[0].length + frameWith, scale* currentMapController.getMapData().length + frameHeight + 30);
         jf.setLocationRelativeTo(null);
 
         jf.revalidate();
@@ -229,7 +233,7 @@ public class Gui extends Thread {
     }
 
     public synchronized void run() {
-        jf.addKeyListener(new KeyControl(pacman));
+        jf.addKeyListener(new KeyController(pacman));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
         updateGameGraphics();
@@ -237,7 +241,7 @@ public class Gui extends Thread {
             this.paint();
 
             //Controls that after all the points are taken, the map is changed
-            if (pacman.getScoreboard().currentMapScore == currentWorld.getMapScore()) {
+            if (pacman.getScoreboard().currentMapScore == currentMapController.getMapScore()) {
                 changeScene();
             }
 
@@ -258,7 +262,7 @@ public class Gui extends Thread {
     //Changes the Map currently being displayed, to any other random map that isn't the current map
     //TODO: add an optional parameter to change the map to a specific other map
     public void changeScene(){
-        currentWorld.changeMapRandomly(currentWorld.getCurrentMap());
+        currentMapController.changeMapRandomly(currentMapController.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
         this.updateGameGraphics();
     }
