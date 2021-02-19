@@ -30,8 +30,8 @@ class GamePanel extends JPanel {
         mapController = w;
         pacman = p;
 
-        gameSubPanel.setSize(g.scale* g.currentMapController.getMapData()[0].length, g.scale* g.currentMapController.getMapData().length);
-        gameInfoPanel.setSize(g.scale* g.currentMapController.getMapData()[0].length, 30);
+        gameSubPanel.setSize(g.scale* g.mapController.getMapData()[0].length, g.scale* g.mapController.getMapData().length);
+        gameInfoPanel.setSize(g.scale* g.mapController.getMapData()[0].length, 30);
         gameInfoPanel.setLayout(new GridLayout(1,2));
         gameInfoPanel.add(lifedisplay);
         gameInfoPanel.add(scoreLabel);

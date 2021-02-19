@@ -18,7 +18,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import javax.swing.*;
 import javax.imageio.ImageIO;
@@ -61,17 +60,17 @@ public class Gui extends Thread {
     BufferedImage currentImage;
 
     //World currently being displayed
-    MapController currentMapController;
+    MapController mapController;
 
     JFrame jf = new JFrame("Pacman");// name des Fensters
     ArrayList<Ghost> ghosts;
     Pacman pacman;
 
-    public Gui (MapController wor, Pacman pac, ArrayList<Ghost> ghosts) {
-        this.pacman = pac;
+    public Gui (MapController mapController, Pacman pacman, ArrayList<Ghost> ghosts) {
+        this.pacman = pacman;
         this.ghosts = ghosts;
-        this.currentMapController = wor;
-        this.gamePanel = new GamePanel(wor, this, pac);
+        this.mapController = mapController;
+        this.gamePanel = new GamePanel(mapController, this, pacman);
 
         soundController = new SoundController();
         soundController.start();
@@ -189,7 +188,7 @@ public class Gui extends Thread {
         frameWith = jf.getInsets().right*2;
 
         jf.setResizable(false);
-        jf.setSize(scale* currentMapController.getMapData()[0].length + frameWith, scale* currentMapController.getMapData().length + frameHeight + 30);
+        jf.setSize(scale* mapController.getMapData()[0].length + frameWith, scale* mapController.getMapData().length + frameHeight + 30);
         jf.setLocationRelativeTo(null);
 
         jf.revalidate();
@@ -202,7 +201,7 @@ public class Gui extends Thread {
             jf.remove(homePanel);
             jf.remove(deathPanel);
         } catch (NullPointerException e) {
-
+            e.printStackTrace();
         }
 
         jf.add(welcomePanel);
@@ -214,7 +213,7 @@ public class Gui extends Thread {
             jf.remove(gamePanel);
             jf.remove(deathPanel);
         } catch (NullPointerException e) {
-
+            e.printStackTrace();
         }
 
         jf.add(homePanel);
@@ -226,7 +225,7 @@ public class Gui extends Thread {
             jf.remove(homePanel);
             jf.remove(gamePanel);
         } catch (NullPointerException e) {
-
+            e.printStackTrace();
         }
 
         jf.add(deathPanel);
@@ -241,7 +240,7 @@ public class Gui extends Thread {
             this.paint();
 
             //Controls that after all the points are taken, the map is changed
-            if (pacman.getScoreboard().currentMapScore == currentMapController.getMapScore()) {
+            if (pacman.getScoreboard().currentMapScore == mapController.getMapScore()) {
                 changeScene();
             }
 
@@ -262,7 +261,7 @@ public class Gui extends Thread {
     //Changes the Map currently being displayed, to any other random map that isn't the current map
     //TODO: add an optional parameter to change the map to a specific other map
     public void changeScene(){
-        currentMapController.changeMapRandomly(currentMapController.getCurrentMap());
+        mapController.changeMapRandomly(mapController.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
         this.updateGameGraphics();
     }
