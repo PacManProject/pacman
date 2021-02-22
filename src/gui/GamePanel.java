@@ -8,7 +8,7 @@ package src.gui;
 import src.models.Ghost;
 import src.models.Items;
 import src.models.Pacman;
-import src.models.World;
+import src.util.MapController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +17,7 @@ import java.util.Random;
 class GamePanel extends JPanel {
     Random randomGenerator = new Random();
     Pacman pacman;
-    World world;
+    MapController mapController;
     Gui gui;
 
     GameSubPanel gameSubPanel = new GameSubPanel();
@@ -25,13 +25,13 @@ class GamePanel extends JPanel {
     JPanel gameInfoPanel = new JPanel();
     JLabel scoreLabel = new JLabel();
 
-    public GamePanel(World w, Gui g, Pacman p) {
+    public GamePanel(MapController w, Gui g, Pacman p) {
         gui = g;
-        world = w;
+        mapController = w;
         pacman = p;
 
-        gameSubPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, g.scale* g.currentWorld.getMapData().length);
-        gameInfoPanel.setSize(g.scale* g.currentWorld.getMapData()[0].length, 30);
+        gameSubPanel.setSize(g.scale* g.mapController.getMapData()[0].length, g.scale* g.mapController.getMapData().length);
+        gameInfoPanel.setSize(g.scale* g.mapController.getMapData()[0].length, 30);
         gameInfoPanel.setLayout(new GridLayout(1,2));
         gameInfoPanel.add(lifedisplay);
         gameInfoPanel.add(scoreLabel);
@@ -57,9 +57,9 @@ class GamePanel extends JPanel {
         //zeichnet die Karte
         public void paint(Graphics g) {
             //zeichnet die Map
-            for (int x = 0; x < world.getMapData().length; x++) {
-                for (int y = 0; y < world.getMapData()[0].length; y++) {
-                    if (!world.getMapData()[x][y]) {
+            for (int x = 0; x < mapController.getMapData().length; x++) {
+                for (int y = 0; y < mapController.getMapData()[0].length; y++) {
+                    if (!mapController.getMapData()[x][y]) {
                         g.setColor(Color.blue);
                         g.drawRect(gui.scale * y, gui.scale * x, gui.scale * y + gui.scale, gui.scale * x + gui.scale);
                         g.fillRect(gui.scale * y, gui.scale * x, gui.scale * y + gui.scale, gui.scale * x + gui.scale);
@@ -72,9 +72,9 @@ class GamePanel extends JPanel {
             }
 
             //TODO: draw the item image
-            for (int x = 0; x < world.getItemData().length; x++) {
-                for (int y = 0; y < world.getItemData()[0].length; y++) {
-                    Items currentItem = world.getItemData()[x][y];
+            for (int x = 0; x < mapController.getItemData().length; x++) {
+                for (int y = 0; y < mapController.getItemData()[0].length; y++) {
+                    Items currentItem = mapController.getItemData()[x][y];
 
 
                     int itemSize = (int) (gui.scale / currentItem.scale);

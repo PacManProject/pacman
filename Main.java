@@ -4,7 +4,8 @@
 import src.gui.Gui;
 import src.models.Ghost;
 import src.models.Pacman;
-import src.models.World;
+import src.util.MapController;
+import src.util.SoundController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Main {
             g1, g2, g3 ,g4
     ));
 
-    static World w = new World(p, ghosts, "map3");
+    static MapController w = new MapController(p, ghosts, "map3");
     static Gui g = new Gui(w, p, ghosts);
 
     public static void main(String[] args) {

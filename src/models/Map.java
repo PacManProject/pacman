@@ -16,16 +16,18 @@ import java.util.stream.Collectors;
 
 //Model class for .../resources/data/maps/*
 public class Map {
-    String name;
     int pos_x;
     int pos_y;
+    public String name;
 
-    Boolean[][] mapData;
-    private ArrayList<ArrayList<Integer>> integerMapData;
+    public Boolean[][] mapData;
+    private final ArrayList<ArrayList<Integer>> integerMapData;
 
-    Items[][] itemData;
-    private ArrayList<ArrayList<Integer>> integerItemData;
+    public Items[][] itemData;
+    private final ArrayList<ArrayList<Integer>> integerItemData;
 
+
+    //FIXME
     public Map(String name, int pos_x, int pos_y, int[][] item) {
         Gson gson = new Gson();
         this.name = name;
@@ -34,20 +36,20 @@ public class Map {
 
         ArrayList<Integer> tempList;
         ArrayList<ArrayList<Integer>> tempListList = new ArrayList<ArrayList<Integer>>();
-        for (int i = 0; i < item.length; i++) {
+        for (int[] ints : item) {
             tempList = new ArrayList<Integer>();
             for (int j = 0; j < item[0].length; j++) {
-                tempList.add(item[i][j]);
+                tempList.add(ints[j]);
             }
             tempListList.add(tempList);
         }
         this.integerItemData = tempListList;
 
         tempListList = new ArrayList<ArrayList<Integer>>();
-        for (int i = 0; i < item.length; i++) {
+        for (int[] ints : item) {
             tempList = new ArrayList<Integer>();
             for (int j = 0; j < item[0].length; j++) {
-                if (item[i][j] == 0) {
+                if (ints[j] == 0) {
                     tempList.add(0);
                 } else {
                     tempList.add(1);

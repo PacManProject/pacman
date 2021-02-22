@@ -6,6 +6,7 @@ package src.models;
 
 import src.util.GhostController;
 import src.models.Pacman.directions;
+import src.util.MapController;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Ghost{
-    World currentWorld;
+    MapController currentMapController;
 
     //Direction the ghost is currently facing
     directions direction = directions.Left;
@@ -43,8 +44,8 @@ public class Ghost{
         ghostImg = selectRandomColor();
     }
 
-    public void start(World currentWorld) {
-        this.currentWorld = currentWorld;
+    public void start(MapController currentMapController) {
+        this.currentMapController = currentMapController;
 
         this.setLocation();
         this.ghostController.start();
@@ -61,8 +62,8 @@ public class Ghost{
     //Randomly selects a possible location on the map
     public void setLocation() {
         while (true) {
-            int i = (int)(Math.random()* currentWorld.currentMap.mapData.length), j = (int)(Math.random()* currentWorld.currentMap.mapData[0].length);
-            if (currentWorld.currentMap.mapData[i][j]) {
+            int i = (int)(Math.random()* currentMapController.currentMap.mapData.length), j = (int)(Math.random()* currentMapController.currentMap.mapData[0].length);
+            if (currentMapController.currentMap.mapData[i][j]) {
                 this.pos_x = j;
                 this.pos_y = i;
 
@@ -75,25 +76,25 @@ public class Ghost{
     public void move(directions dir){
         switch (dir){
             case Up:
-                if(this.pos_y-1 >= 0 && currentWorld.currentMap.mapData[this.pos_y-1% currentWorld.currentMap.mapData.length][this.pos_x]){
+                if(this.pos_y-1 >= 0 && currentMapController.currentMap.mapData[this.pos_y-1% currentMapController.currentMap.mapData.length][this.pos_x]){
                     this.pos_y--;
                     direction = dir;
                 }
                 break;
             case Down:
-                if(this.pos_y+1 < currentWorld.currentMap.mapData.length && currentWorld.currentMap.mapData[this.pos_y+1% currentWorld.currentMap.mapData.length][this.pos_x]){
+                if(this.pos_y+1 < currentMapController.currentMap.mapData.length && currentMapController.currentMap.mapData[this.pos_y+1% currentMapController.currentMap.mapData.length][this.pos_x]){
                     this.pos_y++;
                     direction = dir;
                 }
                 break;
             case Left:
-                if(this.pos_x-1 >= 0 && currentWorld.currentMap.mapData[this.pos_y][this.pos_x-1% currentWorld.currentMap.mapData[0].length]){
+                if(this.pos_x-1 >= 0 && currentMapController.currentMap.mapData[this.pos_y][this.pos_x-1% currentMapController.currentMap.mapData[0].length]){
                     this.pos_x--;
                     direction = dir;
                 }
                 break;
             case Right:
-                if(this.pos_x+1 < currentWorld.currentMap.mapData[0].length && currentWorld.currentMap.mapData[this.pos_y][this.pos_x+1% currentWorld.currentMap.mapData[0].length]){
+                if(this.pos_x+1 < currentMapController.currentMap.mapData[0].length && currentMapController.currentMap.mapData[this.pos_y][this.pos_x+1% currentMapController.currentMap.mapData[0].length]){
                     this.pos_x++;
                     direction = dir;
                 }
@@ -107,13 +108,13 @@ public class Ghost{
     public ArrayList<Pacman.directions> getAvailableDirections(){
         ArrayList<directions> availableDirections = new ArrayList<>();
 
-        if(this.pos_x+1 < currentWorld.currentMap.mapData[0].length && currentWorld.currentMap.mapData[this.pos_y][this.pos_x+1% currentWorld.currentMap.mapData[0].length]){
+        if(this.pos_x+1 < currentMapController.currentMap.mapData[0].length && currentMapController.currentMap.mapData[this.pos_y][this.pos_x+1% currentMapController.currentMap.mapData[0].length]){
             availableDirections.add(directions.Right);
-        }if(this.pos_x-1 >= 0 && currentWorld.currentMap.mapData[this.pos_y][this.pos_x-1% currentWorld.currentMap.mapData[0].length]){
+        }if(this.pos_x-1 >= 0 && currentMapController.currentMap.mapData[this.pos_y][this.pos_x-1% currentMapController.currentMap.mapData[0].length]){
             availableDirections.add(directions.Left);
-        }if(this.pos_y-1 >= 0 && currentWorld.currentMap.mapData[this.pos_y-1% currentWorld.currentMap.mapData.length][this.pos_x]){
+        }if(this.pos_y-1 >= 0 && currentMapController.currentMap.mapData[this.pos_y-1% currentMapController.currentMap.mapData.length][this.pos_x]){
             availableDirections.add(directions.Up);
-        }if(this.pos_y+1 < currentWorld.currentMap.mapData.length && currentWorld.currentMap.mapData[this.pos_y+1% currentWorld.currentMap.mapData.length][this.pos_x]){
+        }if(this.pos_y+1 < currentMapController.currentMap.mapData.length && currentMapController.currentMap.mapData[this.pos_y+1% currentMapController.currentMap.mapData.length][this.pos_x]){
             availableDirections.add(directions.Down);
         }
 

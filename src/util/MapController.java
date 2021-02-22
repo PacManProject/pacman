@@ -3,9 +3,13 @@
 // https://github.com/SomeOtherGod
 // https://github.com/Moritz-MT
 
-package src.models;
+package src.util;
 
 import com.google.gson.*;
+import src.models.Ghost;
+import src.models.Items;
+import src.models.Map;
+import src.models.Pacman;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,19 +25,18 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.AudioInputStream;
 
-public class World {
+public class MapController {
     //Gson object used for json conversion
     Gson gson = new Gson();
 
     //Game working-directory, should correspond to the project root dir
     final Path _workingDir = Paths.get(System.getProperty("user.dir"));
-    ////Path to the maps => .../resources/data/maps/
+    //Path to the maps => .../resources/data/maps/
     final Path _mapsDirectory = Paths.get(_workingDir.toString(), "resources", "data", "maps");
-    ////Path to the game soundtracks => .../resources/sound
-    final Path _soundDirectory = Paths.get(_workingDir.toString(), "resources", "sound");
+    //Path to the game soundtracks => .../resources/sound
 
     //Map currently being displayed
-    Map currentMap;
+    public Map currentMap;
     //All available maps
     ArrayList<Map> availableMaps = _loadAvailableMaps();
 
@@ -44,9 +47,9 @@ public class World {
     int mapScore = 0;
 
     //A list of all the score points on the map
-    Items[][] itemData;
+    public Items[][] itemData;
 
-    public World(Pacman p, ArrayList<Ghost> ghosts, String... mapName) {
+    public MapController(Pacman p, ArrayList<Ghost> ghosts, String... mapName) {
         this.pacman = p;
         this.ghosts = ghosts;
 
@@ -57,17 +60,6 @@ public class World {
         ghosts.forEach(
             ghost -> ghost.start(this)
         );
-
-        //Loads the music
-        //TODO: add a SoundController class
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_soundDirectory.toString(), "background.wav"));
-            clip.open(inputStream);
-            clip.start();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     //changes the current map to a randomly selected one, excludes mapToExclude
