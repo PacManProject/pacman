@@ -28,7 +28,7 @@ public class Gui extends Thread {
     int scale = 40;
     int frameCounter = 0;
 
-    JPanel welcomePanel;
+    Hauptmenue welcomePanel;
 
     JPanel homePanel;
 
@@ -71,6 +71,7 @@ public class Gui extends Thread {
         this.ghosts = ghosts;
         this.mapController = mapController;
         this.gamePanel = new GamePanel(mapController, this, pacman);
+        this.welcomePanel = new Hauptmenue(this);
 
         soundController = new SoundController();
         soundController.start();
@@ -91,6 +92,8 @@ public class Gui extends Thread {
         pacmanRight1 = sprite.getSubimage(16, 0, 13, 13);
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
+
+        updateWelcomeGraphics();
     }
 
     public void paint() {
@@ -172,14 +175,14 @@ public class Gui extends Thread {
     }
 
     //
-    private void updateGameGraphics() {
-        //try {
-        //    jf.remove(welcomePanel);
+    public void updateGameGraphics() {
+        try {
+            jf.remove(welcomePanel);
         //    jf.remove(homePanel);
         //    jf.remove(deathPanel);
-        //} catch (NullPointerException e) {
-//
-        //}
+        } catch (NullPointerException e) {
+
+        }
 
         jf.add(gamePanel);
 
@@ -193,21 +196,25 @@ public class Gui extends Thread {
 
         jf.revalidate();
         jf.repaint();
+
+        jf.requestFocusInWindow();
     }
 
-    private void updateWelcomeGraphics() {
-        try {
-            jf.remove(gamePanel);
-            jf.remove(homePanel);
-            jf.remove(deathPanel);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+    public void updateWelcomeGraphics() {
+        //try {
+        //    jf.remove(gamePanel);
+        //    jf.remove(homePanel);
+        //    jf.remove(deathPanel);
+        //} catch (NullPointerException e) {
+        //    e.printStackTrace();
+        //}
 
         jf.add(welcomePanel);
+        jf.setSize(100,100);
+        jf.setVisible(true);
     }
 
-    private void updateHomeGraphics() {
+    public void updateHomeGraphics() {
         try {
             jf.remove(welcomePanel);
             jf.remove(gamePanel);
@@ -219,7 +226,7 @@ public class Gui extends Thread {
         jf.add(homePanel);
     }
 
-    private void updateDeathGraphics() {
+    public void updateDeathGraphics() {
         try {
             jf.remove(welcomePanel);
             jf.remove(homePanel);
@@ -268,5 +275,9 @@ public class Gui extends Thread {
 
     public Pacman getPacman() {
         return pacman;
+    }
+
+    public void setGhosts() {
+
     }
 }
