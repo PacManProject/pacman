@@ -12,6 +12,7 @@ import src.models.Pacman;
 import src.util.KeyController;
 import src.util.SoundController;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -209,9 +210,17 @@ public class Gui extends Thread {
         //    e.printStackTrace();
         //}
 
+        jf.setLayout(new GridLayout());
         jf.add(welcomePanel);
-        jf.setSize(100,100);
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jf.setSize(800,800);
+        jf.setBackground(Color.DARK_GRAY);
+        jf.setResizable(false);
+        jf.setLocationRelativeTo(null);
         jf.setVisible(true);
+
+
+
     }
 
     public void updateHomeGraphics() {
@@ -272,12 +281,22 @@ public class Gui extends Thread {
         ghosts.forEach(Ghost::setLocation);
         this.updateGameGraphics();
     }
+    public void makeScene(String newName){
+
+        mapController.updateMap(newName);
+        pacman.updateCurrentWorld(mapController);
+        ghosts.forEach(Ghost::setLocation);
+        this.updateGameGraphics();
+    }
 
     public Pacman getPacman() {
         return pacman;
     }
 
-    public void setGhosts() {
-
+    public void setGhosts(int length) {
+        for (int i = 0; i < length; i++) {
+            ghosts.add(new Ghost());
+        }
+        ghosts.forEach(ghosts -> ghosts.start(this.mapController));
     }
 }

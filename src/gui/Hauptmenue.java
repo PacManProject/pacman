@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hauptmenue extends JPanel{
+
     Gui g;
     JButton startButton = new JButton("START");
     Choice mapAuswahl = new Choice();
@@ -40,6 +41,8 @@ public class Hauptmenue extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 g.start();
+                gui.setGhosts(geisterAnzahl.getSelectedIndex() + 1);
+                gui.makeScene(mapAuswahl.getSelectedItem());
             }
         };
 
@@ -47,17 +50,19 @@ public class Hauptmenue extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 spielerAuswahl.add(namenEingabe.getText());
-                System.out.println("Spieler erstellt mit namen: "+ namenEingabe.getText());
+                System.out.println("Spieler erstellt mit namen: " + namenEingabe.getText());
             }
         };
+        this.setBackground(Color.DARK_GRAY);
+        this.setLayout(new GridLayout(0,2));
 
-
-
-        startButton.setBounds(500 ,175, 200, 100 );
+        //startButton.setSize( 200, 100);
         startButton.setBackground(Color.GREEN);
         startButton.addActionListener(startListener);
 
-        mapText.setBounds(20,  110, 300, 30);
+
+
+        mapText.setSize(300, 30);
         mapText.setFont(ueberschrift.getFont().deriveFont(15.0f));
         mapText.setForeground(Color.GRAY);
 
@@ -67,8 +72,7 @@ public class Hauptmenue extends JPanel{
         mapAuswahl.setBounds(20, 140, 300, 30);
         mapAuswahl.setBackground(Color.GRAY);
 
-
-        geisterText.setBounds(20,  190, 300, 30);
+        geisterText.setBounds(20, 190, 300, 30);
         geisterText.setFont(ueberschrift.getFont().deriveFont(15.0f));
         geisterText.setForeground(Color.GRAY);
 
@@ -84,11 +88,11 @@ public class Hauptmenue extends JPanel{
         spielerErstellen.setBackground(Color.GRAY);
         spielerErstellen.addActionListener(namenHinzufuegen);
 
-        namenText.setBounds(20,  270, 300, 30);
+        namenText.setBounds(20, 270, 300, 30);
         namenText.setFont(ueberschrift.getFont().deriveFont(15.0f));
         namenText.setForeground(Color.GRAY);
 
-        spielerAuswahl.setBounds(20, 300, 300, 30 );
+        spielerAuswahl.setBounds(20, 300, 300, 30);
         spielerAuswahl.setBackground(Color.GRAY);
 
         namenEingabe.setBounds(20, 385, 300, 30);
@@ -99,26 +103,37 @@ public class Hauptmenue extends JPanel{
         ueberschrift.setForeground(Color.GRAY);
 
 
+        JPanel p1 = new JPanel();
+        p1.setBackground(Color.DARK_GRAY);
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.DARK_GRAY);
+        JPanel p3 = new JPanel();
+        p3.setBackground(Color.DARK_GRAY);
+        JPanel p4 = new JPanel();
+        p4.setBackground(Color.DARK_GRAY);
+        JPanel p5 = new JPanel();
+        p5.setBackground(Color.DARK_GRAY);
+        JPanel p6 = new JPanel();
+        p6.setBackground(Color.DARK_GRAY);
 
-        this.add(startButton);
         this.add(ueberschrift);
-        this.add(namenEingabe);
-        this.add(spielerAuswahl);
-        this.add(mapAuswahl);
-        this.add(geisterAnzahl);
-        this.add(spielerErstellen);
-        this.add(geisterText);
+        this.add(p1);
+        this.add(startButton);
+        this.add(p2);
         this.add(namenText);
+        this.add(spielerAuswahl);
+        this.add(namenEingabe);
+        this.add(spielerErstellen);
         this.add(mapText);
+        this.add(mapAuswahl);
+        this.add(geisterText);
+        this.add(geisterAnzahl);
+
+
+
+
 
     }
-
-
-
-
-
-
-
 }
 
 
