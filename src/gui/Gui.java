@@ -12,6 +12,7 @@ import src.models.Pacman;
 import src.util.KeyController;
 import src.util.SoundController;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -28,7 +29,7 @@ public class Gui extends Thread {
     int scale = 40;
     int frameCounter = 0;
 
-    JPanel welcomePanel;
+    Hauptmenue welcomePanel;
 
     JPanel homePanel;
 
@@ -71,6 +72,7 @@ public class Gui extends Thread {
         this.ghosts = ghosts;
         this.mapController = mapController;
         this.gamePanel = new GamePanel(mapController, this, pacman);
+        this.welcomePanel = new Hauptmenue(this);
 
         soundController = new SoundController();
         soundController.start();
@@ -91,6 +93,8 @@ public class Gui extends Thread {
         pacmanRight1 = sprite.getSubimage(16, 0, 13, 13);
         pacmanRight2 = sprite.getSubimage(0, 0, 13, 13);
         currentImage = pacman0;
+
+        updateWelcomeGraphics();
     }
 
     public void paint() {
@@ -172,14 +176,14 @@ public class Gui extends Thread {
     }
 
     //
-    private void updateGameGraphics() {
-        //try {
-        //    jf.remove(welcomePanel);
+    public void updateGameGraphics() {
+        try {
+            jf.remove(welcomePanel);
         //    jf.remove(homePanel);
         //    jf.remove(deathPanel);
-        //} catch (NullPointerException e) {
-//
-        //}
+        } catch (NullPointerException e) {
+
+        }
 
         jf.add(gamePanel);
 
@@ -193,21 +197,33 @@ public class Gui extends Thread {
 
         jf.revalidate();
         jf.repaint();
+
+        jf.requestFocusInWindow();
     }
 
-    private void updateWelcomeGraphics() {
-        try {
-            jf.remove(gamePanel);
-            jf.remove(homePanel);
-            jf.remove(deathPanel);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+    public void updateWelcomeGraphics() {
+        //try {
+        //    jf.remove(gamePanel);
+        //    jf.remove(homePanel);
+        //    jf.remove(deathPanel);
+        //} catch (NullPointerException e) {
+        //    e.printStackTrace();
+        //}
 
+        jf.setLayout(new GridLayout());
         jf.add(welcomePanel);
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jf.setSize(800,800);
+        jf.setBackground(Color.DARK_GRAY);
+        jf.setResizable(false);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
+
+
+
     }
 
-    private void updateHomeGraphics() {
+    public void updateHomeGraphics() {
         try {
             jf.remove(welcomePanel);
             jf.remove(gamePanel);
@@ -219,7 +235,7 @@ public class Gui extends Thread {
         jf.add(homePanel);
     }
 
-    private void updateDeathGraphics() {
+    public void updateDeathGraphics() {
         try {
             jf.remove(welcomePanel);
             jf.remove(homePanel);
@@ -265,8 +281,22 @@ public class Gui extends Thread {
         ghosts.forEach(Ghost::setLocation);
         this.updateGameGraphics();
     }
+    public void makeScene(String newName){
+
+        mapController.updateMap(newName);
+        pacman.updateCurrentWorld(mapController);
+        ghosts.forEach(Ghost::setLocation);
+        this.updateGameGraphics();
+    }
 
     public Pacman getPacman() {
         return pacman;
+    }
+
+    public void setGhosts(int length) {
+        for (int i = 0; i < length; i++) {
+            ghosts.add(new Ghost());
+        }
+        ghosts.forEach(ghosts -> ghosts.start(this.mapController));
     }
 }
