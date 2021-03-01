@@ -27,7 +27,6 @@ public class Map_Designer {
     static MapPanel jp;
 
     static int[][] item;
-    static int[][] map;
 
     static ActionListener actionListener1 = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -201,6 +200,11 @@ public class Map_Designer {
         public void paint(Graphics g) {
             super.paint(g);
             g.drawImage(pacmanIcon,1,1, getWidth()-1, getHeight()-1, this);
+        }
+
+        @Override
+        public int getElementData() {
+            return 1;
         }
     }
 }
