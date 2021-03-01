@@ -151,4 +151,8 @@ public class MapController {
     public Map getCurrentMap() {
         return currentMap;
     }
+
+    public ArrayList<Map> getAvailableMaps() {
+        return availableMaps;
+    }
 }

@@ -29,7 +29,7 @@ public class Gui extends Thread {
     int scale = 40;
     int frameCounter = 0;
 
-    Hauptmenue welcomePanel;
+    MainMenu welcomePanel;
 
     JPanel homePanel;
 
@@ -72,7 +72,7 @@ public class Gui extends Thread {
         this.ghosts = ghosts;
         this.mapController = mapController;
         this.gamePanel = new GamePanel(mapController, this, pacman);
-        this.welcomePanel = new Hauptmenue(this);
+        this.welcomePanel = new MainMenu(this);
 
         soundController = new SoundController();
         soundController.start();
