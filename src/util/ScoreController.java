@@ -77,4 +77,8 @@ public class ScoreController {
             e.printStackTrace();
         }
     }
+
+    public int getCurrentGameScore() {
+        return currentGameScore;
+    }
 }

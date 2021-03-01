@@ -241,4 +241,8 @@ public class Pacman extends Thread {
         System.out.println("Died");
         System.exit(0);
     }
+
+    public int currentGameScore() {
+        return scoreController.getCurrentGameScore();
+    }
 }
