@@ -39,7 +39,7 @@ public class ScoreController {
         score = availableScores.stream().filter(score_to_find -> name.equals(score_to_find.playername)).findFirst().orElse(availableScores.get(0));
     }
 
-    public ArrayList<Score> _loadAvailableScores(){
+    private ArrayList<Score> _loadAvailableScores(){
         availableScores = new ArrayList<>();
 
         try (Stream<Path> paths = Files.walk(_scoresDirectory)) {
@@ -80,5 +80,9 @@ public class ScoreController {
 
     public int getCurrentGameScore() {
         return currentGameScore;
+    }
+
+    public ArrayList<Score> getAvailableScores() {
+        return availableScores;
     }
 }
