@@ -103,7 +103,9 @@ class GamePanel extends JPanel {
             defaultcolor = this.getBackground();
 
             if (pacman.getHp() <= 0){
+                gui.stop();
                 pacman.die();
+                System.exit(0);
             }
 
             int x_axis = 0;

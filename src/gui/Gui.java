@@ -35,8 +35,6 @@ public class Gui extends Thread {
 
     GamePanel gamePanel;
 
-    JPanel deathPanel;
-
     SoundController soundController;
 
     //Game working-directory, should correspond to the project root dir
@@ -180,7 +178,6 @@ public class Gui extends Thread {
         try {
             jf.remove(welcomePanel);
         //    jf.remove(homePanel);
-        //    jf.remove(deathPanel);
         } catch (NullPointerException e) {
 
         }
@@ -205,7 +202,6 @@ public class Gui extends Thread {
         //try {
         //    jf.remove(gamePanel);
         //    jf.remove(homePanel);
-        //    jf.remove(deathPanel);
         //} catch (NullPointerException e) {
         //    e.printStackTrace();
         //}
@@ -227,24 +223,11 @@ public class Gui extends Thread {
         try {
             jf.remove(welcomePanel);
             jf.remove(gamePanel);
-            jf.remove(deathPanel);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
 
         jf.add(homePanel);
-    }
-
-    public void updateDeathGraphics() {
-        try {
-            jf.remove(welcomePanel);
-            jf.remove(homePanel);
-            jf.remove(gamePanel);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        jf.add(deathPanel);
     }
 
     public synchronized void run() {
