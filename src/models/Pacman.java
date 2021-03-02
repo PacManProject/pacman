@@ -11,6 +11,8 @@ package src.models;
 import src.util.MapController;
 import src.util.ScoreController;
 
+import javax.swing.*;
+
 public class Pacman extends Thread {
     //All the possible directions the pacman can go to
     public enum directions {
@@ -239,7 +241,8 @@ public class Pacman extends Thread {
     public void die(){
         scoreController.saveScore();
         System.out.println("Died");
-        System.exit(0);
+        JOptionPane.showMessageDialog(null,"Du hast Keine Leben mehr!","Schade", JOptionPane.PLAIN_MESSAGE);
+
     }
 
     public int currentGameScore() {
