@@ -14,6 +14,7 @@ import src.util.ScoreController;
 import javax.swing.*;
 
 public class Pacman extends Thread {
+    boolean pause = false;
     //All the possible directions the pacman can go to
     public enum directions {
         Up,
@@ -86,7 +87,16 @@ public class Pacman extends Thread {
             }
             this.move();
             noPointsLeft();
+
+            while (pause) {
+                try {
+                    wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
+
     }
 
     public void move(){
@@ -243,6 +253,13 @@ public class Pacman extends Thread {
         System.out.println("Died");
         JOptionPane.showMessageDialog(null,"Du hast Keine Leben mehr!","Schade", JOptionPane.PLAIN_MESSAGE);
 
+    }
+    public void pause(){
+        pause = true;
+    }
+    public void proceed(){
+        pause = false;
+        notify();
     }
 
     public int currentGameScore() {

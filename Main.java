@@ -2,6 +2,7 @@
 //Other contributors: https://github.com/dadope
 
 import src.gui.Gui;
+import src.gui.Map_Designer;
 import src.models.Ghost;
 import src.models.Pacman;
 import src.util.MapController;

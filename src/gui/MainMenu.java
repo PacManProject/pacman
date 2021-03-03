@@ -6,19 +6,28 @@ package src.gui;
 // https://github.com/trolol-bot
 // Leif
 
+import src.models.Items;
 import src.models.Map;
 import src.models.Score;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class MainMenu extends JPanel{
 
     Gui gui;
     JButton startButton = new JButton("START");
     JButton createPlayer = new JButton("Spieler erstellen");
+    JButton editorStarten = new JButton("Editor Starten");
 
     Choice mapSelection = new Choice();
     Choice playerSelection = new Choice();
@@ -30,11 +39,16 @@ public class MainMenu extends JPanel{
     JLabel mapText = new JLabel("Map auswählen:");
     JLabel nameText = new JLabel("Namen auswählen:");
     JLabel ghostText = new JLabel("Anzahl der Geister auswählen:");
+   // JLabel recommendedGhost = new JLabel("Empfolene Geisteranzahl")
 
 
 
     public MainMenu(Gui gui) {
         this.gui = gui;
+        ActionListener editorListener = e -> {
+            Map_Designer mapDesigner = new Map_Designer();
+            mapDesigner.start();
+        };
 
         ActionListener startListener = e -> {
             this.gui.start();
@@ -47,17 +61,38 @@ public class MainMenu extends JPanel{
             System.out.println("Spieler erstellt mit namen: " + nameInput.getText());
         };
 
+        ItemListener mapChangeListener = new ItemListener () {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                int recommendedMapGhosts = 0;
+                for (Map map: gui.mapController.getAvailableMaps()) {
+                    if (map.name == mapSelection.getSelectedItem()){
+                        recommendedMapGhosts = map.itemData.length*map.itemData[0].length;
+
+                    }
+                }
+                recommendedMapGhosts =  recommendedMapGhosts / 25;
+                ghostNumberSelection.select(recommendedMapGhosts-1);
+
+            }
+        };
+        mapSelection.addItemListener(mapChangeListener);
         this.setBackground(Color.DARK_GRAY);
 
         //TODO: fixme
-        this.setLayout(new GridLayout(0, 2));
+        this.setLayout(null);
 
-        //startButton.setSize( 200, 100);
+        editorStarten.setBounds(600, 420, 150, 20);
+        editorStarten.setBackground(new Color(73, 0, 52, 255));
+        editorStarten.setForeground(new Color (0, 16, 121));
+        editorStarten.addActionListener(editorListener);
+
+        startButton.setBounds(450, 150, 200, 150);
         startButton.setBackground(Color.GREEN);
         startButton.addActionListener(startListener);
 
 
-        mapText.setSize(300, 30);
+        mapText.setBounds(20, 100, 300, 30);
         mapText.setFont(header.getFont().deriveFont(15.0f));
         mapText.setForeground(Color.GRAY);
 
@@ -102,10 +137,10 @@ public class MainMenu extends JPanel{
         this.add(mapSelection);
         this.add(ghostText);
         this.add(ghostNumberSelection);
+        this.add(editorStarten);
     }
 
     private void SetupChoices(){
-
         for (Map map: gui.mapController.getAvailableMaps()) {
             mapSelection.add(map.name);
         }
@@ -114,9 +149,11 @@ public class MainMenu extends JPanel{
 
 
         //TODO: add max_ghosts to map
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 36; i++) {
             ghostNumberSelection.add(Integer.toString(i));
         }
+
+
 
         ghostNumberSelection.setBounds(20, 220, 300, 30);
         ghostNumberSelection.setBackground(Color.GRAY);

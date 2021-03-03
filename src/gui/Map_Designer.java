@@ -50,13 +50,13 @@ public class Map_Designer {
                 }
             } catch (NumberFormatException n) {
                 System.out.println("Illegal character used as number");
-                System.exit(0);
+                jFrame.dispose();
             }
             jFrame.removeAll();
             jFrame.revalidate();
             jFrame.repaint();
             jFrame = new JFrame("Map Designer");
-            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jFrame.setSize(columns*30,rows*30 + 60);
             jFrame.setLocationRelativeTo(null);
             jp = new MapPanel(rows, columns, pacmanX, pacmanY);
@@ -72,11 +72,11 @@ public class Map_Designer {
         public void actionPerformed(ActionEvent e) {
             item = jp.getElements();
             src.models.Map map = new Map(jt5.getText(), pacmanX, pacmanY, item);
-            System.exit(0);
+            jFrame.dispose();
         }
     };
 
-    public static void main(String[] args) {
+    public void start() {
         b1.addActionListener(actionListener1);
         b2.addActionListener(actionListener2);
         jFrame.setLayout(new GridLayout(4,2));
@@ -90,7 +90,7 @@ public class Map_Designer {
         jFrame.add(b1);
         jFrame.setSize(211, 111);
         jFrame.setLocationRelativeTo(null);
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jFrame.setVisible(true);
     }
 

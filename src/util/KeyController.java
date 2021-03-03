@@ -4,6 +4,7 @@
 
 package src.util;
 
+import src.gui.Gui;
 import src.models.Pacman;
 
 import java.awt.event.KeyEvent;
@@ -12,9 +13,11 @@ import java.awt.event.KeyListener;
 public class KeyController implements KeyListener {
 
     Pacman pacman;
+    Gui gui;
 
-    public KeyController(Pacman p) {
+    public KeyController(Pacman p, Gui g) {
         pacman = p;
+        gui = g;
     }
 
     @Override
@@ -41,6 +44,9 @@ public class KeyController implements KeyListener {
             case KeyEvent.VK_S:
                 pacman.moveDown();
                 break;
+            case KeyEvent.VK_ESCAPE:
+                gui.updateSettingsGraphics();
+                //gui.stop();
             default :
                 System.out.println("Pressed key: " + e.getKeyCode());
         }
