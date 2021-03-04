@@ -65,10 +65,9 @@ public class Ghost{
     public void setLocation() {
         while (true) {
             int i = (int)(Math.random()* currentMapController.currentMap.mapData.length), j = (int)(Math.random()* currentMapController.currentMap.mapData[0].length);
-            if (currentMapController.currentMap.mapData[i][j]) {
+            if (currentMapController.currentMap.mapData[i][j] && ((currentMapController.pacman.getPos_x() <= j-2 || currentMapController.pacman.getPos_x() >= j+2) || (currentMapController.pacman.getPos_y() <= i-2 || currentMapController.pacman.getPos_y() >= i+2))) {
                 this.pos_x = j;
                 this.pos_y = i;
-
                 break;
             }
         }
