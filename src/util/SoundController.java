@@ -24,13 +24,20 @@ public class SoundController extends Thread{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        clip.start();
+        setVolume(50);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     //TODO: add more variety to the music selection
     public void startBackgroundMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_backgroundMusicDir.toString(), "background.wav"));
         clip.open(inputStream);
+    }
+
+    public void setVolume(int volume) {
+        FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        float range = control.getMinimum();
+        float result = range * (1 - volume / 100.0f);
+        control.setValue(result);
     }
 }
