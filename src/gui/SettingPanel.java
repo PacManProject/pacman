@@ -1,3 +1,6 @@
+//Initial file creator: https://github.com/TobiwanSUMB
+// https://github.com/SomeOtherGod
+
 package src.gui;
 
 import javax.swing.*;

@@ -1,4 +1,6 @@
 //Initial file creator: https://github.com/dadope
+//Other contributors:
+// https://github.com/SomeOtherGod
 
 package src.util;
 
