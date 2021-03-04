@@ -248,8 +248,13 @@ public class Pacman extends Thread {
         JOptionPane.showMessageDialog(null,"Du hast Keine Leben mehr!","Schade", JOptionPane.PLAIN_MESSAGE);
 
     }
+
     public void pause(){
-        paused = !paused;
+        paused = true;
+    }
+
+    public void unpause() {
+        paused = false;
     }
 
     public int currentGameScore() {

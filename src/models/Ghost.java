@@ -147,8 +147,12 @@ public class Ghost{
 
         return ghostImg;
     }
+
     public void pause(){
-        ghostController.paused = !ghostController.paused;
+        ghostController.paused = true;
     }
 
+    public void unpause(){
+        ghostController.paused = false;
+    }
 }

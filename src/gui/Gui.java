@@ -296,4 +296,9 @@ public class Gui extends Thread {
         pacman.pause();
         ghosts.forEach(ghosts -> ghosts.pause());
     }
+
+    public void unpause() {
+        pacman.unpause();
+        ghosts.forEach(ghosts -> ghosts.unpause());
+    }
 }

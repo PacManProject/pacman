@@ -47,6 +47,7 @@ public class KeyController implements KeyListener {
             case KeyEvent.VK_ESCAPE:
                 gui.updateSettingsGraphics();
                 gui.pause();
+                break;
             default :
                 System.out.println("Pressed key: " + e.getKeyCode());
         }
