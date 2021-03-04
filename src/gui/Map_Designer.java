@@ -71,7 +71,7 @@ public class Map_Designer {
     static ActionListener actionListener2 = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             item = jp.getElements();
-            src.models.Map map = new Map(jt5.getText(), pacmanX, pacmanY, item);
+            src.models.Map map = new Map(jt5.getText(), pacmanY, pacmanX, item);
             jFrame.dispose();
         }
     };
