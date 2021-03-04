@@ -40,7 +40,7 @@ public class MapController {
     //All available maps
     ArrayList<Map> availableMaps = _loadAvailableMaps();
 
-    Pacman pacman;
+    public Pacman pacman;
     ArrayList<Ghost> ghosts;
 
     //A count of all the scores on the map

@@ -14,7 +14,7 @@ import src.util.ScoreController;
 import javax.swing.*;
 
 public class Pacman extends Thread {
-    boolean pause = false;
+    boolean paused = false;
     //All the possible directions the pacman can go to
     public enum directions {
         Up,
@@ -87,88 +87,82 @@ public class Pacman extends Thread {
             }
             this.move();
             noPointsLeft();
-
-            while (pause) {
-                try {
-                    wait();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
         }
 
     }
 
     public void move(){
-        int testLength;
-        switch (directionNew){
-            case Up:
-                testLength = this.pos_y-1;
-                if (testLength < 0) {
-                    testLength = currentMapController.currentMap.mapData.length-1;
-                }
-                if(currentMapController.currentMap.mapData[testLength][this.pos_x]){
-                    if ((this.pos_y - 1) < 0) {
-                        this.pos_y = testLength;
-                    } else {
-                        this.pos_y--;
+        if (!paused) {
+            int testLength;
+            switch (directionNew) {
+                case Up:
+                    testLength = this.pos_y - 1;
+                    if (testLength < 0) {
+                        testLength = currentMapController.currentMap.mapData.length - 1;
                     }
-                    increasePoints();
-                    currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
-                    direction = directionNew;
-                }else {
-                    impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
-                }
+                    if (currentMapController.currentMap.mapData[testLength][this.pos_x]) {
+                        if ((this.pos_y - 1) < 0) {
+                            this.pos_y = testLength;
+                        } else {
+                            this.pos_y--;
+                        }
+                        increasePoints();
+                        currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+                        direction = directionNew;
+                    } else {
+                        impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
+                    }
 
-                break;
-            case Down:
-                if(currentMapController.currentMap.mapData[(this.pos_y+1)% currentMapController.currentMap.mapData.length][this.pos_x]){
-                    if ((this.pos_y + 1) == currentMapController.currentMap.mapData.length) {
-                        this.pos_y = 0;
+                    break;
+                case Down:
+                    if (currentMapController.currentMap.mapData[(this.pos_y + 1) % currentMapController.currentMap.mapData.length][this.pos_x]) {
+                        if ((this.pos_y + 1) == currentMapController.currentMap.mapData.length) {
+                            this.pos_y = 0;
+                        } else {
+                            this.pos_y++;
+                        }
+                        increasePoints();
+                        currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+                        direction = directionNew;
                     } else {
-                        this.pos_y++;
+                        impossibleDirection();
                     }
-                    increasePoints();
-                    currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
-                    direction = directionNew;
-                }else {
-                    impossibleDirection();
-                }
-                break;
-            case Left:
-                testLength = this.pos_x-1;
-                if (testLength < 0) {
-                    testLength = currentMapController.currentMap.mapData[0].length-1;
-                }
-                if(currentMapController.currentMap.mapData[this.pos_y][testLength]){
-                    if ((this.pos_x - 1) < 0) {
-                        this.pos_x = testLength;
+                    break;
+                case Left:
+                    testLength = this.pos_x - 1;
+                    if (testLength < 0) {
+                        testLength = currentMapController.currentMap.mapData[0].length - 1;
+                    }
+                    if (currentMapController.currentMap.mapData[this.pos_y][testLength]) {
+                        if ((this.pos_x - 1) < 0) {
+                            this.pos_x = testLength;
+                        } else {
+                            this.pos_x--;
+                        }
+                        increasePoints();
+                        currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+                        direction = directionNew;
                     } else {
-                        this.pos_x--;
+                        impossibleDirection();
                     }
-                    increasePoints();
-                    currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
-                    direction = directionNew;
-                }else {
-                    impossibleDirection();
-                }
-                break;
-            case Right:
-                if(currentMapController.currentMap.mapData[this.pos_y][(this.pos_x+1)% currentMapController.currentMap.mapData[0].length]){
-                    if ((this.pos_x + 1) == currentMapController.currentMap.mapData[0].length) {
-                        this.pos_x = 0;
+                    break;
+                case Right:
+                    if (currentMapController.currentMap.mapData[this.pos_y][(this.pos_x + 1) % currentMapController.currentMap.mapData[0].length]) {
+                        if ((this.pos_x + 1) == currentMapController.currentMap.mapData[0].length) {
+                            this.pos_x = 0;
+                        } else {
+                            this.pos_x++;
+                        }
+                        increasePoints();
+                        currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+                        direction = directionNew;
                     } else {
-                        this.pos_x++;
+                        impossibleDirection();
                     }
-                    increasePoints();
-                    currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
-                    direction = directionNew;
-                }else {
-                    impossibleDirection();
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -254,12 +248,13 @@ public class Pacman extends Thread {
         JOptionPane.showMessageDialog(null,"Du hast Keine Leben mehr!","Schade", JOptionPane.PLAIN_MESSAGE);
 
     }
+
     public void pause(){
-        pause = true;
+        paused = true;
     }
-    public void proceed(){
-        pause = false;
-        notify();
+
+    public void unpause() {
+        paused = false;
     }
 
     public int currentGameScore() {
