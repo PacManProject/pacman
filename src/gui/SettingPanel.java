@@ -16,7 +16,7 @@ public class SettingPanel extends JPanel {
 
         ActionListener resumeGame = e -> {
             gui.updateGameGraphics();
-            //gui.continue();
+            gui.pause();
         };
 
         volumeSlider.setBackground(Color.GRAY);

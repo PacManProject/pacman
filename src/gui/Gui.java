@@ -29,6 +29,8 @@ public class Gui extends Thread {
     int scale = 40;
     int frameCounter = 0;
 
+    boolean paused = false;
+
     MainMenu welcomePanel;
 
     JPanel settingsPanel;
@@ -283,20 +285,15 @@ public class Gui extends Thread {
         return pacman;
     }
 
-    public void resumeThreads(){
-        ghosts.forEach(Ghost::proceed);
-        pacman.proceed();
-    }
-
-    public void pauseThreads(){
-        ghosts.forEach(Ghost::pause);
-        pacman.pause();
-    }
-
     public void setGhosts(int length) {
         for (int i = 0; i < length; i++) {
             ghosts.add(new Ghost());
         }
         ghosts.forEach(ghosts -> ghosts.start(this.mapController));
+    }
+
+    public void pause() {
+        pacman.pause();
+        ghosts.forEach(ghosts -> ghosts.pause());
     }
 }
