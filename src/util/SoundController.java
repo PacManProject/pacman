@@ -34,7 +34,7 @@ public class SoundController extends Thread{
 
     //TODO: add more variety to the music selection
     public void startBackgroundMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_backgroundMusicDir.toString(), "background.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_backgroundMusicDir.toString(), "MainMenuMusic1.wav"));
         clip.open(inputStream);
     }
 
