@@ -31,7 +31,7 @@ public class Gui extends Thread {
 
     MainMenu welcomePanel;
 
-    JPanel homePanel;
+    JPanel settingsPanel;
 
     GamePanel gamePanel;
 
@@ -71,6 +71,7 @@ public class Gui extends Thread {
         this.mapController = mapController;
         this.gamePanel = new GamePanel(mapController, this, pacman);
         this.welcomePanel = new MainMenu(this);
+        this.settingsPanel = new SettingPanel(this);
 
         soundController = new SoundController();
         soundController.start();
@@ -177,11 +178,10 @@ public class Gui extends Thread {
     public void updateGameGraphics() {
         try {
             jf.remove(welcomePanel);
-        //    jf.remove(homePanel);
+            jf.remove(settingsPanel);
         } catch (NullPointerException e) {
 
         }
-
         jf.add(gamePanel);
 
         jf.setVisible(true);
@@ -201,7 +201,7 @@ public class Gui extends Thread {
     public void updateWelcomeGraphics() {
         //try {
         //    jf.remove(gamePanel);
-        //    jf.remove(homePanel);
+        //    jf.remove(settingsPanel);
         //} catch (NullPointerException e) {
         //    e.printStackTrace();
         //}
@@ -209,7 +209,7 @@ public class Gui extends Thread {
         jf.setLayout(new GridLayout());
         jf.add(welcomePanel);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jf.setSize(800,800);
+        jf.setSize(800,500);
         jf.setBackground(Color.DARK_GRAY);
         jf.setResizable(false);
         jf.setLocationRelativeTo(null);
@@ -219,7 +219,7 @@ public class Gui extends Thread {
 
     }
 
-    public void updateHomeGraphics() {
+    public void updateSettingsGraphics() {
         try {
             jf.remove(welcomePanel);
             jf.remove(gamePanel);
@@ -227,11 +227,18 @@ public class Gui extends Thread {
             e.printStackTrace();
         }
 
-        jf.add(homePanel);
+        jf.setLayout(new GridLayout());
+        jf.add(settingsPanel);
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        jf.setSize(500,500);
+        jf.setBackground(Color.DARK_GRAY);
+        jf.setResizable(false);
+        jf.setLocationRelativeTo(null);
+        jf.setVisible(true);
     }
 
     public synchronized void run() {
-        jf.addKeyListener(new KeyController(pacman));
+        jf.addKeyListener(new KeyController(pacman, this));
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setIconImage(new ImageIcon(iconPath.toString()).getImage()); //img als icon
         updateGameGraphics();
@@ -274,6 +281,16 @@ public class Gui extends Thread {
 
     public Pacman getPacman() {
         return pacman;
+    }
+
+    public void resumeThreads(){
+        ghosts.forEach(Ghost::proceed);
+        pacman.proceed();
+    }
+
+    public void pauseThreads(){
+        ghosts.forEach(Ghost::pause);
+        pacman.pause();
     }
 
     public void setGhosts(int length) {

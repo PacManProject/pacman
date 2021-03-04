@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class GhostController extends Thread {
     Ghost gh;
     directions lastMovement;
+    public boolean pause = false;
     ArrayList<directions> availableDirections;
 
     private final Random randomGenerator;
@@ -59,6 +60,14 @@ public class GhostController extends Thread {
 
             //moves the ghost
             gh.move(lastMovement);
+            while (pause) {
+                try {
+                    wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+
 }

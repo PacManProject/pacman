@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Ghost{
+
     MapController currentMapController;
 
     //Direction the ghost is currently facing
@@ -49,6 +50,7 @@ public class Ghost{
 
         this.setLocation();
         this.ghostController.start();
+
     }
 
     public int getPos_y() {
@@ -144,5 +146,12 @@ public class Ghost{
         }
 
         return ghostImg;
+    }
+    public void pause(){
+        ghostController.pause = true;
+    }
+    public void proceed(){
+        ghostController.pause = false;
+        notify();
     }
 }
