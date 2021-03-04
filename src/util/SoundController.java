@@ -36,8 +36,6 @@ public class SoundController extends Thread{
 
     public void setVolume(int volume) {
         FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        float range = control.getMinimum();
-        float result = range * (1 - volume / 100.0f);
-        control.setValue(result);
+        control.setValue(control.getMinimum() * (1 - volume / 100.0f));
     }
 }

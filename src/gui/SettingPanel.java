@@ -19,12 +19,8 @@ public class SettingPanel extends JPanel {
             //gui.continue();
         };
 
-        volumeSlider.setMajorTickSpacing(10);
-        volumeSlider.setMinorTickSpacing(1);
-        volumeSlider.setPaintTicks(true);
-        volumeSlider.setPaintLabels(true);
         volumeSlider.setBackground(Color.GRAY);
-        volumeSlider.setBounds(45, 250, 400 , 60);
+        volumeSlider.setBounds(45, 250, 400 , 30);
         volumeSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
