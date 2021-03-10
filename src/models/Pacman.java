@@ -12,9 +12,12 @@ import src.util.MapController;
 import src.util.ScoreController;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.spi.AbstractResourceBundleProvider;
 
 public class Pacman extends Thread {
     boolean paused = false;
+
     //All the possible directions the pacman can go to
     public enum directions {
         Up,
@@ -39,15 +42,19 @@ public class Pacman extends Thread {
     //y axis position
     int pos_y;
 
+    //health points
     int hp;
 
-    //direction the ghost is currently facing
+
+    //direction the pacman is currently facing
     directions direction = directions.Left;
     directions directionNew = direction;
     directions directionNext = direction;
 
-    MapController currentMapController;
     ScoreController scoreController;
+    MapController currentMapController;
+
+    ArrayList<Items> activeItems = new ArrayList<>();
 
     public Pacman(String... filename) {
         this.hp = 3;
@@ -81,10 +88,13 @@ public class Pacman extends Thread {
         setPriority(1);
         while (true){
             try{
-                sleep(450);     //Geschwindigkeit von PacMan
+
+                //speed at which the pacman moves
+                sleep(450);
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
+
             this.move();
             noPointsLeft();
         }
@@ -94,6 +104,7 @@ public class Pacman extends Thread {
     public void move(){
         if (!paused) {
             int testLength;
+
             switch (directionNew) {
                 case Up:
                     testLength = this.pos_y - 1;
@@ -106,8 +117,13 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_y--;
                         }
-                        increasePoints();
+
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                            addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+
+                        increasePoints();
+
                         direction = directionNew;
                     } else {
                         impossibleDirection();//falls Pacman nicht in die Richtung gehen kann
@@ -121,8 +137,12 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_y++;
                         }
-                        increasePoints();
+
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                            addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+
+                        increasePoints();
                         direction = directionNew;
                     } else {
                         impossibleDirection();
@@ -139,6 +159,11 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_x--;
                         }
+
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                            addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
+                        currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+
                         increasePoints();
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
                         direction = directionNew;
@@ -153,6 +178,11 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_x++;
                         }
+
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                            addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
+                        currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
+
                         increasePoints();
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
                         direction = directionNew;
@@ -164,6 +194,27 @@ public class Pacman extends Thread {
                     break;
             }
         }
+    }
+
+    private void addActiveItem(Items item){
+        if (item == Items.score) return;
+
+        activeItems.removeIf(items -> items.equals(item));
+        activeItems.add(item);
+
+        new Thread(() -> {
+            long timeToWait = 1000L;
+
+            if (item.extraVariables.get("actionTime") != null)
+                timeToWait = ((Integer) item.extraVariables.get("actionTime") * 1000);
+            try {
+                sleep(timeToWait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            activeItems.remove(item);
+        }).start();
     }
 
     //Adds a point to the score if the pacman currently stands in a point
@@ -259,5 +310,9 @@ public class Pacman extends Thread {
 
     public int currentGameScore() {
         return scoreController.getCurrentGameScore();
+    }
+
+    public ArrayList<Items> getActiveItems() {
+        return activeItems;
     }
 }

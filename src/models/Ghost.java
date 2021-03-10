@@ -29,6 +29,9 @@ public class Ghost{
     //y axis position of the ghost
     int pos_y;
 
+    int init_x;
+    int init_y;
+
     //Game working-directory, should correspond to the project root dir
     Path workingDir = Paths.get(System.getProperty("user.dir"));
     //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
@@ -61,13 +64,20 @@ public class Ghost{
         return pos_x;
     }
 
+    public void goToInitialPos(){
+        this.pos_x = init_x;
+        this.pos_y = init_y;
+    }
+
     //Randomly selects a possible location on the map
     public void setLocation() {
         while (true) {
             int i = (int)(Math.random()* currentMapController.currentMap.mapData.length), j = (int)(Math.random()* currentMapController.currentMap.mapData[0].length);
             if (currentMapController.currentMap.mapData[i][j] && ((currentMapController.pacman.getPos_x() <= j-2 || currentMapController.pacman.getPos_x() >= j+2) || (currentMapController.pacman.getPos_y() <= i-2 || currentMapController.pacman.getPos_y() >= i+2))) {
                 this.pos_x = j;
+                this.init_x = j;
                 this.pos_y = i;
+                this.init_y = i;
                 break;
             }
         }
