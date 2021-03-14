@@ -53,6 +53,7 @@ public class MainMenu extends JPanel{
         };
 
         ActionListener startListener = e -> {
+            gui.pacman.setScoreController(new ScoreController(playerSelection.getSelectedItem()));
             this.gui.start();
             gui.setGhosts(ghostNumberSelection.getSelectedIndex() + 1);
             gui.makeScene(mapSelection.getSelectedItem());
