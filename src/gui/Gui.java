@@ -80,6 +80,7 @@ public class Gui extends Thread {
 
         soundController = new SoundController();
         soundController.start();
+        this.pacman.soundController = soundController;
 
         try {
             sprite = ImageIO.read(new File(spritePath.toString()));
@@ -261,12 +262,13 @@ public class Gui extends Thread {
 
     //Changes the Map currently being displayed, to any other random map that isn't the current map
     public void changeScene(){
+        soundController.stageCleared();
         mapController.changeMapRandomly(mapController.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
         this.updateGameGraphics();
     }
-    public void makeScene(String newName){
 
+    public void makeScene(String newName){
         mapController.updateMap(newName);
         pacman.updateCurrentWorld(mapController);
         ghosts.forEach(Ghost::setLocation);

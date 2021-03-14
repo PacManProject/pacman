@@ -27,7 +27,7 @@ public class SettingPanel extends JPanel {
         volumeSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                gui.soundController.setVolume((int)volumeSlider.getValue());
+                gui.soundController.setMasterVolume((int)volumeSlider.getValue());
             }
         });
         volumeLabel.setBounds(225, 210,100, 40);
