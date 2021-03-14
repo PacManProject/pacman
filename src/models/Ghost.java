@@ -26,26 +26,34 @@ public class Ghost{
 
     //x axis position of the ghost
     int pos_x;
+
     //y axis position of the ghost
     int pos_y;
 
+    //initial x axis position
     int init_x;
+
+    //initial y axis position
     int init_y;
 
     //Game working-directory, should correspond to the project root dir
     Path workingDir = Paths.get(System.getProperty("user.dir"));
+
     //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
     Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
 
     BufferedImage sprite;
 
     ArrayList<BufferedImage> ghostImg;
+    ArrayList<BufferedImage> chasedImg = new ArrayList<>();
 
     //Controls the movement of the ghost
     GhostController ghostController = new GhostController(this);
 
     public Ghost() {
         ghostImg = selectRandomColor();
+        chasedImg.add(sprite.getSubimage(128, 64, 14, 14));
+        chasedImg.add(sprite.getSubimage(144, 64, 14, 14));
     }
 
     public void start(MapController currentMapController) {
@@ -69,15 +77,15 @@ public class Ghost{
         this.pos_y = init_y;
     }
 
-    //Randomly selects a possible location on the map
+    //Randomly selects a possible location on the map for the ghost to spawn
     public void setLocation() {
         while (true) {
-            int i = (int)(Math.random()* currentMapController.currentMap.mapData.length), j = (int)(Math.random()* currentMapController.currentMap.mapData[0].length);
+            int i = (int)(Math.random()* currentMapController.currentMap.mapData.length);
+            int j = (int)(Math.random()* currentMapController.currentMap.mapData[0].length);
+
             if (currentMapController.currentMap.mapData[i][j] && ((currentMapController.pacman.getPos_x() <= j-2 || currentMapController.pacman.getPos_x() >= j+2) || (currentMapController.pacman.getPos_y() <= i-2 || currentMapController.pacman.getPos_y() >= i+2))) {
-                this.pos_x = j;
-                this.init_x = j;
-                this.pos_y = i;
-                this.init_y = i;
+                this.pos_x = this.init_x = j;
+                this.pos_y = this.init_y = i;
                 break;
             }
         }
@@ -136,6 +144,11 @@ public class Ghost{
         return ghostImg;
     }
 
+    public ArrayList<BufferedImage> getChasedImg() {
+        return chasedImg;
+    }
+
+    //Randomly selects a color for the ghost to have and sets the sprites
     private ArrayList<BufferedImage> selectRandomColor(){
         ghostImg = new ArrayList<>();
         Random randomGenerator = new Random();

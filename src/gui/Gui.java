@@ -249,16 +249,10 @@ public class Gui extends Thread {
             ghosts.forEach(
                 ghost -> {
                     if (pacman.getPos_x() == ghost.getPos_x() && pacman.getPos_y() == ghost.getPos_y()){
-
-                        if (pacman.getActiveItems().contains(Items.cherry)){
+                        if (pacman.getActiveItems().contains(Items.cherry))
                             ghost.goToInitialPos();
-                        }
-                        else {
-                            System.out.println("tot");
-                            this.paint();
-                            gamePanel.loseHealth();
-                            pacman.resetPosition();
-                        }
+                        else
+                            killPacman();
                     }
                 }
             );
@@ -266,7 +260,6 @@ public class Gui extends Thread {
     }
 
     //Changes the Map currently being displayed, to any other random map that isn't the current map
-    //TODO: add an optional parameter to change the map to a specific other map
     public void changeScene(){
         mapController.changeMapRandomly(mapController.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
@@ -289,6 +282,12 @@ public class Gui extends Thread {
             ghosts.add(new Ghost());
         }
         ghosts.forEach(ghosts -> ghosts.start(this.mapController));
+    }
+
+    public void killPacman(){
+        this.paint();
+        gamePanel.loseHealth();
+        pacman.resetPosition();
     }
 
     public void pause() {

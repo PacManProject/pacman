@@ -89,7 +89,10 @@ class GamePanel extends JPanel {
 
             //draws every ghost to its corresponding x and y axes
             for (Ghost ghost : gui.ghosts) {
-                g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * gui.scale, ghost.getPos_y() * gui.scale, gui.scale, gui.scale, null);
+                if (pacman.getActiveItems().contains(Items.cherry))
+                    g.drawImage(ghost.getChasedImg().get(randomGenerator.nextInt(ghost.getChasedImg().size())), ghost.getPos_x() * gui.scale, ghost.getPos_y() * gui.scale, gui.scale, gui.scale, null);
+                else
+                    g.drawImage(ghost.getGhostImg().get(randomGenerator.nextInt(ghost.getGhostImg().size())), ghost.getPos_x() * gui.scale, ghost.getPos_y() * gui.scale, gui.scale, gui.scale, null);
             }
         }
     }

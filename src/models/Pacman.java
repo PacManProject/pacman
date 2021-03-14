@@ -105,6 +105,8 @@ public class Pacman extends Thread {
         if (!paused) {
             int testLength;
 
+            System.out.println(scoreController.currentMapScore);
+
             switch (directionNew) {
                 case Up:
                     testLength = this.pos_y - 1;
@@ -117,12 +119,13 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_y--;
                         }
+                        increasePoints();
 
-                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
+                        }
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
 
-                        increasePoints();
 
                         direction = directionNew;
                     } else {
@@ -137,12 +140,13 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_y++;
                         }
+                        increasePoints();
 
-                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
+                        }
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
 
-                        increasePoints();
                         direction = directionNew;
                     } else {
                         impossibleDirection();
@@ -159,12 +163,13 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_x--;
                         }
+                        increasePoints();
 
-                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
+                        }
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
 
-                        increasePoints();
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
                         direction = directionNew;
                     } else {
@@ -178,12 +183,13 @@ public class Pacman extends Thread {
                         } else {
                             this.pos_x++;
                         }
+                        increasePoints();
 
-                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none)
+                        if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
+                        }
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
 
-                        increasePoints();
                         currentMapController.itemData[this.pos_y][this.pos_x] = Items.none;
                         direction = directionNew;
                     } else {
