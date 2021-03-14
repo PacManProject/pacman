@@ -7,6 +7,7 @@
 package src.gui;
 
 import src.models.Ghost;
+import src.models.Items;
 import src.util.MapController;
 import src.models.Pacman;
 import src.util.KeyController;
@@ -41,8 +42,10 @@ public class Gui extends Thread {
 
     //Game working-directory, should correspond to the project root dir
     Path workingDir = Paths.get(System.getProperty("user.dir"));
+
     //Path to the game-icon => .../resources/img/icon.png
     Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
+
     //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
      Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
 
@@ -201,13 +204,6 @@ public class Gui extends Thread {
     }
 
     public void updateWelcomeGraphics() {
-        //try {
-        //    jf.remove(gamePanel);
-        //    jf.remove(settingsPanel);
-        //} catch (NullPointerException e) {
-        //    e.printStackTrace();
-        //}
-
         jf.setLayout(new GridLayout());
         jf.add(welcomePanel);
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -216,9 +212,6 @@ public class Gui extends Thread {
         jf.setResizable(false);
         jf.setLocationRelativeTo(null);
         jf.setVisible(true);
-
-
-
     }
 
     public void updateSettingsGraphics() {
@@ -256,10 +249,10 @@ public class Gui extends Thread {
             ghosts.forEach(
                 ghost -> {
                     if (pacman.getPos_x() == ghost.getPos_x() && pacman.getPos_y() == ghost.getPos_y()){
-                        System.out.println("tot");
-                        this.paint();
-                        gamePanel.loseHealth();
-                        pacman.resetPosition();
+                        if (pacman.getActiveItems().contains(Items.cherry))
+                            ghost.goToInitialPos();
+                        else
+                            killPacman();
                     }
                 }
             );
@@ -267,7 +260,6 @@ public class Gui extends Thread {
     }
 
     //Changes the Map currently being displayed, to any other random map that isn't the current map
-    //TODO: add an optional parameter to change the map to a specific other map
     public void changeScene(){
         mapController.changeMapRandomly(mapController.getCurrentMap());
         ghosts.forEach(Ghost::setLocation);
@@ -292,13 +284,19 @@ public class Gui extends Thread {
         ghosts.forEach(ghosts -> ghosts.start(this.mapController));
     }
 
+    public void killPacman(){
+        this.paint();
+        gamePanel.loseHealth();
+        pacman.resetPosition();
+    }
+
     public void pause() {
         pacman.pause();
-        ghosts.forEach(ghosts -> ghosts.pause());
+        ghosts.forEach(Ghost::pause);
     }
 
     public void unpause() {
         pacman.unpause();
-        ghosts.forEach(ghosts -> ghosts.unpause());
+        ghosts.forEach(Ghost::unpause);
     }
 }

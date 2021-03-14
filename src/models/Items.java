@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -39,14 +40,14 @@ public enum Items {
 
     // Variables that might be needed later on
     // FIXME: DO NOT edit java.util.Map to Map, as there are import conflicts with .Map
-    public final java.util.Map[] extraVariables;
+    public final java.util.Map extraVariables;
 
     Items(int itemCode, String itemDescription, java.util.Map... extraVariables){
         this.scale = 1;
         this.itemCode = itemCode;
         this.itemDescription = itemDescription;
 
-        this.extraVariables = extraVariables;
+        this.extraVariables = (extraVariables.length >= 1) ? extraVariables[0] : Map.of();
         this.image = null;
     }
 
@@ -55,7 +56,7 @@ public enum Items {
         this.itemCode = itemCode;
         this.itemDescription = description;
 
-        this.extraVariables = extraVariables;
+        this.extraVariables = (extraVariables.length >= 1) ? extraVariables[0] : Map.of();
 
         Path spritePath = Paths.get(System.getProperty("user.dir"), "resources", "img", "General Sprites.png");
 
