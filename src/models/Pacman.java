@@ -106,8 +106,6 @@ public class Pacman extends Thread {
         if (!paused) {
             int testLength;
 
-            System.out.println(scoreController.currentMapScore);
-
             switch (directionNew) {
                 case Up:
                     testLength = this.pos_y - 1;
