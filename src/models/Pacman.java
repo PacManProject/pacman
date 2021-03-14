@@ -10,6 +10,7 @@ package src.models;
 
 import src.util.MapController;
 import src.util.ScoreController;
+import src.util.SoundController;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class Pacman extends Thread {
     directions directionNext = direction;
 
     ScoreController scoreController;
+    public SoundController soundController;
     MapController currentMapController;
 
     ArrayList<Items> activeItems = new ArrayList<>();
@@ -94,7 +96,6 @@ public class Pacman extends Thread {
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
-
             this.move();
             noPointsLeft();
         }
@@ -120,6 +121,7 @@ public class Pacman extends Thread {
                             this.pos_y--;
                         }
                         increasePoints();
+                        soundController.pacmanMoves();
 
                         if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
@@ -141,6 +143,7 @@ public class Pacman extends Thread {
                             this.pos_y++;
                         }
                         increasePoints();
+                        soundController.pacmanMoves();
 
                         if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
@@ -164,6 +167,7 @@ public class Pacman extends Thread {
                             this.pos_x--;
                         }
                         increasePoints();
+                        soundController.pacmanMoves();
 
                         if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
@@ -184,6 +188,7 @@ public class Pacman extends Thread {
                             this.pos_x++;
                         }
                         increasePoints();
+                        soundController.pacmanMoves();
 
                         if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none) {
                             addActiveItem(currentMapController.itemData[this.pos_y][this.pos_x]);
@@ -204,6 +209,8 @@ public class Pacman extends Thread {
 
     private void addActiveItem(Items item){
         if (item == Items.score) return;
+        soundController.pacmanEatsCherry();
+        soundController.cherryActive = true;
 
         activeItems.removeIf(items -> items.equals(item));
         activeItems.add(item);
@@ -220,6 +227,7 @@ public class Pacman extends Thread {
             }
 
             activeItems.remove(item);
+            soundController.cherryActive = false;
         }).start();
     }
 
@@ -232,6 +240,7 @@ public class Pacman extends Thread {
 
 
     public void impossibleDirection(){
+        soundController.pacmanCantMove();
         directionNext = directionNew;
         directionNew = direction;//Richtung wird zurückgesetzt
         switch (direction) {// erneute Abfrage mit der ursprünglichen Richtung
@@ -303,7 +312,6 @@ public class Pacman extends Thread {
         scoreController.saveScore();
         System.out.println("Died");
         JOptionPane.showMessageDialog(null,"Du hast Keine Leben mehr!","Schade", JOptionPane.PLAIN_MESSAGE);
-
     }
 
     public void pause(){
