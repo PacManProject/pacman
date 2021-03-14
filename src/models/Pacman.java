@@ -329,4 +329,8 @@ public class Pacman extends Thread {
     public ArrayList<Items> getActiveItems() {
         return activeItems;
     }
+
+    public void setScoreController(ScoreController scoreController) {
+        this.scoreController = scoreController;
+    }
 }

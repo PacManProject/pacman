@@ -9,6 +9,7 @@ package src.gui;
 import src.models.Items;
 import src.models.Map;
 import src.models.Score;
+import src.util.ScoreController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -58,6 +60,15 @@ public class MainMenu extends JPanel{
 
         ActionListener namenHinzufuegen = e -> {
             playerSelection.add(nameInput.getText());
+            Score scoreToAdd = new Score();
+            scoreToAdd.scores = new ArrayList<>();
+            scoreToAdd.playername = nameInput.getText();
+            scoreToAdd.highscore = 0;
+
+            ScoreController scoreController = new ScoreController(scoreToAdd);
+            scoreController.saveScore();
+
+            gui.pacman.setScoreController(scoreController);
             System.out.println("Spieler erstellt mit namen: " + nameInput.getText());
         };
 
