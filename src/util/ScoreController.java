@@ -31,6 +31,14 @@ public class ScoreController {
 
     Score score;
 
+    public void setScore(Score score) {
+        this.score = score;
+    }
+
+    public ScoreController(Score sc){
+        score = sc;
+    }
+
     public ScoreController(String ...playername) {
         currentMapScore = 0;
         currentGameScore = 0;
