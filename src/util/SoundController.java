@@ -67,39 +67,39 @@ public class SoundController extends Thread{
         mainMenuMusic.open(inputStream);
     }
     public void loadChasedMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsGhostsMusicDir.toString(), "chased.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsGhostsMusicDir.toString(), "Chased.wav"));
         chased.open(inputStream);
     }
     public void loadChaseGhostMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "chaseGhost.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "ChaseGhost.wav"));
         chaseGhost.open(inputStream);
     }
     public void loadEatsCherryMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "eatsCherry.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "EatsCherry.wav"));
         eatsCherry.open(inputStream);
     }
     public void loadEatsGhostMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "eatsGhost.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "EatsGhost.wav"));
         eatsGhost.open(inputStream);
     }
     public void loadLevelUpMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "levelUp.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "LevelUp.wav"));
         levelUp.open(inputStream);
     }
     public void loadMovesMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "moves.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "Moves.wav"));
         moves.open(inputStream);
     }
     public void loadOnDeathMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "onDeath.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "OnDeath.wav"));
         onDeath.open(inputStream);
     }
     public void loadOnLifeUpMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "onLifeUp.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "OnLifeUp.wav"));
         onLifeUp.open(inputStream);
     }
     public void loaFinishedLevelMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsMusicDir.toString(), "finishedLevel.wav"));
+        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsMusicDir.toString(), "FinishedLevel.wav"));
         finishedLevel.open(inputStream);
     }
 

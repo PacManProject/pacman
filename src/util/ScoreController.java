@@ -5,18 +5,17 @@
 package src.util;
 
 import com.google.gson.Gson;
-
 import src.models.Score;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.stream.Stream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class ScoreController {
     final Gson gson = new Gson();

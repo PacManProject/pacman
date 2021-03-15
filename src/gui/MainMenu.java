@@ -6,23 +6,16 @@ package src.gui;
 // https://github.com/trolol-bot
 // Leif
 
-import src.models.Items;
 import src.models.Map;
 import src.models.Score;
 import src.util.ScoreController;
 
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class MainMenu extends JPanel{
 

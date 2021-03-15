@@ -4,8 +4,8 @@
 
 package src.models;
 
-import src.util.GhostController;
 import src.models.Pacman.directions;
+import src.util.GhostController;
 import src.util.MapController;
 
 import javax.imageio.ImageIO;

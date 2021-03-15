@@ -5,8 +5,6 @@
 package src.models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 //Model class for .../resources/data/scores/*
 public class Score {
