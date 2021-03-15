@@ -14,7 +14,6 @@ import src.util.SoundController;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.spi.AbstractResourceBundleProvider;
 
 public class Pacman extends Thread {
     boolean paused = false;

@@ -8,21 +8,20 @@ package src.gui;
 
 import src.models.Ghost;
 import src.models.Items;
-import src.util.MapController;
 import src.models.Pacman;
 import src.util.KeyController;
+import src.util.MapController;
 import src.util.SoundController;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.awt.image.BufferedImage;
-
-import javax.swing.*;
-import javax.imageio.ImageIO;
 
 public class Gui extends Thread {
     int frameHeight;

@@ -5,25 +5,20 @@
 
 package src.util;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import src.models.Ghost;
 import src.models.Items;
 import src.models.Map;
 import src.models.Pacman;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Random;
-import java.util.ArrayList;
-import java.util.stream.Stream;
-import java.nio.file.Path;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
-
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.stream.Stream;
 
 public class MapController {
     //Gson object used for json conversion
