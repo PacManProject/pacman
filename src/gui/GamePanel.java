@@ -116,6 +116,7 @@ class GamePanel extends JPanel {
             g.setColor(defaultcolor);
 
             for (int x = 0; x < pacman.getHp();x++ ) {
+                gui.soundController.pacmanLosesHealth();
                 g.drawImage(gui.pacmanLeft1, x_axis, 0, 15, 15, null);
                 x_axis +=16;
             }
