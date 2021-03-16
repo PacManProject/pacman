@@ -29,7 +29,6 @@ public class SoundController extends Thread{
 
     public boolean cherryActive = false;
 
-    int masterVolume;
     double musicMultiplier = 1, effectsMultiplier = 1;
 
     public void run() {
@@ -57,7 +56,8 @@ public class SoundController extends Thread{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setMasterVolume(50);
+        setMusicVolume(50);
+        setEffectVolume(50);
         mainMenuMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
@@ -103,48 +103,32 @@ public class SoundController extends Thread{
         finishedLevel.open(inputStream);
     }
 
-    public void setEffectVolume() {
-        double volume = Math.log(masterVolume*effectsMultiplier/100) / Math.log(10.0) * 20.0;
+    public void setEffectVolume(int volume) {
         FloatControl control;
         control = (FloatControl) chased.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) chaseGhost.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) eatsCherry.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) eatsGhost.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) levelUp.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) moves.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) onDeath.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) onLifeUp.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) finishedLevel.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
-    }
-    public void setEffectVolume(int volume) {
-        effectsMultiplier = volume/100;
-        setEffectVolume();
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
     }
 
-    public void setMusicVolume() {
-        double volume = Math.log(masterVolume*musicMultiplier/100) / Math.log(10.0) * 20.0;
+    public void setMusicVolume(int volume) {
         FloatControl control;
         control = (FloatControl) mainMenuMusic.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
-    }
-    public void setMusicVolume(int volume) {
-        musicMultiplier = volume/100;
-        setMusicVolume();
-    }
-
-    public void setMasterVolume(int volume) {
-        this.masterVolume = volume;
-        setMusicVolume();
-        setEffectVolume();
+        control.setValue((float) ((float) Math.log(volume*musicMultiplier/200) / Math.log(10.0) * 20.0));
     }
 
     public void pacmanDied() {

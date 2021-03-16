@@ -13,6 +13,7 @@ import src.util.MapController;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 class GamePanel extends JPanel {
     Random randomGenerator = new Random();
@@ -99,6 +100,7 @@ class GamePanel extends JPanel {
 
     private class Lifedisplay extends JPanel {
         Color defaultcolor;
+        int lastHp;
 
         @Override
         public void paint(Graphics g) {
@@ -112,14 +114,31 @@ class GamePanel extends JPanel {
                 System.exit(0);
             }
 
+            if (pacman.getHp() < lastHp) {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                gui.soundController.pacmanLosesHealth();
+                gui.pause();
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                gui.unpause();
+            }
+
             int x_axis = 0;
             g.setColor(defaultcolor);
 
             for (int x = 0; x < pacman.getHp();x++ ) {
-                gui.soundController.pacmanLosesHealth();
                 g.drawImage(gui.pacmanLeft1, x_axis, 0, 15, 15, null);
                 x_axis +=16;
             }
+
+            lastHp = pacman.getHp();
         }
     }
 }
