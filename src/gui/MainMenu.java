@@ -54,7 +54,7 @@ public class MainMenu extends JPanel{
         };
 
         ActionListener scoreListener = e -> {
-            Scoreboard sc = new Scoreboard(gui.pacman.getScoreboard().getAvailableScores());
+            Scoreboard sc = new Scoreboard(gui.pacman);
         };
 
         ActionListener startListener = e -> {
