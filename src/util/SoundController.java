@@ -105,6 +105,7 @@ public class SoundController extends Thread{
         )));
 
         effectsVol = volume;
+        settingsController.settings.sound.put("effects", volume);
 
         FloatControl control;
         control = (FloatControl) chased.getControl(FloatControl.Type.MASTER_GAIN);
@@ -134,6 +135,7 @@ public class SoundController extends Thread{
         )));
 
         musicVol = volume;
+        settingsController.settings.sound.put("music", volume);
 
         FloatControl control;
         control = (FloatControl) mainMenuMusic.getControl(FloatControl.Type.MASTER_GAIN);

@@ -33,8 +33,6 @@ public class Gui extends Thread {
 
     MainMenu welcomePanel;
 
-    JPanel settingsPanel;
-
     GamePanel gamePanel;
 
     SoundController soundController;
@@ -75,7 +73,6 @@ public class Gui extends Thread {
         this.mapController = mapController;
         this.gamePanel = new GamePanel(mapController, this, pacman);
         this.welcomePanel = new MainMenu(this);
-        this.settingsPanel = new SettingPanel(this);
 
         soundController = new SoundController(pacman.settingsController);
         soundController.start();
@@ -183,7 +180,6 @@ public class Gui extends Thread {
     public void updateGameGraphics() {
         try {
             jf.remove(welcomePanel);
-            jf.remove(settingsPanel);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -213,21 +209,7 @@ public class Gui extends Thread {
     }
 
     public void updateSettingsGraphics() {
-        try {
-            jf.remove(welcomePanel);
-            jf.remove(gamePanel);
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
-        jf.setLayout(new GridLayout());
-        jf.add(settingsPanel);
-        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        jf.setSize(500,500);
-        jf.setBackground(Color.DARK_GRAY);
-        jf.setResizable(false);
-        jf.setLocationRelativeTo(null);
-        jf.setVisible(true);
+        new SettingPanel(this);
     }
 
     public synchronized void run() {
