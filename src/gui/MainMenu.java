@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MainMenu extends JPanel{
 
     Gui gui;
+    JButton scoreButton = new JButton("Scoreboard");
     JButton startButton = new JButton("START");
     JButton createPlayer = new JButton("Spieler erstellen");
     JButton editorStarten = new JButton("Editor Starten");
@@ -43,6 +44,10 @@ public class MainMenu extends JPanel{
         ActionListener editorListener = e -> {
             Map_Designer mapDesigner = new Map_Designer();
             mapDesigner.start();
+        };
+
+        ActionListener scoreListener = e -> {
+            Scoreboard sc = new Scoreboard(gui.pacman);
         };
 
         ActionListener startListener = e -> {
@@ -89,13 +94,15 @@ public class MainMenu extends JPanel{
 
         editorStarten.setBounds(600, 420, 150, 20);
         editorStarten.setBackground(new Color(73, 0, 52, 255));
-        editorStarten.setForeground(new Color (0, 16, 121));
         editorStarten.addActionListener(editorListener);
 
         startButton.setBounds(450, 150, 200, 150);
         startButton.setBackground(Color.GREEN);
         startButton.addActionListener(startListener);
 
+        scoreButton.setBounds(600, 390, 150, 20);
+        scoreButton.setBackground(new Color(73, 0, 52, 255));
+        scoreButton.addActionListener(scoreListener);
 
         mapText.setBounds(20, 100, 300, 30);
         mapText.setFont(header.getFont().deriveFont(15.0f));
@@ -130,6 +137,7 @@ public class MainMenu extends JPanel{
         JPanel p2 = new JPanel();
         p2.setBackground(Color.DARK_GRAY);
 
+        this.add(scoreButton);
         this.add(header);
         this.add(p1);
         this.add(startButton);

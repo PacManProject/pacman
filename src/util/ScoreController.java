@@ -36,6 +36,7 @@ public class ScoreController {
 
     public ScoreController(Score sc){
         score = sc;
+        availableScores.add(sc);
     }
 
     public ScoreController(String ...playername) {
