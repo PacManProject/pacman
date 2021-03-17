@@ -12,11 +12,9 @@ import java.awt.event.ActionListener;
 public class SettingPanel extends JPanel {
     Gui gui;
     JButton resume = new JButton("Zurück zum Spiel");
-    JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
-    JLabel volumeLabel = new JLabel("Volume");
-    JSlider musicVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 100);
+    JSlider musicVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
     JLabel musicVolumeLabel = new JLabel("Music Volume");
-    JSlider effectVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 100);
+    JSlider effectVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
     JLabel effectVolumeLabel = new JLabel("Effect Volume");
     public SettingPanel(Gui g){
         gui = g;
@@ -26,26 +24,15 @@ public class SettingPanel extends JPanel {
             gui.unpause();
         };
 
-        volumeSlider.setBackground(Color.GRAY);
-        volumeSlider.setBounds(45, 250, 400 , 30);
-        volumeSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                gui.soundController.setMasterVolume((int)volumeSlider.getValue());
-            }
-        });
-        volumeLabel.setBounds(225, 210,100, 40);
-        volumeLabel.setForeground(Color.WHITE);
-
         musicVolumeSlider.setBackground(Color.GRAY);
-        musicVolumeSlider.setBounds(45, 150, 400 , 30);
+        musicVolumeSlider.setBounds(45, 260, 400 , 30);
         musicVolumeSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                gui.soundController.setMusicVolume((int)volumeSlider.getValue());
+                gui.soundController.setMusicVolume((int)musicVolumeSlider.getValue());
             }
         });
-        musicVolumeLabel.setBounds(225, 110,100, 40);
+        musicVolumeLabel.setBounds(225, 220,100, 40);
         musicVolumeLabel.setForeground(Color.WHITE);
 
         effectVolumeSlider.setBackground(Color.GRAY);
@@ -53,7 +40,7 @@ public class SettingPanel extends JPanel {
         effectVolumeSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                gui.soundController.setEffectVolume((int)volumeSlider.getValue());
+                gui.soundController.setEffectVolume((int)effectVolumeSlider.getValue());
             }
         });
         effectVolumeLabel.setBounds(225, 160,100, 40);
@@ -65,8 +52,6 @@ public class SettingPanel extends JPanel {
 
         this.setLayout(null);
         this.setBackground(Color.DARK_GRAY);
-        this.add(volumeSlider);
-        this.add(volumeLabel);
         this.add(effectVolumeSlider);
         this.add(effectVolumeLabel);
         this.add(musicVolumeSlider);

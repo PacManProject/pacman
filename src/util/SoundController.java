@@ -17,22 +17,27 @@ public class SoundController extends Thread{
     //Path to the game soundtracks => .../resources/sound
     final Path _soundDir = Paths.get(_workingDir.toString(), "resources", "sound");
 
+    //Path zu den unterordenern ins sound
     final Path _backgroundMusicDir = Paths.get(_soundDir.toString(), "background");
     final Path _effectsMusicDir = Paths.get(_soundDir.toString(), "effects");
     final Path _effectsGhostsMusicDir = Paths.get(_effectsMusicDir.toString(), "ghosts");
     final Path _effectsPacmanMusicDir = Paths.get(_effectsMusicDir.toString(), "pacman");
 
+    //Hintergund clip
     private static Clip mainMenuMusic;
+    //Ghost clip
     private static Clip chased;
+    //Pacman clips
     private static Clip chaseGhost, eatsCherry, eatsGhost, levelUp, moves, onDeath, onLifeUp;
+    //Extra clip
     private static Clip finishedLevel;
 
     public boolean cherryActive = false;
 
-    int masterVolume;
     double musicMultiplier = 1, effectsMultiplier = 1;
 
     public void run() {
+        //Load all sound files into there clip
         try {
             mainMenuMusic = AudioSystem.getClip();
             chased = AudioSystem.getClip();
@@ -44,110 +49,70 @@ public class SoundController extends Thread{
             onDeath = AudioSystem.getClip();
             onLifeUp = AudioSystem.getClip();
             finishedLevel = AudioSystem.getClip();
-            loadBackgroundMusic();
-            loadChasedMusic();
-            loadChaseGhostMusic();
-            loadEatsCherryMusic();
-            loadEatsGhostMusic();
-            loadLevelUpMusic();
-            loadMovesMusic();
-            loadOnDeathMusic();
-            loadOnLifeUpMusic();
-            loaFinishedLevelMusic();
+            loadMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setMasterVolume(50);
+        //set volume of all clips to 50%
+        setMusicVolume(50);
+        setEffectVolume(50);
+        //background music starts and is looped until the game ends
         mainMenuMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    //TODO: add more variety to the music selection
-    public void loadBackgroundMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void loadMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_backgroundMusicDir.toString(), "MainMenuMusic1.wav"));
         mainMenuMusic.open(inputStream);
-    }
-    public void loadChasedMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsGhostsMusicDir.toString(), "Chased.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsGhostsMusicDir.toString(), "Chased.wav"));
         chased.open(inputStream);
-    }
-    public void loadChaseGhostMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "ChaseGhost.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "ChaseGhost.wav"));
         chaseGhost.open(inputStream);
-    }
-    public void loadEatsCherryMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "EatsCherry.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "EatsCherry.wav"));
         eatsCherry.open(inputStream);
-    }
-    public void loadEatsGhostMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "EatsGhost.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "EatsGhost.wav"));
         eatsGhost.open(inputStream);
-    }
-    public void loadLevelUpMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "LevelUp.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "LevelUp.wav"));
         levelUp.open(inputStream);
-    }
-    public void loadMovesMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "Moves.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "Moves.wav"));
         moves.open(inputStream);
-    }
-    public void loadOnDeathMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "OnDeath.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "OnDeath.wav"));
         onDeath.open(inputStream);
-    }
-    public void loadOnLifeUpMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "OnLifeUp.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsPacmanMusicDir.toString(), "OnLifeUp.wav"));
         onLifeUp.open(inputStream);
-    }
-    public void loaFinishedLevelMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(_effectsMusicDir.toString(), "FinishedLevel.wav"));
+        inputStream = AudioSystem.getAudioInputStream(new File(_effectsMusicDir.toString(), "FinishedLevel.wav"));
         finishedLevel.open(inputStream);
     }
 
-    public void setEffectVolume() {
-        double volume = Math.log(masterVolume*effectsMultiplier/100) / Math.log(10.0) * 20.0;
+    public void setEffectVolume(int volume) {
         FloatControl control;
         control = (FloatControl) chased.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));//Volume value gets changed to db and applied to the clip
         control = (FloatControl) chaseGhost.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) eatsCherry.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) eatsGhost.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) levelUp.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) moves.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) onDeath.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) onLifeUp.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
         control = (FloatControl) finishedLevel.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
-    }
-    public void setEffectVolume(int volume) {
-        effectsMultiplier = volume/100;
-        setEffectVolume();
+        control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));
     }
 
-    public void setMusicVolume() {
-        double volume = Math.log(masterVolume*musicMultiplier/100) / Math.log(10.0) * 20.0;
+    public void setMusicVolume(int volume) {
         FloatControl control;
         control = (FloatControl) mainMenuMusic.getControl(FloatControl.Type.MASTER_GAIN);
-        control.setValue((float) volume);
-    }
-    public void setMusicVolume(int volume) {
-        musicMultiplier = volume/100;
-        setMusicVolume();
-    }
-
-    public void setMasterVolume(int volume) {
-        this.masterVolume = volume;
-        setMusicVolume();
-        setEffectVolume();
+        control.setValue((float) ((float) Math.log(volume*musicMultiplier/200) / Math.log(10.0) * 20.0));
     }
 
     public void pacmanDied() {
+        //all sounds stop except onDeath when you go gameover
         chaseGhost.stop();
         moves.stop();
         mainMenuMusic.stop();
@@ -159,6 +124,7 @@ public class SoundController extends Thread{
     }
 
     public void pacmanMoves() {
+        //plays different sounds when pacman moves and the cherry is active at the same time
         if (cherryActive) {
             if (!chaseGhost.isRunning()) {
                 moves.stop();
