@@ -4,11 +4,14 @@
 
 package src.util;
 
+import src.models.Settings;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Map;
 
 public class SoundController extends Thread{
 
@@ -36,6 +39,18 @@ public class SoundController extends Thread{
 
     double musicMultiplier = 1, effectsMultiplier = 1;
 
+    int musicVol;
+    int effectsVol;
+
+    SettingsController settingsController;
+
+    public SoundController(SettingsController settingsController){
+        this.settingsController = settingsController;
+
+        this.musicVol = settingsController.settings.sound.get("music");
+        this.effectsVol = settingsController.settings.sound.get("effects");
+    }
+
     public void run() {
         //Load all sound files into there clip
         try {
@@ -54,8 +69,8 @@ public class SoundController extends Thread{
             e.printStackTrace();
         }
         //set volume of all clips to 50%
-        setMusicVolume(50);
-        setEffectVolume(50);
+        setMusicVolume(musicVol);
+        setEffectVolume(effectsVol);
         //background music starts and is looped until the game ends
         mainMenuMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
@@ -84,6 +99,13 @@ public class SoundController extends Thread{
     }
 
     public void setEffectVolume(int volume) {
+        settingsController.SaveSettings(new Settings(Map.of(
+                "music", musicVol,
+                "effects", volume
+        )));
+
+        effectsVol = volume;
+
         FloatControl control;
         control = (FloatControl) chased.getControl(FloatControl.Type.MASTER_GAIN);
         control.setValue((float) ((float) Math.log(volume*effectsMultiplier/100) / Math.log(10.0) * 20.0));//Volume value gets changed to db and applied to the clip
@@ -106,6 +128,13 @@ public class SoundController extends Thread{
     }
 
     public void setMusicVolume(int volume) {
+        settingsController.SaveSettings(new Settings(Map.of(
+                "music", volume,
+                "effects", effectsVol
+        )));
+
+        musicVol = volume;
+
         FloatControl control;
         control = (FloatControl) mainMenuMusic.getControl(FloatControl.Type.MASTER_GAIN);
         control.setValue((float) ((float) Math.log(volume*musicMultiplier/200) / Math.log(10.0) * 20.0));

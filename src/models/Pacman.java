@@ -10,6 +10,7 @@ package src.models;
 
 import src.util.MapController;
 import src.util.ScoreController;
+import src.util.SettingsController;
 import src.util.SoundController;
 
 import javax.swing.*;
@@ -52,10 +53,12 @@ public class Pacman extends Thread {
     directions directionNext = direction;
 
     ScoreController scoreController;
-    public SoundController soundController;
     MapController currentMapController;
+    public SoundController soundController;
+    public SettingsController settingsController = new SettingsController();
 
     ArrayList<Items> activeItems = new ArrayList<>();
+
 
     public Pacman(String... filename) {
         this.hp = 3;
