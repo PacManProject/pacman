@@ -30,12 +30,6 @@ public class Ghost{
     //y axis position of the ghost
     int pos_y;
 
-    //initial x axis position
-    int init_x;
-
-    //initial y axis position
-    int init_y;
-
     //Game working-directory, should correspond to the project root dir
     final Path workingDir = Paths.get(System.getProperty("user.dir"));
 
@@ -72,11 +66,6 @@ public class Ghost{
         return pos_x;
     }
 
-    public void goToInitialPos(){
-        this.pos_x = init_x;
-        this.pos_y = init_y;
-    }
-
     //Randomly selects a possible location on the map for the ghost to spawn
     public void setLocation() {
         while (true) {
@@ -84,8 +73,8 @@ public class Ghost{
             int j = (int)(Math.random()* currentMapController.currentMap.mapData[0].length);
 
             if (currentMapController.currentMap.mapData[i][j] && ((currentMapController.pacman.getPos_x() <= j-2 || currentMapController.pacman.getPos_x() >= j+2) || (currentMapController.pacman.getPos_y() <= i-2 || currentMapController.pacman.getPos_y() >= i+2))) {
-                this.pos_x = this.init_x = j;
-                this.pos_y = this.init_y = i;
+                this.pos_x = j;
+                this.pos_y = i;
                 break;
             }
         }

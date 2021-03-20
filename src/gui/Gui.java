@@ -230,8 +230,8 @@ public class Gui extends Thread {
             ghosts.forEach(
                 ghost -> {
                     if (pacman.getPos_x() == ghost.getPos_x() && pacman.getPos_y() == ghost.getPos_y()){
-                        if (pacman.getActiveItems().contains(Items.cherry))
-                            ghost.goToInitialPos();
+                        if (pacman.getActiveItems().contains(Items.antiGhostPowerUp))
+                            ghost.setLocation();
                         else
                             killPacman();
                     }
