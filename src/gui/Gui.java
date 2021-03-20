@@ -26,46 +26,46 @@ import java.util.ArrayList;
 public class Gui extends Thread {
     int frameHeight;
     int frameWith;
-    int scale = 40;
+    final int scale = 40;
     int frameCounter = 0;
 
     boolean paused = false;
 
-    MainMenu welcomePanel;
+    final MainMenu welcomePanel;
 
-    GamePanel gamePanel;
+    final GamePanel gamePanel;
 
-    SoundController soundController;
+    final SoundController soundController;
 
     //Game working-directory, should correspond to the project root dir
-    Path workingDir = Paths.get(System.getProperty("user.dir"));
+    final Path workingDir = Paths.get(System.getProperty("user.dir"));
 
     //Path to the game-icon => .../resources/img/icon.png
-    Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
+    final Path iconPath = Paths.get(workingDir.toString(), "resources", "img", "icon.png");
 
     //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
-     Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
+    final Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
 
     BufferedImage sprite;
-    BufferedImage pacman0;
-    BufferedImage pacmanUp1;
-    BufferedImage pacmanUp2;
-    BufferedImage pacmanDown1;
-    BufferedImage pacmanDown2;
-    BufferedImage pacmanLeft1;
-    BufferedImage pacmanLeft2;
-    BufferedImage pacmanRight1;
-    BufferedImage pacmanRight2;
+    final BufferedImage pacman0;
+    final BufferedImage pacmanUp1;
+    final BufferedImage pacmanUp2;
+    final BufferedImage pacmanDown1;
+    final BufferedImage pacmanDown2;
+    final BufferedImage pacmanLeft1;
+    final BufferedImage pacmanLeft2;
+    final BufferedImage pacmanRight1;
+    final BufferedImage pacmanRight2;
 
     //The pacman model that is currently being displayed
     BufferedImage currentImage;
 
     //World currently being displayed
-    MapController mapController;
+    final MapController mapController;
 
-    JFrame jf = new JFrame("Pacman");// name des Fensters
-    ArrayList<Ghost> ghosts;
-    Pacman pacman;
+    final JFrame jf = new JFrame("Pacman");// name des Fensters
+    final ArrayList<Ghost> ghosts;
+    final Pacman pacman;
 
     public Gui (MapController mapController, Pacman pacman, ArrayList<Ghost> ghosts) {
         this.pacman = pacman;

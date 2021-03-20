@@ -20,24 +20,24 @@ import java.util.ArrayList;
 
 public class MainMenu extends JPanel{
 
-    Gui gui;
+    final Gui gui;
 
-    JButton startButton = new JButton("START");
-    JButton scoreButton = new JButton("Scoreboard");
-    JButton settingsButton = new JButton("Settings");
-    JButton createPlayer = new JButton("Spieler erstellen");
-    JButton editorStarten = new JButton("Editor Starten");
+    final JButton startButton = new JButton("START");
+    final JButton scoreButton = new JButton("Scoreboard");
+    final JButton settingsButton = new JButton("Settings");
+    final JButton createPlayer = new JButton("Spieler erstellen");
+    final JButton editorStarten = new JButton("Editor Starten");
 
-    Choice mapSelection = new Choice();
-    Choice playerSelection = new Choice();
-    Choice ghostNumberSelection = new Choice();
+    final Choice mapSelection = new Choice();
+    final Choice playerSelection = new Choice();
+    final Choice ghostNumberSelection = new Choice();
 
-    JTextField nameInput = new JTextField("Hier namen eingeben");
+    final JTextField nameInput = new JTextField("Hier namen eingeben");
 
-    JLabel header = new JLabel("PACMAN");
-    JLabel mapText = new JLabel("Map auswählen:");
-    JLabel nameText = new JLabel("Namen auswählen:");
-    JLabel ghostText = new JLabel("Anzahl der Geister auswählen:");
+    final JLabel header = new JLabel("PACMAN");
+    final JLabel mapText = new JLabel("Map auswählen:");
+    final JLabel nameText = new JLabel("Namen auswählen:");
+    final JLabel ghostText = new JLabel("Anzahl der Geister auswählen:");
 
     public MainMenu(Gui gui) {
         this.gui = gui;
@@ -46,13 +46,9 @@ public class MainMenu extends JPanel{
             mapDesigner.start();
         };
 
-        ActionListener scoreListener = e -> {
-            new Scoreboard(gui.pacman);
-        };
+        ActionListener scoreListener = e -> new Scoreboard(gui.pacman);
 
-        ActionListener settingsListener = e -> {
-            new SettingPanel(gui, false);
-        };
+        ActionListener settingsListener = e -> new SettingPanel(gui, false);
 
         ActionListener startListener = e -> {
             gui.pacman.setScoreController(new ScoreController(playerSelection.getSelectedItem()));
@@ -75,20 +71,17 @@ public class MainMenu extends JPanel{
             System.out.println("Spieler erstellt mit namen: " + nameInput.getText());
         };
 
-        ItemListener mapChangeListener = new ItemListener () {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                int recommendedMapGhosts = 0;
-                for (Map map: gui.mapController.getAvailableMaps()) {
-                    if (map.name == mapSelection.getSelectedItem()){
-                        recommendedMapGhosts = map.itemData.length*map.itemData[0].length;
+        ItemListener mapChangeListener = e -> {
+            int recommendedMapGhosts = 0;
+            for (Map map: gui.mapController.getAvailableMaps()) {
+                if (map.name.equals(mapSelection.getSelectedItem())){
+                    recommendedMapGhosts = map.itemData.length*map.itemData[0].length;
 
-                    }
                 }
-                recommendedMapGhosts =  recommendedMapGhosts / 25;
-                ghostNumberSelection.select(recommendedMapGhosts-1);
-
             }
+            recommendedMapGhosts =  recommendedMapGhosts / 25;
+            ghostNumberSelection.select(recommendedMapGhosts-1);
+
         };
         mapSelection.addItemListener(mapChangeListener);
         this.setBackground(Color.DARK_GRAY);

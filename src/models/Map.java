@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 
 //Model class for .../resources/data/maps/*
 public class Map {
-    int pos_x;
-    int pos_y;
-    public String name;
+    final int pos_x;
+    final int pos_y;
+    public final String name;
 
     public Boolean[][] mapData;
     private final ArrayList<ArrayList<Integer>> integerMapData;
@@ -36,9 +36,9 @@ public class Map {
 
         //convertiert das 2D int array in eine ArrayList
         ArrayList<Integer> tempList;
-        ArrayList<ArrayList<Integer>> tempListList = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> tempListList = new ArrayList<>();
         for (int[] ints : item) {
-            tempList = new ArrayList<Integer>();
+            tempList = new ArrayList<>();
             for (int j = 0; j < item[0].length; j++) {
                 tempList.add(ints[j]);
             }
@@ -46,9 +46,9 @@ public class Map {
         }
         this.integerItemData = tempListList;
 
-        tempListList = new ArrayList<ArrayList<Integer>>();
+        tempListList = new ArrayList<>();
         for (int[] ints : item) {
-            tempList = new ArrayList<Integer>();
+            tempList = new ArrayList<>();
             for (int j = 0; j < item[0].length; j++) {
                 if (ints[j] == 0) {
                     tempList.add(0);

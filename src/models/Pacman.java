@@ -55,9 +55,9 @@ public class Pacman extends Thread {
     ScoreController scoreController;
     MapController currentMapController;
     public SoundController soundController;
-    public SettingsController settingsController = new SettingsController();
+    public final SettingsController settingsController = new SettingsController();
 
-    ArrayList<Items> activeItems = new ArrayList<>();
+    final ArrayList<Items> activeItems = new ArrayList<>();
 
 
     public Pacman(String... filename) {

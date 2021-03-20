@@ -37,12 +37,13 @@ public class SoundController extends Thread{
 
     public boolean cherryActive = false;
 
-    double musicMultiplier = 1, effectsMultiplier = 1;
+    final double musicMultiplier = 1;
+    final double effectsMultiplier = 1;
 
     int musicVol;
     int effectsVol;
 
-    SettingsController settingsController;
+    final SettingsController settingsController;
 
     public SoundController(SettingsController settingsController){
         this.settingsController = settingsController;

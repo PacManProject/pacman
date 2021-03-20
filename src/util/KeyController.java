@@ -12,8 +12,8 @@ import java.awt.event.KeyListener;
 
 public class KeyController implements KeyListener {
 
-    Pacman pacman;
-    Gui gui;
+    final Pacman pacman;
+    final Gui gui;
 
     public KeyController(Pacman p, Gui g) {
         pacman = p;
