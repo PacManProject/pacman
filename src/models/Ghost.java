@@ -37,18 +37,18 @@ public class Ghost{
     int init_y;
 
     //Game working-directory, should correspond to the project root dir
-    Path workingDir = Paths.get(System.getProperty("user.dir"));
+    final Path workingDir = Paths.get(System.getProperty("user.dir"));
 
     //Path to the general sprite, where the game models are stored .../resources/img/General Sprites.png
-    Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
+    final Path spritePath = Paths.get(workingDir.toString(), "resources", "img", "General Sprites.png");
 
     BufferedImage sprite;
 
     ArrayList<BufferedImage> ghostImg;
-    ArrayList<BufferedImage> chasedImg = new ArrayList<>();
+    final ArrayList<BufferedImage> chasedImg = new ArrayList<>();
 
     //Controls the movement of the ghost
-    GhostController ghostController = new GhostController(this);
+    final GhostController ghostController = new GhostController(this);
 
     public Ghost() {
         ghostImg = selectRandomColor();

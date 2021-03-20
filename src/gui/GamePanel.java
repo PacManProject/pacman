@@ -16,15 +16,15 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 class GamePanel extends JPanel {
-    Random randomGenerator = new Random();
-    Pacman pacman;
-    MapController mapController;
-    Gui gui;
+    final Random randomGenerator = new Random();
+    final Pacman pacman;
+    final MapController mapController;
+    final Gui gui;
 
-    GameSubPanel gameSubPanel = new GameSubPanel();
-    Lifedisplay lifedisplay = new Lifedisplay();
-    JPanel gameInfoPanel = new JPanel();
-    JLabel scoreLabel = new JLabel();
+    final GameSubPanel gameSubPanel = new GameSubPanel();
+    final Lifedisplay lifedisplay = new Lifedisplay();
+    final JPanel gameInfoPanel = new JPanel();
+    final JLabel scoreLabel = new JLabel();
 
     public GamePanel(MapController w, Gui g, Pacman p) {
         gui = g;

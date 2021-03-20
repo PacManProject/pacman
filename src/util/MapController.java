@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 
 public class MapController {
     //Gson object used for json conversion
-    Gson gson = new Gson();
+    final Gson gson = new Gson();
 
     //Game working-directory, should correspond to the project root dir
     final Path _workingDir = Paths.get(System.getProperty("user.dir"));
@@ -35,8 +35,8 @@ public class MapController {
     //All available maps
     ArrayList<Map> availableMaps = _loadAvailableMaps();
 
-    public Pacman pacman;
-    ArrayList<Ghost> ghosts;
+    public final Pacman pacman;
+    final ArrayList<Ghost> ghosts;
 
     //A count of all the scores on the map
     int mapScore = 0;

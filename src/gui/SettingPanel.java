@@ -5,18 +5,16 @@
 package src.gui;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class SettingPanel extends JFrame {
-    Gui gui;
-    JButton resume = new JButton("Zurück zum Spiel");
-    JSlider musicVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
-    JLabel musicVolumeLabel = new JLabel("Music Volume");
-    JSlider effectVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
-    JLabel effectVolumeLabel = new JLabel("Effect Volume");
+    final Gui gui;
+    final JButton resume = new JButton("Zurück zum Spiel");
+    final JSlider musicVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
+    final JLabel musicVolumeLabel = new JLabel("Music Volume");
+    final JSlider effectVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
+    final JLabel effectVolumeLabel = new JLabel("Effect Volume");
 
 
     public SettingPanel(Gui g, boolean ResumeGame){

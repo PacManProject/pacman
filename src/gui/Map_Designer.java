@@ -22,17 +22,22 @@ import java.util.Iterator;
 
 public class Map_Designer {
     static JFrame jFrame = new JFrame("Map-designer");
-    static JLabel jl1 = new JLabel("rows: 1-30"), jl2 = new JLabel("columns: 1-30");
-    static JTextField jt1 = new JTextField("10"), jt2 = new JTextField("10"),jt3 = new JTextField("x of pacman"), jt4 = new JTextField("y of pacman"), jt5 = new JTextField("Map_Name");
-    static JButton b1 = new JButton("proceed");
-    static JButton b2 = new JButton("finish");
+    static final JLabel jl1 = new JLabel("rows: 1-30");
+    static final JLabel jl2 = new JLabel("columns: 1-30");
+    static final JTextField jt1 = new JTextField("10");
+    static final JTextField jt2 = new JTextField("10");
+    static final JTextField jt3 = new JTextField("x of pacman");
+    static final JTextField jt4 = new JTextField("y of pacman");
+    static final JTextField jt5 = new JTextField("Map_Name");
+    static final JButton b1 = new JButton("proceed");
+    static final JButton b2 = new JButton("finish");
 
     static int rows, columns, pacmanX, pacmanY;
     static MapPanel jp;
 
     static int[][] item;
 
-    static ActionListener actionListener1 = new ActionListener() {
+    static final ActionListener actionListener1 = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             jFrame.setVisible(false);
             try { // die eingegebenen daten werdein geschpeichert
@@ -72,7 +77,7 @@ public class Map_Designer {
         }
     };
 
-    static ActionListener actionListener2 = new ActionListener() {
+    static final ActionListener actionListener2 = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             item = jp.getElements();
             Map map = new Map(jt5.getText(), pacmanY, pacmanX, item); //erschafft eine neue map Klasse um die neue Map als datei in resource/data/maps zu speichern
@@ -99,8 +104,8 @@ public class Map_Designer {
     }
 
     public static class MapPanel extends JPanel {
-        ArrayList<ElementPanel> elementList;
-        int arrayWith;
+        final ArrayList<ElementPanel> elementList;
+        final int arrayWith;
 
         public MapPanel(int rows, int columns, int pacmanRow, int pacmanCol) {
             this.setLayout(new GridLayout(rows, columns));
@@ -156,7 +161,7 @@ public class Map_Designer {
     public static class ElementPanel extends JPanel {
 
 
-        ArrayList<Color> colors = new ArrayList<>(); // Liste mit den farben, die die Felder haben können
+        final ArrayList<Color> colors = new ArrayList<>(); // Liste mit den farben, die die Felder haben können
 
         public ElementPanel() {
             setBackground(Color.BLACK);
