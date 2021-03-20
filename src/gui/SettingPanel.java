@@ -17,7 +17,9 @@ public class SettingPanel extends JFrame {
     JLabel musicVolumeLabel = new JLabel("Music Volume");
     JSlider effectVolumeSlider = new JSlider(JSlider.HORIZONTAL, 0 , 100, 50);
     JLabel effectVolumeLabel = new JLabel("Effect Volume");
-    public SettingPanel(Gui g){
+
+
+    public SettingPanel(Gui g, boolean ResumeGame){
         this.setVisible(true);
         this.setLayout(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -29,8 +31,11 @@ public class SettingPanel extends JFrame {
         gui = g;
 
         ActionListener resumeGame = e -> {
-            gui.updateGameGraphics();
-            gui.unpause();
+
+            if(ResumeGame) {
+                gui.updateGameGraphics();
+                gui.unpause();
+            }
             this.dispose();
         };
 
