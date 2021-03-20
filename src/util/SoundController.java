@@ -72,8 +72,6 @@ public class SoundController extends Thread{
         //set volume of all clips to 50%
         setMusicVolume(musicVol);
         setEffectVolume(effectsVol);
-        //background music starts and is looped until the game ends
-        mainMenuMusic.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void loadMusic() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
@@ -180,5 +178,15 @@ public class SoundController extends Thread{
 
     public void stageCleared() {
         finishedLevel.loop(1);
+    }
+
+    public void startMusic() {
+        //background music starts and is looped until the game ends
+        mainMenuMusic.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+
+    public void stopEffects() {
+        moves.stop();
+        chaseGhost.stop();
     }
 }

@@ -55,6 +55,7 @@ public class MainMenu extends JPanel{
             this.gui.start();
             gui.setGhosts(ghostNumberSelection.getSelectedIndex() + 1);
             gui.makeScene(mapSelection.getSelectedItem());
+            gui.soundController.startMusic();
         };
 
         ActionListener namenHinzufuegen = e -> {

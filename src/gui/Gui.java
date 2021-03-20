@@ -209,6 +209,7 @@ public class Gui extends Thread {
     }
 
     public void updateSettingsGraphics() {
+        soundController.stopEffects();
         new SettingPanel(this, true);
     }
 
