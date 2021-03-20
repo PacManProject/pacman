@@ -15,7 +15,7 @@ public enum Items {
     //TODO: add more items
 
     none (0, "No item is present"),
-    score (1,4,16, 32, 13, 13,
+    score (1,4,175, 47, 13, 13,
             "A score item, adds to your score"),
     cherry (2, 1.5, 32, 48, 13, 13,
             "Gives you the power to eat ghosts for a specific amount of time",
