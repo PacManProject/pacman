@@ -209,7 +209,7 @@ public class Gui extends Thread {
     }
 
     public void updateSettingsGraphics() {
-        new SettingPanel(this);
+        new SettingPanel(this, true);
     }
 
     public synchronized void run() {

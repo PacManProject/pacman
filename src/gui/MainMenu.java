@@ -5,6 +5,7 @@ package src.gui;
 // https://github.com/SomeOtherGod
 // https://github.com/trolol-bot
 // Leif
+// https://github.com/dadope
 
 import src.models.Map;
 import src.models.Score;
@@ -20,8 +21,10 @@ import java.util.ArrayList;
 public class MainMenu extends JPanel{
 
     Gui gui;
-    JButton scoreButton = new JButton("Scoreboard");
+
     JButton startButton = new JButton("START");
+    JButton scoreButton = new JButton("Scoreboard");
+    JButton settingsButton = new JButton("Settings");
     JButton createPlayer = new JButton("Spieler erstellen");
     JButton editorStarten = new JButton("Editor Starten");
 
@@ -35,9 +38,6 @@ public class MainMenu extends JPanel{
     JLabel mapText = new JLabel("Map auswählen:");
     JLabel nameText = new JLabel("Namen auswählen:");
     JLabel ghostText = new JLabel("Anzahl der Geister auswählen:");
-   // JLabel recommendedGhost = new JLabel("Empfolene Geisteranzahl")
-
-
 
     public MainMenu(Gui gui) {
         this.gui = gui;
@@ -47,7 +47,11 @@ public class MainMenu extends JPanel{
         };
 
         ActionListener scoreListener = e -> {
-            Scoreboard sc = new Scoreboard(gui.pacman);
+            new Scoreboard(gui.pacman);
+        };
+
+        ActionListener settingsListener = e -> {
+            new SettingPanel(gui, false);
         };
 
         ActionListener startListener = e -> {
@@ -104,6 +108,10 @@ public class MainMenu extends JPanel{
         scoreButton.setBackground(new Color(73, 0, 52, 255));
         scoreButton.addActionListener(scoreListener);
 
+        settingsButton.setBounds(600, 360, 150, 20);
+        settingsButton.setBackground(new Color(73, 0, 52, 255));
+        settingsButton.addActionListener(settingsListener);
+
         mapText.setBounds(20, 100, 300, 30);
         mapText.setFont(header.getFont().deriveFont(15.0f));
         mapText.setForeground(Color.GRAY);
@@ -138,9 +146,11 @@ public class MainMenu extends JPanel{
         p2.setBackground(Color.DARK_GRAY);
 
         this.add(scoreButton);
+        this.add(startButton);
+        this.add(settingsButton);
+
         this.add(header);
         this.add(p1);
-        this.add(startButton);
         this.add(p2);
         this.add(nameText);
         this.add(playerSelection);
