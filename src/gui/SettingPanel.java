@@ -43,16 +43,14 @@ public class SettingPanel extends JFrame {
         musicVolumeSlider.setValue(gui.pacman.settingsController.settings.sound.get("music"));
 
 
-        musicVolumeLabel.setBounds(225, 220,100, 40);
-        musicVolumeLabel.setForeground(Color.WHITE);
+        musicVolumeLabel.setBounds(210, 220,100, 40);
 
         effectVolumeSlider.setBackground(Color.GRAY);
         effectVolumeSlider.setBounds(45, 200, 400 , 30);
         effectVolumeSlider.addChangeListener(e -> gui.soundController.setEffectVolume(effectVolumeSlider.getValue()));
         effectVolumeSlider.setValue(gui.pacman.settingsController.settings.sound.get("effects"));
 
-        effectVolumeLabel.setBounds(225, 160,100, 40);
-        effectVolumeLabel.setForeground(Color.WHITE);
+        effectVolumeLabel.setBounds(210, 160,100, 40);
 
         resume.setBackground(Color.GREEN);
         resume.setBounds(150, 350, 200, 50);
