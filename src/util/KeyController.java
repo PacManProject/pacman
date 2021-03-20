@@ -26,7 +26,7 @@ public class KeyController implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) { // pacmans kann mithilfe von wasd und den Pfeieltasten bewegt werden. Mit Esc cann das settings menu aufgerufen werden
         switch (e.getKeyCode()) {
             case KeyEvent.VK_LEFT:
             case KeyEvent.VK_A:

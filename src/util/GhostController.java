@@ -59,7 +59,7 @@ public class GhostController extends Thread {
                 }
             }
 
-            //moves the ghost
+            //moves the ghost if the ki is not paused
             if (!paused) {
                 gh.move(lastMovement);
             }
