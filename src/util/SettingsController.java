@@ -19,6 +19,7 @@ public class SettingsController {
     final Gson gson = new Gson();
     public final Settings settings = _loadSettings();
 
+    //loads the settings from json file
     private Settings _loadSettings() {
         try {
             return gson.fromJson(Files.readString(_settingsFile, StandardCharsets.UTF_8), Settings.class);
@@ -31,6 +32,7 @@ public class SettingsController {
         }
     }
 
+    //saves the settings in json file
     public void SaveSettings(Settings settings){
         try (Writer writer = new FileWriter(String.valueOf(Paths.get(String.valueOf(_settingsFile))))) {
             gson.toJson(settings, writer);

@@ -39,6 +39,7 @@ public class ScoreController {
         availableScores.add(sc);
     }
 
+    //if playername is given load the Players Score
     public ScoreController(String ...playername) {
         currentMapScore = 0;
         currentGameScore = 0;
@@ -74,6 +75,8 @@ public class ScoreController {
         this.currentMapScore += score;
         this.currentGameScore += score;
     }
+
+    // saves the Score into a json file withe the playername as title
     public void saveScore(){
         if (score.highscore < currentGameScore) score.highscore = currentGameScore;
 
