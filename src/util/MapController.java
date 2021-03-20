@@ -131,6 +131,9 @@ public class MapController {
         mapScore = pacman.currentGameScore();
         for (Items[] item : itemData) {
             for (int y = 0; y < itemData[0].length; y++) {
+                if (item[y]==Items.cherry){
+                    mapScore+=99;
+                }
                 if (item[y] != Items.none) {//Wenn es ein freies Feld gibt wird der Punktezähler erhöht
                     mapScore++;
                 }
