@@ -34,6 +34,7 @@ public class Map {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
 
+        //convertiert das 2D int array in eine ArrayList
         ArrayList<Integer> tempList;
         ArrayList<ArrayList<Integer>> tempListList = new ArrayList<ArrayList<Integer>>();
         for (int[] ints : item) {
@@ -60,7 +61,7 @@ public class Map {
         this.integerMapData = tempListList;
 
         try (Writer writer = new FileWriter(String.valueOf(Paths.get(String.valueOf(Paths.get(System.getProperty("user.dir"), "resources", "data", "maps")), this.name + ".json")))) {
-            gson.toJson(this, writer);
+            gson.toJson(this, writer); //speichert die neue Map als datei in resource/data/maps
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -35,7 +35,7 @@ public class Map_Designer {
     static ActionListener actionListener1 = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             jFrame.setVisible(false);
-            try {
+            try { // die eingegebenen daten werdein geschpeichert
                 rows = Integer.parseInt(jt1.getText()) % 31;
                 columns = Integer.parseInt(jt2.getText()) % 31;
                 if (rows <= 0) {
@@ -56,27 +56,27 @@ public class Map_Designer {
                 System.out.println("Illegal character used as number");
                 jFrame.dispose();
             }
-            jFrame.removeAll();
+            jFrame.removeAll(); //frame wird gereinigt um die neue anzeige auszufüren
             jFrame.revalidate();
             jFrame.repaint();
             jFrame = new JFrame("Map Designer");
             jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jFrame.setSize(columns*30,rows*30 + 60);
             jFrame.setLocationRelativeTo(null);
-            jp = new MapPanel(rows, columns, pacmanX, pacmanY);
+            jp = new MapPanel(rows, columns, pacmanX, pacmanY); // erzeugt ein feld mit den voher angegebenen daten
             jFrame.setLayout(new BorderLayout());
             jFrame.add(jp, BorderLayout.CENTER);
             jFrame.add(b2, BorderLayout.SOUTH);
             jFrame.setVisible(true);
-            JOptionPane.showMessageDialog(jFrame, "Click on element to change it to the next\nBlack: Path\nBlue: Wall\nRed: Cherry Item");
+            JOptionPane.showMessageDialog(jFrame, "Click on element to change it to the next\nBlack: Path\nBlue: Wall\nRed: Cherry Item"); //öffnent ein Info fenster mit den funktionen
         }
     };
 
     static ActionListener actionListener2 = new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             item = jp.getElements();
-            src.models.Map map = new Map(jt5.getText(), pacmanY, pacmanX, item);
-            jFrame.dispose();
+            Map map = new Map(jt5.getText(), pacmanY, pacmanX, item); //erschafft eine neue map Klasse um die neue Map als datei in resource/data/maps zu speichern
+            jFrame.dispose(); //schließt den Map_Designer
         }
     };
 
@@ -106,6 +106,7 @@ public class Map_Designer {
             this.setLayout(new GridLayout(rows, columns));
             this.arrayWith = columns;
 
+            //füllt das neue Jpanel mit Interactieven Jpannels welche Cherry, Pacman, Wand oder Weg darstellen.
             elementList = new ArrayList<>(rows*columns);
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < columns; col++) {
@@ -137,7 +138,7 @@ public class Map_Designer {
             }
         }
 
-        public int[][] getElements() {
+        public int[][] getElements() { //erzeugt ein 2D int array auß dem erstellten JPanels
             int xOfArray = 0, yOfArray = 0;
             int[][] elements = new int[elementList.size()/arrayWith][arrayWith];
             for (ElementPanel element : elementList) {
@@ -155,7 +156,7 @@ public class Map_Designer {
     public static class ElementPanel extends JPanel {
 
 
-        ArrayList<Color> colors = new ArrayList<>();
+        ArrayList<Color> colors = new ArrayList<>(); // Liste mit den farben, die die Felder haben können
 
         public ElementPanel() {
             setBackground(Color.BLACK);
@@ -165,7 +166,7 @@ public class Map_Designer {
             final Iterator[] i = {colors.iterator()};
             addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseClicked(MouseEvent e) {
+                public void mouseClicked(MouseEvent e) { //Ändert die Farbe des JPanels zum nächsten ellement der colors ArrayList wenn maus geklickt wird
                     if (i[0].hasNext()) {
                         setBackground((Color) i[0].next());
                     } else {
