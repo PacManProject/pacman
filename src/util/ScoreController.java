@@ -27,7 +27,6 @@ public class ScoreController {
 
     int currentGameScore;
     public int currentMapScore;
-    int displayedScore;
 
     Score score;
 
@@ -44,7 +43,6 @@ public class ScoreController {
     public ScoreController(String ...playername) {
         currentMapScore = 0;
         currentGameScore = 0;
-        displayedScore = 0;
 
         String name = (playername.length >= 1) ? playername[0] : "default";
         score = availableScores.stream().filter(score_to_find -> name.equals(score_to_find.playername)).findFirst().orElse(availableScores.get(0));
