@@ -23,7 +23,7 @@ public enum Items {
             )
     ),
     cherry(3, 1.5, 32, 48, 13, 13,
-            "Adds 100 Points to your score"
+            "Adds 10 Points to your score"
     );
 
 

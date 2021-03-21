@@ -234,7 +234,7 @@ public class Pacman extends Thread {
     //Adds a point to the score if the pacman currently stands in a point
     public void increasePoints(){
         if (currentMapController.itemData[this.pos_y][this.pos_x]==Items.cherry){
-            this.scoreController.addToCurrentScore(100);
+            this.scoreController.addToCurrentScore(10);
         }
         else if (currentMapController.itemData[this.pos_y][this.pos_x] != Items.none){
             scoreController.addToCurrentScore();
