@@ -87,7 +87,6 @@ public class MainMenu extends JPanel{
         mapSelection.addItemListener(mapChangeListener);
         this.setBackground(Color.DARK_GRAY);
 
-        //TODO: fixme
         this.setLayout(null);
 
         editorStarten.setBounds(600, 420, 150, 20);
@@ -164,8 +163,6 @@ public class MainMenu extends JPanel{
         mapSelection.setBounds(20, 140, 300, 30);
         mapSelection.setBackground(Color.GRAY);
 
-
-        //TODO: add max_ghosts to map
         for (int i = 1; i <= 36; i++) {
             ghostNumberSelection.add(Integer.toString(i));
         }

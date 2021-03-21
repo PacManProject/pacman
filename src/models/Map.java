@@ -26,8 +26,6 @@ public class Map {
     public Items[][] itemData;
     private final ArrayList<ArrayList<Integer>> integerItemData;
 
-
-    //FIXME
     public Map(String name, int pos_x, int pos_y, int[][] item) {
         Gson gson = new Gson();
         this.name = name;
@@ -67,8 +65,6 @@ public class Map {
         }
     }
 
-    //FIXME: function has to be manually called, as gson doesnt call any constructor to actuate the change,
-    //maybe add a custom decoder or a gsonbuilder with a custom workaround
     public void convertMapData(){
 
         //converts the 1s and 0s list into a boolean ArrayList

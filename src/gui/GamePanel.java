@@ -72,7 +72,6 @@ class GamePanel extends JPanel {
                 }
             }
 
-            //TODO: draw the item image
             for (int x = 0; x < mapController.getItemData().length; x++) {
                 for (int y = 0; y < mapController.getItemData()[0].length; y++) {
                     Items currentItem = mapController.getItemData()[x][y];
