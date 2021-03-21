@@ -14,9 +14,9 @@ import java.util.Map;
 public enum Items {
 
     none (0, "No item is present"),
-    score (1,4,175, 47, 13, 13,
+    score (1,4,32, 32, 13, 13,
             "A score item, adds to your score"),
-    antiGhostPowerUp(2,1.5, 160, 49 , 13, 13,
+    antiGhostPowerUp(2,1.5, 32, 16 , 13, 13,
             "Gives you the power to eat ghosts for a specific amount of time",
             java.util.Map.of(
                     "actionTime", 10 //time of action of the item, in seconds
