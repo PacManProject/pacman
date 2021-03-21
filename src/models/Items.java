@@ -12,7 +12,6 @@ import java.util.Map;
 
 
 public enum Items {
-    //TODO: add more items
 
     none (0, "No item is present"),
     score (1,4,175, 47, 13, 13,
@@ -40,8 +39,7 @@ public enum Items {
     // Description of the item for a later help screen
     public final String itemDescription;
 
-    // Variables that might be needed later on
-    // FIXME: DO NOT edit java.util.Map to Map, as there are import conflicts with .Map
+    // Variables for extra options
     public final java.util.Map extraVariables;
 
     Items(int itemCode, String itemDescription, java.util.Map... extraVariables){

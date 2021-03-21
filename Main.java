@@ -9,7 +9,6 @@ import src.util.MapController;
 import java.util.ArrayList;
 
 public class Main {
-    //TODO: initialize all values in GUI
 
     static final Pacman p = new Pacman();
 

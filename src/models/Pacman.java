@@ -271,7 +271,6 @@ public class Pacman extends Thread {
         directionNew = directionNext;
     }
 
-    //FIXME only save the score when the player dies
     public void noPointsLeft(){
         if (scoreController.currentMapScore == currentMapController.getMapScore()){
             scoreController.saveScore();
